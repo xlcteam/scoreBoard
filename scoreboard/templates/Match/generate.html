@@ -1,0 +1,14 @@
+{block #content}
+
+<h1> Matches generation </h1>
+
+<strong> {$msg} </strong> <br />
+
+<p>
+{ifset $combinations}
+        {foreach $combinations as $combination}
+                {$combination[0][1]} <em>vs.</em> {$combination[1][1]} <br />
+        {/foreach}
+{/ifset}
+</p>
+
