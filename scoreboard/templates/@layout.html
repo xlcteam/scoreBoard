@@ -17,7 +17,7 @@
 	<meta name="description" content="">
 	<meta name="robots" content="{$robots}" n:ifset="$robots">
 
-	<title>scoreBoard{block title}{/block}</title>
+	<title>scoreBoard{% block title %}{% endblock %}</title>
 
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css" type="text/css">
 	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css" type="text/css">
@@ -36,7 +36,7 @@
 	</script>
 
 
-	{block head}{/block}
+	{% block head %}{% endblock %}
 </head>
 
 <body>
@@ -44,21 +44,25 @@
                 <div id="logo">
 	                <h1><a n:href="Dashboard:">scoreBoard</a></h1>
                 </div>
-                <div n:if="$user->isLoggedIn()" id="userPanel">
+                {% if user.is_authenticated %}
+                    <div id="userPanel">
                        <strong><em>{$user->getIdentity()->name}</em></strong> 
                        <strong>|</strong> <a n:href="Sign:out"> Logout </a>
-                </div>
+                    </div>
+                {% endif %}
         </div>
 
         <div id="content">
-            <ul n:if="$user->isLoggedIn()" id="menu">
-              <li>
-                <a n:href="Results:live"> Live results </a>
-              </li>
-              <li>
-                Import teams
-              </li>
-            </ul>
+            {% if user.is_authenticated %}
+                <ul n:if="$user->isLoggedIn()" id="menu">
+                  <li>
+                    <a n:href="Results:live"> Live results </a>
+                  </li>
+                  <li>
+                    Import teams
+                  </li>
+                </ul>
+            {% endif %}
       
 	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
 	{include #content}
