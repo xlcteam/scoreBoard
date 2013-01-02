@@ -131,7 +131,7 @@ INSTALLED_APPS = (
     'scorebrd'
 )
 
-GRAPPELLI_ADMIN_TITLE = 'ScoreBoard'
+GRAPPELLI_ADMIN_TITLE = 'ScoreBoard Administration'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
