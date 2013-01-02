@@ -37,7 +37,8 @@ class Match(models.Model):
         ('P', 'Playing at the moment'),
         ('D', 'Done playing'),
     )
-    playing = models.CharField(max_length=1, choices=PLAYING_CHOICES)
+    playing = models.CharField(max_length=1, choices=PLAYING_CHOICES,
+            default='N')
 
     class Meta:
         verbose_name_plural = 'matches'
