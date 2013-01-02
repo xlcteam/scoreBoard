@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'scoreboard.views.home', name='home'),
     # url(r'^scoreboard/', include('scoreboard.foo.urls')),
+    url(r'^grappelli/', include('grappelli.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
