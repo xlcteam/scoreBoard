@@ -31,6 +31,12 @@ def groups(request):
     groups = Group.objects.all()
     return render_to_response('groups.html', {'groups': groups})
 
+def competition(request):
+    competition = get_object_or_404(Competition, pk=competition_id)
+    groups = competition.groups()
+    return render_to_response('competition.html',
+            {'competition': competition, 'groups': groups})
+
 def competitions(request):
     competitions = Competition.objects.all()
     return render_to_response('competitions.html',
