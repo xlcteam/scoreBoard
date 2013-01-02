@@ -1,9 +1,9 @@
 # Create your views here.
 from django.shortcuts import render_to_response
-from scorebrd.models import Team
+from scorebrd.models import Team, Event
 
 def events(request):
-    events = Events.objects.all()
+    events = Event.objects.all()
     return render_to_response('events.html', {'events': events})
 
 def teams(request):
