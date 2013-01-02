@@ -15,6 +15,16 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal('scorebrd', ['Team'])
 
+        # Adding model 'Match'
+        db.create_table('scorebrd_match', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('teamA', self.gf('django.db.models.fields.related.ForeignKey')(related_name='homelanders', to=orm['scorebrd.Team'])),
+            ('teamB', self.gf('django.db.models.fields.related.ForeignKey')(related_name='foreigners', to=orm['scorebrd.Team'])),
+            ('scoreA', self.gf('django.db.models.fields.IntegerField')(default=0)),
+            ('scoreB', self.gf('django.db.models.fields.IntegerField')(default=0)),
+        ))
+        db.send_create_signal('scorebrd', ['Match'])
+
         # Adding model 'Group'
         db.create_table('scorebrd_group', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -53,21 +63,28 @@ class Migration(SchemaMigration):
         ))
         db.create_unique('scorebrd_competition_teams', ['competition_id', 'team_id'])
 
-        # Adding model 'Match'
-        db.create_table('scorebrd_match', (
+        # Adding model 'Event'
+        db.create_table('scorebrd_event', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('teamA', self.gf('django.db.models.fields.related.ForeignKey')(related_name='homelanders', to=orm['scorebrd.Team'])),
-            ('teamB', self.gf('django.db.models.fields.related.ForeignKey')(related_name='foreigners', to=orm['scorebrd.Team'])),
-            ('scoreA', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('scoreB', self.gf('django.db.models.fields.IntegerField')(default=0)),
-            ('playing', self.gf('django.db.models.fields.CharField')(max_length=1)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=200)),
         ))
-        db.send_create_signal('scorebrd', ['Match'])
+        db.send_create_signal('scorebrd', ['Event'])
+
+        # Adding M2M table for field competitions on 'Event'
+        db.create_table('scorebrd_event_competitions', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('event', models.ForeignKey(orm['scorebrd.event'], null=False)),
+            ('competition', models.ForeignKey(orm['scorebrd.competition'], null=False))
+        ))
+        db.create_unique('scorebrd_event_competitions', ['event_id', 'competition_id'])
 
 
     def backwards(self, orm):
         # Deleting model 'Team'
         db.delete_table('scorebrd_team')
+
+        # Deleting model 'Match'
+        db.delete_table('scorebrd_match')
 
         # Deleting model 'Group'
         db.delete_table('scorebrd_group')
@@ -84,8 +101,11 @@ class Migration(SchemaMigration):
         # Removing M2M table for field teams on 'Competition'
         db.delete_table('scorebrd_competition_teams')
 
-        # Deleting model 'Match'
-        db.delete_table('scorebrd_match')
+        # Deleting model 'Event'
+        db.delete_table('scorebrd_event')
+
+        # Removing M2M table for field competitions on 'Event'
+        db.delete_table('scorebrd_event_competitions')
 
 
     models = {
@@ -96,6 +116,12 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'teams': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['scorebrd.Team']", 'symmetrical': 'False'})
         },
+        'scorebrd.event': {
+            'Meta': {'object_name': 'Event'},
+            'competitions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['scorebrd.Competition']", 'symmetrical': 'False'}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '200'})
+        },
         'scorebrd.group': {
             'Meta': {'object_name': 'Group'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
@@ -105,7 +131,6 @@ class Migration(SchemaMigration):
         'scorebrd.match': {
             'Meta': {'object_name': 'Match'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'playing': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
             'scoreA': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'scoreB': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'teamA': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'homelanders'", 'to': "orm['scorebrd.Team']"}),

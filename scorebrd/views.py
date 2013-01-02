@@ -6,6 +6,12 @@ def events(request):
     events = Event.objects.all()
     return render_to_response('events.html', {'events': events})
 
+def event(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    competitions = Competition.objects.all()
+    return render_to_response('event.html', 
+            {'event': event, 'competitions': competitions})
+
 def teams(request):
     teams = Team.objects.all()
     return render_to_response('teams.html', {'teams': teams})
