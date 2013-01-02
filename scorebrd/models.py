@@ -21,12 +21,12 @@ class Competition(models.Model):
     groups = models.ManyToManyField(Group)
     teams = models.ManyToManyField(Team)
 
-<<<<<<< HEAD
 
 class Event(models.Model):
     name = models.CharField(max_length=200)
     competitions = models.ManyToManyField(Competition)
-=======
+
+
 class Match(models.Model):
     teamA = models.ForeignKey(Team, related_name='homelanders')
     teamB = models.ForeignKey(Team, related_name='foreigners')
@@ -41,4 +41,3 @@ class Match(models.Model):
 
     class Meta:
         verbose_name_plural = 'matches'
->>>>>>> 39f715ed73270a0c152f973df8d3830c599b664d
