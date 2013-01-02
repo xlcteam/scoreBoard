@@ -1,0 +1,5 @@
+<ul>
+{% for match in matches %}
+  <li><a href="/match/{{ match.id }}">{{match.name}}</a></li>
+{% endfor %}
+</ul>

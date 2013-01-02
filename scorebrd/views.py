@@ -25,15 +25,17 @@ def index(request):
 
 def group(request, group_id):
     group = get_object_or_404(Group, pk=group_id)
-    return render_to_response('group.html', {'group': group})
+    teams = group.teams.all()
+    return render_to_response('group.html',
+            {'group': group, 'teams': teams})
 
 def groups(request):
     groups = Group.objects.all()
     return render_to_response('groups.html', {'groups': groups})
 
-def competition(request):
+def competition(request, competition_id):
     competition = get_object_or_404(Competition, pk=competition_id)
-    groups = competition.groups()
+    groups = competition.groups.all()
     return render_to_response('competition.html',
             {'competition': competition, 'groups': groups})
 

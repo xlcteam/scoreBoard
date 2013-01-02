@@ -7,6 +7,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'scorebrd.views.index'),
+    url(r'^competition/(?P<competition_id>\d+)/?$', 'scorebrd.views.competition'),
+    url(r'^group/(?P<group_id>\d+)/?$', 'scorebrd.views.group'),
     url(r'^teams/?$', 'scorebrd.views.teams'),
     url(r'^team/(?P<team_id>\d+)/?$', 'scorebrd.views.team'),
     url(r'^events/?$', 'scorebrd.views.events'),

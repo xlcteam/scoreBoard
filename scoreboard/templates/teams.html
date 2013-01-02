@@ -1,6 +1,6 @@
 
 <ul>
 {% for team in teams %}
-  <li>{{ team.name }}</li> 
+  <li><a href="/team/{{ team.id }}">{{team.name}}</a></li>
 {% endfor %}
 </ul>
