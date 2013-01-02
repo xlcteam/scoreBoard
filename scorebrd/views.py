@@ -15,8 +15,9 @@ def index(request):
 
 def groups(request):
     groups = Group.objects.all()
-    return render_to_response('groups.html', {'groups': groups}
+    return render_to_response('groups.html', {'groups': groups})
 
 def competitions(request):
     competitions = Competition.objects.all()
-    return render_to_response('competitions.html', {'competitions': competitions}
+    return render_to_response('competitions.html',
+                                {'competitions': competitions})
