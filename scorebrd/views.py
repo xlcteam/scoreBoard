@@ -9,3 +9,7 @@ def events(request):
 def teams(request):
     teams = Team.objects.all()
     return render_to_response('teams.html', {'teams': teams})
+
+
+def index(request):
+    return render_to_response('index.html')
