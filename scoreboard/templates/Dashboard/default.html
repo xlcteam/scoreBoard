@@ -1,32 +1,32 @@
 
-{block #content}
+{% block #content %}
 
-{control eventList}
+{#control eventList}
 
 <div class="upMatches">
   <strong style="font-size: 20px;">Upcomming matches: <input type="text" placeholder="Quick Search" id="id_search" value="" name="search" style="margin-left: 5px;"> </strong> <br/>
-  {foreach $model->getEvents()->where('finished', 0) as $event}  
-    {foreach $model->getGroups()->where('eventID', $event->id) as $group}
-      {if $model->getMatches()->where('groupID', $group->id)->where('state', 'ready')->count() != 0}
-        <div class="gName">      
-          <strong>{$event->name} : </strong>{$group->name} 
-        </div>  <br/>
-        <div class="groupMatches">        
-          {control matchList $group->id}
-        </div>
-      {/if}
-    {/foreach}
-  {/foreach}
+    {% for match in matches %}
+        {% for group in groups %}
+            {% if match.playing == 'N' %}
+                <div class="gName">      
+                    <strong>{{ event.name }} : </strong>{{ group.name }} 
+                </div>  <br/>
+                <div class="groupMatches">        
+                  
+                </div>
+            {% endif %}
+    {% endfor %}
+  {% endfor %}
 </div>  
 <div style="clear: both;"></div>
-{/block}
+{% endblock %}
 
 
-{block head}
+{% block head %}
     <script type="text/javascript">
 			$(function () {
 				$('input#id_search').quicksearch('.matchTable tbody tr');		
 
 			});
 		</script>
-{/block}
+{% endblock %}
