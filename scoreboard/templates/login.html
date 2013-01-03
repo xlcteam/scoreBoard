@@ -1,0 +1,10 @@
+<h1>Login to ScoreBoard</h1>
+
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+
+<form action="." method="POST">
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>

@@ -1,6 +1,36 @@
 # Create your views here.
-from django.shortcuts import render_to_response, get_object_or_404
-from scorebrd.models import Team, Event, Group, Competition
+from django.shortcuts import render_to_response, get_object_or_404, redirect
+from scorebrd.models import Team, Event, Group, Competition, LoginForm
+from django.contrib.auth import authenticate, login
+
+
+def login(request):
+    def errorHandle(error):
+		    form = LoginForm()
+		    return render_to_response('login.html', {
+				    'error' : error,
+				    'form' : form,
+		    })
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid(): 
+			username = request.POST['username']
+			password = request.POST['password']
+			user = authenticate(username=username, password=password)
+			if user is not None:
+				if user.is_active:
+					# Redirect to a success page.
+					login(request, user)
+					return render_to_response('/index.html', {})
+			else:
+				 # Return an 'invalid login' error message.
+				error = u'invalid login'
+				return errorHandle(error)	
+    else:
+		form = LoginForm()
+		return render_to_response('login.html', {
+			'form': form,
+		})
 
 def events(request):
     events = Event.objects.all()
@@ -21,7 +51,10 @@ def team(request, team_id):
     return render_to_response('team.html', {'team': team})
 
 def index(request):
-    return render_to_response('index.html')
+    if not request.user.is_authenticated():    
+        return redirect('/login')
+    else:
+        return render_to_response('index.html')
 
 def group(request, group_id):
     group = get_object_or_404(Group, pk=group_id)
