@@ -1,7 +1,7 @@
 # Create your views here.
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from scorebrd.models import Team, Event, Group, Competition, LoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.core.context_processors import csrf
 
 
@@ -14,6 +14,9 @@ def login(request):
         c['error'] = error
         return render_to_response('login.html', c)
 
+    if request.user.is_authenticated():
+        return redirect('/')
+
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid(): 
@@ -22,7 +25,6 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 if user.is_active:
-                    from django.contrib.auth import login
                     # Redirect to a success page.
                     login(request, user)
                     print "worked"
@@ -61,7 +63,14 @@ def index(request):
     if not request.user.is_authenticated():    
         return redirect('/login')
     else:
-        return render_to_response('index.html')
+        if request.method == 'POST':
+            logout(request)       
+            form = LoginForm()
+            c = {}
+            c.update(csrf(request))
+            c['form'] = form
+            return render_to_response('login.html', c)
+        return render_to_response('index.html', {'user': request.user})
 
 def group(request, group_id):
     group = get_object_or_404(Group, pk=group_id)
