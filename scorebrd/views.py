@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.context_processors import csrf
 
 
-def login(request):
+def my_login(request):
     def errorHandle(error):
         form = LoginForm()
         c = {}
