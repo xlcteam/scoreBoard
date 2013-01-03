@@ -2,35 +2,42 @@
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from scorebrd.models import Team, Event, Group, Competition, LoginForm
 from django.contrib.auth import authenticate, login
+from django.core.context_processors import csrf
 
 
 def login(request):
     def errorHandle(error):
-		    form = LoginForm()
-		    return render_to_response('login.html', {
-				    'error' : error,
-				    'form' : form,
-		    })
+        form = LoginForm()
+        c = {}
+        c.update(csrf(request))
+        c['form'] = form
+        c['error'] = error
+        return render_to_response('login.html', c)
+
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid(): 
-			username = request.POST['username']
-			password = request.POST['password']
-			user = authenticate(username=username, password=password)
-			if user is not None:
-				if user.is_active:
-					# Redirect to a success page.
-					login(request, user)
-					return render_to_response('/index.html', {})
-			else:
-				 # Return an 'invalid login' error message.
-				error = u'invalid login'
-				return errorHandle(error)	
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    from django.contrib.auth import login
+                    # Redirect to a success page.
+                    login(request, user)
+                    print "worked"
+                    return redirect('/')
+            else:
+                error = u'invalid login'
+                return errorHandle(error)	
+        else:
+            return errorHandle(u'invalid login')
     else:
-		form = LoginForm()
-		return render_to_response('login.html', {
-			'form': form,
-		})
+        form = LoginForm()
+        c = {}
+        c.update(csrf(request))
+        c['form'] = form
+        return render_to_response('login.html', c)
 
 def events(request):
     events = Event.objects.all()
