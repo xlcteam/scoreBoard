@@ -41,6 +41,12 @@ def my_login(request):
         c['form'] = form
         return render_to_response('login.html', c)
 
+def my_logout(request):
+    if request.user.is_authenticated():
+        logout(request)       
+        
+    return redirect('/')
+
 def events(request):
     events = Event.objects.all()
     return render_to_response('events.html', {'events': events})
@@ -60,17 +66,7 @@ def team(request, team_id):
     return render_to_response('team.html', {'team': team})
 
 def index(request):
-    if not request.user.is_authenticated():    
-        return redirect('/login')
-    else:
-        if request.method == 'POST':
-            logout(request)       
-            form = LoginForm()
-            c = {}
-            c.update(csrf(request))
-            c['form'] = form
-            return render_to_response('login.html', c)
-        return render_to_response('index.html', {'user': request.user})
+    return render_to_response('index.html', {'user': request.user})
 
 def group(request, group_id):
     group = get_object_or_404(Group, pk=group_id)

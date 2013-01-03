@@ -2,8 +2,7 @@
 <h1>ScoreBoard</h1>
 
 {% if user.is_authenticated %}
-<form action="." method="POST">
-    {% csrf_token %}
-    {{ user.username }}<input type="submit" value="Logout"/>
-</form>
+    {{ user.username }}<a href="/logout">Logout</a>
+{% else %}
+    <a href="/login">LogIN</a>
 {% endif %}

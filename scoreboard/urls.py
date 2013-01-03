@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^events/?$', 'scorebrd.views.events'),
     url(r'^event/(?P<event_id>\d+)/?$', 'scorebrd.views.event'),
     url(r'^login/', 'scorebrd.views.my_login'),
+    url(r'^logout/', 'scorebrd.views.my_logout'),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
