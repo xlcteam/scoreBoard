@@ -12,10 +12,19 @@ class Match(models.Model):
     teamB = models.ForeignKey(Team, related_name='foreigners')
     scoreA = models.IntegerField(default=0)
     scoreB = models.IntegerField(default=0)
+    PLAYING_CHOICES = (
+        ('N', 'Not played yet'),
+        ('P', 'Playing at the moment'),
+        ('D', 'Done playing'),
+    )
+    playing = models.CharField(max_length=1, choices=PLAYING_CHOICES,
+            default='N')
+
+    class Meta:
+        verbose_name_plural = 'matches'
 
     def __unicode__(self):
-        return self.name
-
+        return "%s vs. %s" % (self.teamA.name, self.teamB.name)
 
 class Group(models.Model):
     name = models.CharField(max_length=200)
@@ -42,21 +51,4 @@ class Event(models.Model):
         return self.name
 
 
-class Match(models.Model):
-    teamA = models.ForeignKey(Team, related_name='homelanders')
-    teamB = models.ForeignKey(Team, related_name='foreigners')
-    scoreA = models.IntegerField(default=0)
-    scoreB = models.IntegerField(default=0)
-    PLAYING_CHOICES = (
-        ('N', 'Not played yet'),
-        ('P', 'Playing at the moment'),
-        ('D', 'Done playing'),
-    )
-    playing = models.CharField(max_length=1, choices=PLAYING_CHOICES,
-            default='N')
 
-    class Meta:
-        verbose_name_plural = 'matches'
-
-    def __unicode__(self):
-        return self.name
