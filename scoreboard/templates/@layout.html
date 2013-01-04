@@ -43,7 +43,7 @@
             {% if user.is_authenticated %}
                 <ul id="menu">
                   <li>
-                    <a href="Results:live"> Live results </a>
+                    <a href="/results/live"> Live results </a>
                   </li>
                   <li>
                     Import teams
@@ -51,7 +51,7 @@
                 </ul>
             {% else %}
                 <ul id="menu">
-                    <li> <a href="Results:live"> Live results</a> </li>
+                    <li> <a href="/results/live"> Live results</a> </li>
                 </ul>
             {% endif %}
           {% block content %}{% endblock %}
