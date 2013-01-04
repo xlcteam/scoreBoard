@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.context_processors import csrf
 from annoying.decorators import render_to
 
+@render_to('login.html')
 def my_login(request):
     def errorHandle(error):
         form = LoginForm()
@@ -12,7 +13,7 @@ def my_login(request):
         c.update(csrf(request))
         c['form'] = form
         c['error'] = error
-        return render_to_response('login.html', c)
+        return c
 
     if request.user.is_authenticated():
         return redirect('/')
@@ -27,7 +28,6 @@ def my_login(request):
                 if user.is_active:
                     # Redirect to a success page.
                     login(request, user)
-                    print "worked"
                     return redirect('/')
             else:
                 error = u'invalid login'
@@ -39,7 +39,7 @@ def my_login(request):
         c = {}
         c.update(csrf(request))
         c['form'] = form
-        return render_to_response('login.html', c)
+        return c
 
 def my_logout(request):
     if request.user.is_authenticated():
