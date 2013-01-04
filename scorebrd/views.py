@@ -47,6 +47,12 @@ def my_logout(request):
         
     return redirect('/')
 
+@render_to('results_live.html')
+def results_live(request):
+    groups = Group.objects.all()
+    events = Event.objects.all()
+    return {'groups': groups, 'event': events}
+
 @render_to('events.html')
 def events(request):
     events = Event.objects.all()
