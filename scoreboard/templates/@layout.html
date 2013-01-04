@@ -10,7 +10,6 @@
 
 	<script type="text/javascript" src="{{ STATIC_URL }}/js/lib/jquery.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}/js/lib/jquery.quicksearch.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}/js/netteForms.js"></script>
 	<link rel="stylesheet" href="{{ STATIC_URL }}/css/chosen.css" type="text/css">
 	<script type="text/javascript" src="{{ STATIC_URL }}/js/lib/chosen.jquery.min.js"></script>
 	<script type="text/javascript">
@@ -36,6 +35,7 @@
         </div>
 
         <div id="content">
+
             {% if user.is_authenticated %}
                 <ul id="menu">
                   <li>
@@ -46,9 +46,17 @@
                   </li>
                 </ul>
             {% endif %}
-      
-	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
-  {% block content %}{% endblock %}
+          {% block content %}{% endblock %}
+
+    {% if messages %}
+      <div class="flash">
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+      </div>
+    {% endif %}
   </div>
 </body>
 </html>
