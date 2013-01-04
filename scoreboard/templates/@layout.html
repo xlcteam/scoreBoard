@@ -46,8 +46,8 @@
                 </div>
                 {% if user.is_authenticated %}
                     <div id="userPanel">
-                       <strong><em>{$user->getIdentity()->name}</em></strong> 
-                       <strong>|</strong> <a n:href="Sign:out"> Logout </a>
+                       <strong><em>{{ user.username }}</em></strong> 
+                       <strong>|</strong> <a href="/logout"> Logout </a>
                     </div>
                 {% endif %}
         </div>
