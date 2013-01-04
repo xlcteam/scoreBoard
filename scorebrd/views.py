@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from scorebrd.models import Team, Event, Group, Competition, LoginForm, Match
 from django.contrib.auth import authenticate, login, logout
 from django.core.context_processors import csrf
-
+from annoying.decorators import render_to
 
 def my_login(request):
     def errorHandle(error):
@@ -47,48 +47,53 @@ def my_logout(request):
         
     return redirect('/')
 
+@render_to('events.html')
 def events(request):
     events = Event.objects.all()
-    return render_to_response('events.html', {'events': events})
+    return {'events': events}
 
+@render_to('event.html')
 def event(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
     competitions = Competition.objects.all()
-    return render_to_response('event.html', 
-            {'event': event, 'competitions': competitions})
+    return {'event': event, 'competitions': competitions}
 
+@render_to('teams.html')
 def teams(request):
     teams = Team.objects.all()
-    return render_to_response('teams.html', {'teams': teams})
+    return {'teams': teams}
 
+@render_to('team.html')
 def team(request, team_id):
     team = get_object_or_404(Team, pk=team_id)
     from itertools import chain
 
     matches = list(chain(Match.objects.filter(teamA=team),
             Match.objects.filter(teamB=team)))
-    return render_to_response('team.html', {'team': team, 'matches': matches})
+    return {'team': team, 'matches': matches}
 
+@render_to('index.html')
 def index(request):
-    return render_to_response('index.html', {'user': request.user})
+    return {'user': request.user}
 
+@render_to('group.html')
 def group(request, group_id):
     group = get_object_or_404(Group, pk=group_id)
     teams = group.teams.all()
-    return render_to_response('group.html',
-            {'group': group, 'teams': teams})
+    return {'group': group, 'teams': teams}
 
+@render_to('groups.html')
 def groups(request):
     groups = Group.objects.all()
-    return render_to_response('groups.html', {'groups': groups})
+    return {'groups': groups}
 
+@render_to('competition.html')
 def competition(request, competition_id):
     competition = get_object_or_404(Competition, pk=competition_id)
     groups = competition.groups.all()
-    return render_to_response('competition.html',
-            {'competition': competition, 'groups': groups})
+    return {'competition': competition, 'groups': groups}
 
+@render_to('competitions.html')
 def competitions(request):
     competitions = Competition.objects.all()
-    return render_to_response('competitions.html',
-                                {'competitions': competitions})
+    return {'competitions': competitions}
