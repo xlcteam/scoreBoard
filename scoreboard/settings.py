@@ -116,6 +116,10 @@ TEMPLATE_DIRS = (
     os.path.join(DIR, 'templates')
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'scorebrd.processors.user',
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
