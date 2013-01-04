@@ -1,8 +1,8 @@
-
-
+{% block content %}
 <h2>Competitions at {{ event.name }} </h2>
 <ul>
 {% for competition in competitions %}
   <li><a href="/competition/{{ competition.id }}">{{ competition.name }}</a></li> 
 {% endfor %}
 </ul>
+{% endblock %}

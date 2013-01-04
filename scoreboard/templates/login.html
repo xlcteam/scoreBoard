@@ -1,3 +1,5 @@
+{% block content %}
+
 <h1>Login to ScoreBoard</h1>
 
 {% if error %}
@@ -9,3 +11,5 @@
     {{ form.as_p }}
     <input type="submit" value="Submit" /> <br>
 </form>
+
+{% endblock %}
