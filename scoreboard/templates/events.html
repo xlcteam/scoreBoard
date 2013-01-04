@@ -1,5 +1,8 @@
 {% extends "@layout.html" %}
+
+
 {% block content %}
+<h2>Events registered with scoreBoard</h2>
 <ul>
 {% for event in events %}
   <li><a href="/event/{{ event.id }}">{{event.name}}</a></li> 
