@@ -1,6 +1,7 @@
-
+{% block content %}
 <ul>
 {% for team in teams %}
   <li><a href="/team/{{ team.id }}">{{team.name}}</a></li>
 {% endfor %}
 </ul>
+{% endblock %}
