@@ -2,4 +2,13 @@
 {% block content %}
 <h2>Welcome to ScoreBoard</h2>
 
+{% if events %}
+  <h3> Events </h3>
+  <ul>
+    {% for event in events %}
+      <li> <a href="event/{{ event.id}}">{{ event.name }}</a> </li>
+    {% endfor %}      
+  </ul
+{% endif %}
+
 {% endblock %}
