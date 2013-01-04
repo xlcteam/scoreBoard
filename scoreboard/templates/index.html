@@ -1,4 +1,4 @@
-
+{% block content %}
 <h1>ScoreBoard</h1>
 
 {% if user.is_authenticated %}
@@ -6,3 +6,4 @@
 {% else %}
     <a href="/login">LogIN</a>
 {% endif %}
+{% endblock %}
