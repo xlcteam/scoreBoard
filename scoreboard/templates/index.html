@@ -1,9 +1,6 @@
+{% include "@layout.html" %}
 {% block content %}
-<h1>ScoreBoard</h1>
+<h2>Welcome to ScoreBoard</h2>
 
-{% if user.is_authenticated %}
-    {{ user.username }}<a href="/logout">Logout</a>
-{% else %}
-    <a href="/login">LogIN</a>
-{% endif %}
+
 {% endblock %}
