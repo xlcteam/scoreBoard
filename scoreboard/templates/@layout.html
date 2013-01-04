@@ -31,6 +31,10 @@
                        <strong><em>{{ user.username }}</em></strong> 
                        <strong>|</strong> <a href="/logout"> Logout </a>
                     </div>
+                {% else %}
+                    <div id="userPanel">
+                       <a href="/login"> Login </a>
+                    </div>
                 {% endif %}
         </div>
 
@@ -39,11 +43,15 @@
             {% if user.is_authenticated %}
                 <ul id="menu">
                   <li>
-                    <a n:href="Results:live"> Live results </a>
+                    <a href="Results:live"> Live results </a>
                   </li>
                   <li>
                     Import teams
                   </li>
+                </ul>
+            {% else %}
+                <ul id="menu">
+                    <li> <a href="Results:live"> Live results</a> </li>
                 </ul>
             {% endif %}
           {% block content %}{% endblock %}
