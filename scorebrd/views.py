@@ -1,6 +1,6 @@
 # Create your views here.
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-from scorebrd.models import Team, Event, Group, Competition, LoginForm
+from scorebrd.models import Team, Event, Group, Competition, LoginForm, Match
 from django.contrib.auth import authenticate, login, logout
 from django.core.context_processors import csrf
 
@@ -63,7 +63,11 @@ def teams(request):
 
 def team(request, team_id):
     team = get_object_or_404(Team, pk=team_id)
-    return render_to_response('team.html', {'team': team})
+    from itertools import chain
+
+    matches = list(chain(Match.objects.filter(teamA=team),
+            Match.objects.filter(teamB=team)))
+    return render_to_response('team.html', {'team': team, 'matches': matches})
 
 def index(request):
     return render_to_response('index.html', {'user': request.user})

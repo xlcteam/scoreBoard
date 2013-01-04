@@ -35,6 +35,7 @@ class Match(models.Model):
 class Group(models.Model):
     name = models.CharField(max_length=200)
     teams = models.ManyToManyField(Team)
+    referee = models.ForeignKey('auth.User')
 
     def __unicode__(self):
         return self.name
@@ -55,6 +56,3 @@ class Event(models.Model):
 
     def __unicode__(self):
         return self.name
-
-
-
