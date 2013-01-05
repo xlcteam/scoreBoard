@@ -55,22 +55,26 @@ def results_live(request):
     return {'groups': groups, 'event': events}
 
 @render_to('events.html')
+@login_required(login_url='/login/')
 def events(request):
     events = Event.objects.all()
     return {'events': events}
 
 @render_to('event.html')
+@login_required(login_url='/login/')
 def event(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
     competitions = Competition.objects.all()
     return {'user': request.user, 'event': event, 'competitions': competitions}
 
 @render_to('teams.html')
+@login_required(login_url='/login/')
 def teams(request):
     teams = Team.objects.all()
     return {'teams': teams}
 
 @render_to('team.html')
+@login_required(login_url='/login/')
 def team(request, team_id):
     team = get_object_or_404(Team, pk=team_id)
     from itertools import chain
@@ -85,28 +89,33 @@ def index(request):
     return {'user': request.user, 'events': events}
 
 @render_to('group.html')
+@login_required(login_url='/login/')
 def group(request, group_id):
     group = get_object_or_404(Group, pk=group_id)
     teams = group.teams.all()
     return {'user': request.user, 'group': group, 'teams': teams}
 
 @render_to('groups.html')
+@login_required(login_url='/login/')
 def groups(request):
     groups = Group.objects.all()
     return {'groups': groups}
 
 @render_to('competition.html')
+@login_required(login_url='/login/')
 def competition(request, competition_id):
     competition = get_object_or_404(Competition, pk=competition_id)
     groups = competition.groups.all()
     return {'user': request.user, 'competition': competition, 'groups': groups}
 
 @render_to('competitions.html')
+@login_required(login_url='/login/')
 def competitions(request):
     competitions = Competition.objects.all()
     return {'competitions': competitions}
 
 @render_to('matches/generate.html')
+@login_required(login_url='/login/')
 def matches_generate(request):
     if request.method == 'POST':
         form = MatchesCreateForm(request.POST)
