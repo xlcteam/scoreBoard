@@ -1,8 +1,6 @@
 {% extends "@layout.html" %}
 {% block content %}
-{% if user.is_authenticated %}
 <h2>Competitions at {{ event.name }} </h2>
 
 {% include "competitions.html" %}
-{% endif %}
 {% endblock %}
