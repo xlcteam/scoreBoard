@@ -1,6 +1,7 @@
 # Create your views here.
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-from scorebrd.models import Team, Event, Group, Competition, LoginForm, Match
+from scorebrd.models import (Team, Event, Group, Competition, LoginForm, Match,
+    MatchesCreateForm)
 from django.contrib.auth import authenticate, login, logout
 from django.core.context_processors import csrf
 from annoying.decorators import render_to
@@ -104,5 +105,11 @@ def competitions(request):
     competitions = Competition.objects.all()
     return {'competitions': competitions}
 
-def matches_create(request):
-    pass
+@render_to('matches/generate.html')
+def matches_generate(request):
+    if request.method == 'POST':
+        form = MatchesCreateForm(request.POST)
+    else:
+        form = MatchesCreateForm()
+     
+    return {'form': form}
