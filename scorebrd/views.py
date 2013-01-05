@@ -70,26 +70,33 @@ def teams(request):
     return {'teams': teams}
 
 @render_to('team.html')
-def team(request, event_id, competition_id, group_id, team_id):
+def team(request, team_id):
     team = get_object_or_404(Team, pk=team_id)
     from itertools import chain
 
     matches = list(chain(Match.objects.filter(teamA=team),
             Match.objects.filter(teamB=team)))
+<<<<<<< HEAD
     return {'user': request.user, 'team': team, 'matches': matches,
             'event_id': event_id, 'competition_id': competition_id, 'group_id': group_id}
+=======
+    return {'team': team, 'matches': matches}
+>>>>>>> b408b782ab29dc532fb28de678361f0a7029f275
 
 @render_to('index.html')
 def index(request):
-    events = Event.objects.all()
-    return {'user': request.user, 'events': events}
+    return {'user': request.user}
 
 @render_to('group.html')
-def group(request, event_id, competition_id, group_id):
+def group(request, group_id):
     group = get_object_or_404(Group, pk=group_id)
     teams = group.teams.all()
+<<<<<<< HEAD
     return {'user': request.user, 'group': group, 'teams': teams, 
             'event_id': event_id, 'competition_id': competition_id}
+=======
+    return {'group': group, 'teams': teams}
+>>>>>>> b408b782ab29dc532fb28de678361f0a7029f275
 
 @render_to('groups.html')
 def groups(request):
@@ -97,16 +104,20 @@ def groups(request):
     return {'groups': groups}
 
 @render_to('competition.html')
-def competition(request, event_id, competition_id):
+def competition(request, competition_id):
     competition = get_object_or_404(Competition, pk=competition_id)
     groups = competition.groups.all()
+<<<<<<< HEAD
     return {'user': request.user, 'competition': competition, 'groups': groups, 
             'event_id': event_id}
+=======
+    return {'competition': competition, 'groups': groups}
+>>>>>>> b408b782ab29dc532fb28de678361f0a7029f275
 
 @render_to('competitions.html')
 def competitions(request):
     competitions = Competition.objects.all()
     return {'competitions': competitions}
 
-def create_matches(request):
+def matches_create(request):
     pass
