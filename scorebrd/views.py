@@ -5,6 +5,8 @@ from scorebrd.models import (Team, Event, Group, Competition, LoginForm, Match,
 from django.contrib.auth import authenticate, login, logout
 from django.core.context_processors import csrf
 from annoying.decorators import render_to
+from django.contrib.auth.decorators import login_required
+
 
 @render_to('login.html')
 def my_login(request):
