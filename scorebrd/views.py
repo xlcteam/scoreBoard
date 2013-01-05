@@ -62,7 +62,7 @@ def events(request):
 def event(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
     competitions = Competition.objects.all()
-    return {'event': event, 'competitions': competitions}
+    return {'user': request.user, 'event': event, 'competitions': competitions}
 
 @render_to('teams.html')
 def teams(request):
@@ -76,7 +76,7 @@ def team(request, event_id, competition_id, group_id, team_id):
 
     matches = list(chain(Match.objects.filter(teamA=team),
             Match.objects.filter(teamB=team)))
-    return {'team': team, 'matches': matches,
+    return {'user': request.user, 'team': team, 'matches': matches,
             'event_id': event_id, 'competition_id': competition_id, 'group_id': group_id}
 
 @render_to('index.html')
@@ -88,7 +88,7 @@ def index(request):
 def group(request, event_id, competition_id, group_id):
     group = get_object_or_404(Group, pk=group_id)
     teams = group.teams.all()
-    return {'group': group, 'teams': teams, 
+    return {'user': request.user, 'group': group, 'teams': teams, 
             'event_id': event_id, 'competition_id': competition_id}
 
 @render_to('groups.html')
@@ -100,7 +100,7 @@ def groups(request):
 def competition(request, event_id, competition_id):
     competition = get_object_or_404(Competition, pk=competition_id)
     groups = competition.groups.all()
-    return {'competition': competition, 'groups': groups, 
+    return {'user': request.user, 'competition': competition, 'groups': groups, 
             'event_id': event_id}
 
 @render_to('competitions.html')
