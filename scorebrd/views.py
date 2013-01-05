@@ -80,7 +80,8 @@ def team(request, team_id):
 
 @render_to('index.html')
 def index(request):
-    return {'user': request.user}
+    events = Event.objects.all()
+    return {'user': request.user, 'events': events}
 
 @render_to('group.html')
 def group(request, group_id):
