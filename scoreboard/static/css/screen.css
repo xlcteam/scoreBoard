@@ -290,6 +290,7 @@ a[href^="error:"] {
 }
 
 #menu{
+  /*width: 100%;*/
   color: #fff;
   text-align: center;
   margin-top: -11px;

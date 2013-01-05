@@ -1,14 +1,10 @@
 {% extends "@layout.html" %}
 {% block content %}
-<h2>Welcome to ScoreBoard</h2>
 
-{% if events %}
-  <h3> Events </h3>
-  <ul>
-    {% for event in events %}
-      <li> <a href="event/{{ event.id}}">{{ event.name }}</a> </li>
-    {% endfor %}      
-  </ul
+<h2>Welcome to ScoreBoard</h2>
+{% if user.is_authenticated %}
+<h2>Events registered with scoreBoard</h2>
+    {% include "events.html" %}
 {% endif %}
 
 {% endblock %}
