@@ -60,6 +60,7 @@ def results_live(request):
     events = Event.objects.all()
     return {'groups': groups, 'event': events}
 
+# event/s
 @render_to('events.html')
 @login_required(login_url='/login/')
 def events(request):
@@ -73,6 +74,39 @@ def event(request, event_id):
     competitions = Competition.objects.all()
     return {'event': event, 'competitions': competitions}
 
+# competition/s
+@render_to('competition.html')
+@login_required(login_url='/login/')
+def competition(request, competition_id):
+    competition = get_object_or_404(Competition, pk=competition_id)
+    groups = competition.groups.all()
+    event = competition.event_set.all()[0]
+    return {'event': event, 'competition': competition, 'groups': groups}
+
+@render_to('competitions.html')
+@login_required(login_url='/login/')
+def competitions(request):
+    competitions = Competition.objects.all()
+    return {'competitions': competitions}
+
+# group/s
+@render_to('group.html')
+@login_required(login_url='/login/')
+def group(request, group_id):
+    group = get_object_or_404(Group, pk=group_id)
+    teams = group.teams.all()
+    competition = group.competition_set.all()[0]
+    event = competition.event_set.all()[0]
+    return {'group': group, 'teams': teams,
+            'competition': competition, 'event': event}
+
+@render_to('groups.html')
+@login_required(login_url='/login/')
+def groups(request):
+    groups = Group.objects.all()
+    return {'groups': groups}
+
+# team/s
 @render_to('teams.html')
 @login_required(login_url='/login/')
 def teams(request):
@@ -97,32 +131,6 @@ def team(request, team_id):
 def index(request):
     events = Event.objects.all()
     return {'user': request.user, 'events': events}
-
-@render_to('group.html')
-@login_required(login_url='/login/')
-def group(request, group_id):
-    group = get_object_or_404(Group, pk=group_id)
-    teams = group.teams.all()
-    return {'group': group, 'teams': teams}
-
-@render_to('groups.html')
-@login_required(login_url='/login/')
-def groups(request):
-    groups = Group.objects.all()
-    return {'groups': groups}
-
-@render_to('competition.html')
-@login_required(login_url='/login/')
-def competition(request, competition_id):
-    competition = get_object_or_404(Competition, pk=competition_id)
-    groups = competition.groups.all()
-    return {'competition': competition, 'groups': groups}
-
-@render_to('competitions.html')
-@login_required(login_url='/login/')
-def competitions(request):
-    competitions = Competition.objects.all()
-    return {'competitions': competitions}
 
 @render_to('matches/generate.html')
 @login_required(login_url='/login/')
