@@ -1,6 +1,11 @@
 {% extends "@layout.html" %}
 
 {% block content %}
+<p> <a href="/event/{{event.id}}">{{event.name}}</a> >> 
+    <a href="/competition/{{competition.id}}">{{competition.name}}</a> >> 
+    <a href="/group/{{group.id}}">{{group.name}}</a> >>
+    <a href="/team/{{team.id}}">{{team.name}}</a>
+</p>
 <h2> Matches for team {{ team.name }} </h2>
 {% include "matches.html" %}
 {% endblock %}

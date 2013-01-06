@@ -1,5 +1,8 @@
 {% extends "@layout.html" %}
 {% block content %}
+<p>
+    <a href="/event/{{event.id}}">{{event.name}}</a> >>
+</p>
 <h2>Competitions at {{ event.name }} </h2>
 
 {% include "competitions.html" %}
