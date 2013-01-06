@@ -343,3 +343,16 @@ a[href^="error:"] {
   float: left;
   margin-left: 30px;
 }
+
+#fastinfo {
+  font-size: 80%;
+}
+
+#fastinfo a {
+  text-decoration: none;
+}
+
+#fastinfo a:hover {
+  text-decoration: underline;
+}
+
