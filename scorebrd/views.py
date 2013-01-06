@@ -83,11 +83,15 @@ def teams(request):
 @login_required(login_url='/login/')
 def team(request, team_id):
     team = get_object_or_404(Team, pk=team_id)
+    group = team.group_set.all()[0]
+    competition = group.competition_set.all()[0]
+    event = competition.event_set.all()[0]
     from itertools import chain
 
     matches = list(chain(Match.objects.filter(teamA=team),
             Match.objects.filter(teamB=team)))
-    return {'team': team, 'matches': matches}
+    return {'group': group, 'competition': competition, 'event': event,
+            'team': team, 'matches': matches}
 
 @render_to('index.html')
 def index(request):
