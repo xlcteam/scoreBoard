@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 
 @render_to('login.html')
-def my_login(request):
+def my_login(request, url='/'):
     def errorHandle(error):
         form = LoginForm()
         c = {}
@@ -31,12 +31,15 @@ def my_login(request):
                 if user.is_active:
                     # Redirect to a success page.
                     login(request, user)
-                    return redirect('/')
+                    if 'next' in request.POST:
+                        url = request.POST['next']
+
+                    return redirect(url)
             else:
-                error = u'invalid login'
+                error = u'Invalid login'
                 return errorHandle(error)	
         else:
-            return errorHandle(u'invalid login')
+            return errorHandle(u'Invalid login')
     else:
         form = LoginForm()
         c = {}

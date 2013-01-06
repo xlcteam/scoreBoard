@@ -7,7 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'scorebrd.views.index'),
-    url(r'^login/', 'scorebrd.views.my_login'),
+    url(r'^login/(?:\?next=(?P<url>.*?))$', 'scorebrd.views.my_login'),
     url(r'^logout/', 'scorebrd.views.my_logout'),
     url(r'^results/live', 'scorebrd.views.results_live'),
     url(r'^grappelli/', include('grappelli.urls')),
