@@ -10,6 +10,10 @@ from django.contrib.auth.decorators import login_required
 
 @render_to('login.html')
 def my_login(request, url='/'):
+    
+    if 'next' in request.POST:
+        url = request.POST['next']
+    
     def errorHandle(error):
         form = LoginForm()
         c = {}
@@ -19,7 +23,7 @@ def my_login(request, url='/'):
         return c
 
     if request.user.is_authenticated():
-        return redirect('/')
+        return redirect(url)
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -31,9 +35,6 @@ def my_login(request, url='/'):
                 if user.is_active:
                     # Redirect to a success page.
                     login(request, user)
-                    if 'next' in request.POST:
-                        url = request.POST['next']
-
                     return redirect(url)
             else:
                 error = u'Invalid login'
