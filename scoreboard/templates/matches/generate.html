@@ -11,7 +11,11 @@
   <h2> You are about to generate matches for group <strong>{{ group.name }}</strong> of
     <strong> {{ competition.name }} </strong></h2>
 
-  <span class='button blue'> Generate! </span>
+  <form action="." method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="group_id" value="{{ group.id }}" />
+      <input type="submit" value="Generate!" class='button blue' /> <br>
+  </form>
   {% endif %}
 
 {% endblock %}
