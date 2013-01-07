@@ -1,6 +1,6 @@
 body {
   margin-top: 1.0em;
-  background-color: #DFE2E2;
+  background-color: #3484D2;
   font-family: "Helvetica Neue", Helvetica, sans-serif;
   color: #555;
 }
@@ -8,6 +8,7 @@ body {
   margin: 0 auto;
   width: 75%;
   margin-top: 160px;
+  background-color: #cfffff;
 }
 #container h2 {
   text-align: center;
