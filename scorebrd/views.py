@@ -134,10 +134,9 @@ def index(request):
 
 @render_to('matches/generate.html')
 @login_required(login_url='/login/')
-def matches_generate(request):
-    if request.method == 'POST':
-        form = MatchesCreateForm(request.POST)
-    else:
-        form = MatchesCreateForm()
-     
-    return {'form': form}
+def matches_generate(request, group_id=None):
+    if group_id is None:
+        return {'groups': Group.objects.all()}
+    
+    return {}
+

@@ -21,5 +21,6 @@ urlpatterns = patterns('',
     url(r'^group/(?P<group_id>\d+)/?$', 'scorebrd.views.group'),
     url(r'^teams/?$', 'scorebrd.views.teams'),
     url(r'^team/(?P<team_id>\d+)/?$', 'scorebrd.views.team'),
-    url(r'^matches/generate/?$', 'scorebrd.views.matches_generate'),
+    url(r'^matches/generate/?$', 'scorebrd.views.matches_generate_listing'),
+    url(r'^matches/generate/(?P<group_id>\d+)/?$', 'scorebrd.views.matches_generate'),
 )
