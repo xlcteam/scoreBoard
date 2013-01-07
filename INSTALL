@@ -1,0 +1,14 @@
+Install
+=======
+
+First of all, install virtualenv.
+
+Create some virtual environment for this project and then run
+
+    $ pip install -r requirements.txt
+
+Then, to get all we need
+
+    $ python manage.py collectstatic
+
+

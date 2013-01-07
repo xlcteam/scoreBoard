@@ -1,0 +1,11 @@
+
+{% if matches %}
+  <ul>
+  {% for match in matches %}
+    <li><a href="/match/{{ match.id }}">{{ match }}</a></li>
+  {% endfor %}
+  </ul>
+{% else %}
+  Unfortunately, no matches were found. 
+  <a href="/matches/generate"> Generate some!</a>
+{% endif %}

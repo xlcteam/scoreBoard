@@ -1,0 +1,9 @@
+{% extends "@layout.html" %}
+{% block content %}
+<div id="fastinfo">&raquo;
+    <a href="/event/{{event.id}}">{{event.name}}</a> 
+</div>
+<h2>Competitions at {{ event.name }} </h2>
+
+{% include "competitions.html" %}
+{% endblock %}
