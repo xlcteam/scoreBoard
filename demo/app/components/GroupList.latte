@@ -1,0 +1,9 @@
+{snippet}
+<table class='groupTable'>
+        {foreach $groups as $group}
+        <tr>
+                <td> <a href="{plink Group:list $group->id}"> {$group->name} </a> </td>
+        </tr>
+        {/foreach}
+</table>
+{/snippet}

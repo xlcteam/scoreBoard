@@ -1,0 +1,185 @@
+<html>
+  <head>   
+    <title> scoreTable </title>    
+    <meta http-equiv="Content-Language" content="en-EN">
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <script src="{$basePath}/js/lib/jquery.js"></script>
+    <script src="{$basePath}/js/lib/scrollingcarousel.2.0.min.js"></script>
+    <script src="{$basePath}/js/lib/jquery.masonry.min.js"></script>
+    <link rel="stylesheet" href="{$basePath}/css/scoreTable/style.css">    
+    
+    <script>
+        var first = 0;
+        var speed = 1000;
+        var pause = 5000;
+
+function removeFirst(){
+        first = $('div#tables .wholeEventTable:first').html();
+        $('div#tables .wholeEventTable:first')
+        .fadeOut('slow', function() { 
+                $(this).remove(); 
+                addLast(first);
+        });
+}
+
+function addLast(first){
+        var last = '<div class="wholeEventTable" style="display:none">'+first+'</div>';
+        $('div#tables .wholeEventTable:last')
+        .fadeIn('slow', function(){
+                $('div#tables').append(last);
+        });
+}
+
+   </script>
+
+  </head>
+
+  <body>
+		<div id="slider">
+      <ul>
+      {if $matches->count() !== 0}
+              {foreach $matches as $match}
+                <li> <strong> {$names[$match->team1ID]->name} </strong>
+                {$match->team1goals}:{$match->team2goals}
+                <strong>{$names[$match->team2ID]->name}</strong> </li>
+              {/foreach}
+              {if $matches->count() < 3}
+              <li> <div style="width: {(3-$matches->count())*300}px;"></div></li>
+              {/if}
+        {else}
+
+        <li> Práve sa nehrajú žiadne zápasy.</li> 
+        <li> Za prípadne nepríjemnosti sa ospravedlňujeme. </li>
+        {/if}
+
+      </ul>
+    </div>
+  
+    <div id="tables">
+	<!--new table-->
+        {var $i = 0}
+          {foreach $groups as $group}
+        {var $teams = $model->getResults()->where('groupID', $group->id)->order('points DESC, goal_diff DESC');}
+        {if $teams->count() !== 0 }
+        {var $i = $i + 1}
+	<div class="wholeEventTable">
+            <div class="eventDiv"><span class="groupName">{$group->name}</span></div>
+                <div class="matches">
+                        <table class="resultTable">
+                                        <tr>
+                                                <th>Pos.</th>
+                                                <th></th>
+                                                <th>P</th>
+                                                <th>S</th>
+                                                <th>W</th>
+                                                <th>D</th>
+                                                <th>L</th>
+                                                <th>P</th>
+                                        </tr>
+                        {foreach $teams as $team}
+                        <tr>
+                                <td> {$iterator->getCounter()}. </td>
+                                <td class='name'> {$names[$team->id]->name} </td>
+                                <td> {$team->matches_played} </td>
+                                <td> {$team->goals_shot}:{$team->goals_shot - $team->goal_diff} </td>
+                                <td> {$team->wins} </td>
+                                <td> {$team->draws} </td>
+                                <td> {$team->loses} </td>
+                                <td class="points"> {$team->points} </td>
+                        </tr>
+                        {/foreach}
+                        </table>	
+                    <span class="eventName">{$events[$group->eventID]->name}</span>		
+                </div>
+	
+        </div>
+                {/if}
+          {/foreach}
+
+        {foreach $groups as $group}
+        {var $matches = $model->getMatches()->where('groupID',
+                                $group->id)->where('state', 'played');}
+        {if $matches->count() !== 0 }
+	<div class="wholeEventTable">
+            <div class="eventDiv"><span class="groupName">{$group->name}</span></div>
+                <div class="matches">
+                <table class='matchTable'>
+                {foreach $matches as $match}
+                                <tr>
+                                       <td class='left'> 
+                                                        {$names[$match->team1ID]->name}
+                                        </td>
+                                        <td><strong>{$match->team1goals}</strong></td> <td><strong>:</strong></td> <td><strong>{$match->team2goals}</strong></td>
+                                        <td class='right'> 
+
+                                                        {$names[$match->team2ID]->name}
+                                        </td>
+
+                                </tr>
+
+                {/foreach}
+                </table>
+                </div>
+	
+            </div>
+        {/if}
+        {/foreach}
+
+            </div>
+    <div id="footer"> 
+        <img style="float: left; padding: 3px;" src="{$basePath}/imgs/ddg.png"></img>        
+      <span>
+        <strong style="padding-top: -20px">Vytvoril XLC Team</strong>
+        <img src="{$basePath}/css/scoreTable/imgs/logo_black.png"></img>        
+      </span>
+    </div>
+
+    <script>
+    var interval = null;
+    function update(){
+        $.get({link update!}, function(data){
+                $("#tables").html(data['groups']); 
+                $("#slider ul:first, #slider ul:last").html(data['matches']);
+              //var w = $('#slider ul:first').clientWidth;
+              //var offs = $('#slider ul:first').offsetLeft;
+              //if(offs > 0 || offs > -w) {
+              //        $("#slider ul:first").html(data['matches']);
+              //        setTimeout(function(){
+              //                $("#slider ul:last").html(data['matches']);
+              //                
+              //        }, 5000);
+
+              //} else {
+              //        $("#slider ul:last").html(data['matches']);
+              //        setTimeout(function(){
+              //                $("#slider ul:first").html(data['matches']);
+              //                
+              //        }, 5000);
+              //}
+                        
+
+                if (interval !== null){
+                        $("#tables .wholeEventTable:gt(3)").hide();
+                        interval = setInterval(removeFirst, pause);
+                }
+                console.log('updated');
+        })
+    }
+      $(document).ready(function() {  
+            $('#slider').scrollingCarousel( {
+              scrollerAlignment : 'horizontal',
+              autoScroll: true,
+              autoScrollSpeed: 10000
+             });
+             setInterval(update, 5000);
+      
+           {if $i > 4} 
+            $("#tables .wholeEventTable:gt(3)").hide();
+                interval = setInterval(removeFirst, pause);
+           {/if}
+
+      });
+ 
+    </script>
+  </body>
+</html> 

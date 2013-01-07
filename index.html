@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+
+  <title>scoreBoard by the XLC Team</title>
+
+  <style type="text/css">
+    body {
+      margin-top: 1.0em;
+      background-color: #3484d2;
+      font-family: "Helvetica Neue", Helvetica, sans-serif;
+      color: #555;
+    }
+    #container {
+      margin: 0 auto;
+      width: 600px;
+    }
+    #container h2 {
+      text-align: center;
+      color: #000;
+    }    
+    #header {
+      color: #003366;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 1.2em;
+    }
+    #header h1 {
+      margin: 0;
+      text-shadow: rgba(0, 0, 0, .7) 1px 1px 2px;
+    }
+    #header .logo {
+      text-transform: none;
+      font-style: none;
+      text-decoration: none;
+      color: #ffffff;
+      margin-right: 7px;
+      font-size: 1.5em;
+    }
+    section h2 {
+      font-family: "Lucida Console", Monaco, monospace;
+      margin-bottom: 5px;
+    }
+    section div {
+      border-radius: 10px;
+      background-color: #ffffff; 
+    }
+    section div p {
+      padding: 10px;
+      margin: 0px;
+    }    
+    .thumbs { margin: 0; padding: 0; overflow: hidden; }
+    .thumbs li { list-style: none; float: left; margin: 5px; padding: 3px; background: #eee; -moz-box-shadow: 0 0 4px #444; -webkit-box-shadow: 0 0 2px #000; }
+    .thumbs li a { }
+    .thumbs li img { display: block; }
+    .thumbs li a img { border: none;}
+  </style>
+	<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]--> 
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<link href="colorbox/colorbox.css" rel="stylesheet" type="text/css" media="screen" /> 
+	<script src="colorbox/jquery.colorbox-min.js"></script>
+	<script src="js/jquery.cycle.all.min.js"></script>
+	<script src="js/jflickrfeed.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('#cbox').jflickrfeed({
+        limit: 20,
+        qstrings: {
+          id: '62192762@N05',
+          tags: 'scoreBoard'
+        },
+        itemTemplate: '<li>'+
+                '<a rel="colorbox" href="{{image_b}}" title="{{title}}">' +
+                  '<img src="{{image_s}}" alt="{{title}}" />' +
+                '</a>' +
+                '</li>'
+      }, function(data) {
+        $('#cbox a').colorbox({
+          initialWidth: '50%',
+          initialHeight: '50%',
+        });
+      });
+    }); 
+  
+
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div id="header">
+      <h1><a class="logo" href="#">scoreBoard</a></h1>
+      a simple tool for displaying the score of any game
+    </div>
+    <section id="slide">
+      <h2>Introduction</h2>
+      <div>
+        <p>
+          No matter whether you play soccer, football, basketball or just
+          count score in integers scoreBoard can help you with that. But not
+          only with that. If you hold an event where multiple players (or
+          teams) compete against each other it can help you organize them in
+          groups and also generate matches they should play against each
+          other. 
+        </p>
+        <p>
+          Once you use scoreBoard for keeping track of the score it can also
+          generate live results and display them.  
+        </p>
+        <p>
+          Give it a try on the <a href='demo/mockups/scoreBoard/scoreBoard.html'>demo</a> page!
+        </p>
+      </div>
+    </section>
+    <br /><br />
+    <section id="slide">
+      <h2>Screenshots</h2>
+      <div id="cbox" class="thumbs">
+      </div>
+    </section>
+  </div>
+</body>
+</html>
+

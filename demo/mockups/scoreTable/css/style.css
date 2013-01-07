@@ -1,0 +1,212 @@
+@font-face {
+    font-family: "Chango";
+  src: url(Chango-Regular.ttf);
+}
+
+body {
+  background-color: #000;
+  color: #cccccc;
+  margin: 0;
+  font-family: "Trebuchet MS",Helvetica,Jamrul,sans-serif;
+}
+
+#live{
+  width: 50%;
+  position: relative;
+	float: left;
+}
+
+#tables {
+  width: 100%;
+  position: relative;
+  float: left;
+}
+
+.wholeEventLive {
+	padding-top: 20px;
+	width: 100%;
+	float: left;
+}
+
+.wholeEventTable {
+	padding-top: 20px;
+	width: 50%;
+	float: left;
+}
+
+
+.matches {	
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #771E10), color-stop(100%, #771E10));
+  background-image: -webkit-linear-gradient(top, #771E10, #771E10);
+  background-image: -moz-linear-gradient(top, #771E10, #771E10);
+  background-image: -ms-linear-gradient(top, #771E10, #771E10);
+  background-image: -o-linear-gradient(top, #771E10, #771E10);
+  background-image: linear-gradient(top, #771E10, #771E10);
+  border-top: 1px solid #771E10;
+  border-right: 1px solid #771E10;
+  border-bottom: 1px solid #771E10;
+  border-left: 1px solid #771E10;
+  -webkit-border-radius: 18px;
+  -moz-border-radius: 18px;
+  -ms-border-radius: 18px;
+  -o-border-radius: 18px;
+  border-radius: 0px 18px 18px 18px;
+  -webkit-box-shadow: inset 0 1px 0 0 #771E10;
+  -moz-box-shadow: inset 0 1px 0 0 #771E10;
+  -ms-box-shadow: inset 0 1px 0 0 #771E10;
+  -o-box-shadow: inset 0 1px 0 0 #771E10;
+  box-shadow: inset 0 1px 0 0 #771E10;
+  color: #1a3e66;
+  font: normal 11px "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+	width: 97%;
+	/*height: 37%;*/
+	margin: 0 auto;
+	color: #fff;
+  font: bold 40px "helvetica neue", helvetica, arial, sans-serif;
+  padding-bottom: 30px;
+	/*text-align: center;*/
+}
+
+.groupName {
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #771E10), color-stop(100%, #771E10));
+  background-image: -webkit-linear-gradient(top, #771E10, #771E10);
+  background-image: -moz-linear-gradient(top, #771E10, #771E10);
+  background-image: -ms-linear-gradient(top, #771E10, #771E10);
+  background-image: -o-linear-gradient(top, #771E10, #771E10);
+  background-image: linear-gradient(top, #771E10, #771E10);
+  border-top: 1px solid #771E10;
+  border-right: 1px solid #771E10;
+  border-bottom: 1px solid #771E10;
+  border-left: 1px solid #771E10;
+  -webkit-border-radius: 18px;
+  -moz-border-radius: 18px;
+  -ms-border-radius: 18px;
+  -o-border-radius: 18px;
+  border-radius: 18px 18px 0px 0px;
+  -webkit-box-shadow: inset 0 1px 0 0 #771E10;
+  -moz-box-shadow: inset 0 1px 0 0 #771E10;
+  -ms-box-shadow: inset 0 1px 0 0 #771E10;
+  -o-box-shadow: inset 0 1px 0 0 #771E10;
+  box-shadow: inset 0 1px 0 0 #771E10;
+  color: #EBC137;
+	margin-left: -1px;
+	padding: 0 20px;
+  /*font: bold 40px "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;*/
+  font-family: "Chango";
+	font-size: 40px;
+}
+
+.eventDiv {
+	width: 97%;
+	margin: 0 auto;
+}
+
+.match {
+	width: 97%;
+	margin: 0 auto;
+  font-family: "Trebuchet MS",Helvetica,Jamrul,sans-serif;
+	padding: 10px;
+}
+
+.leftName {
+	width: 40%;
+	text-align: center;	
+	float: left;
+}
+
+.rightName {
+	width: 40%;
+	text-align: center;
+	float: right;
+}
+
+.score {
+	width: 20%;
+	text-align: center;
+	float: left;
+}
+
+.resultTable {
+	text-align: center;
+	color: #ffffff;
+	font-size: 70%;
+	margin: 0 auto;
+  padding: 0 20px;
+}
+
+.resultDiv {
+	text-align: center;
+}
+
+.name {
+	min-width: 250px;
+	text-align: left;
+}
+
+.resultTable > td, th {
+	padding: 0 5px;
+}
+
+.points  {
+	background-color: #fff;
+	color: #771E10;	
+	min-width: 60px;
+}
+
+.odd {
+	background-color: #ffffff;	
+}
+
+.even {
+	background-color: #8c9cbf;	
+}
+
+#slider {
+  width: 100%;
+  height: 100px !important;
+  background: #EBC137;
+  overflow: hidden;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+
+
+#slider ul{
+  padding-top: 10px;
+  list-style-type: none;
+  position: relative;
+}
+
+#slider li{
+  float: left;
+  font-size: 3em;
+  color: #771E10;
+  padding: 0 26px;
+}
+
+#slider strong{
+  color: #000;
+}
+.eventName {
+  float: right;
+  color: #EBC137;
+  margin-right: 40px;
+  padding-top: 8px;
+  font: 20px/100% Georgia, "New York CE", utopia, serif;
+  font-style: italic;
+}
+
+#footer {
+  width: 100%;
+  background:#EBC137;
+  color: #000; 
+  height: 55px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  z-index: 1000000;
+  text-align: center;
+  font-size: 2em;
+}
+

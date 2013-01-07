@@ -1,0 +1,27 @@
+<div style="width: 300px; float: left;">
+{snippet}
+<div>
+        <div style="float: left">
+           <h3 style="margin:0; font-size: 20px; "> Events: </h3> 
+        </div>
+        <div style="200px; float: right;">
+                <a class="button orange" href="{plink Event:new}"> New </a>
+        </div>
+</div>
+<table class="eventTable">
+        {foreach $events as $event}
+        <tr n:class="$event->finished ? finished">
+                <td> #{$event->id} </td>
+                <td style='width: 250px;'> <a href="{plink Event:list $event->id}"> {$event->name} </a> </td>
+                <td style='width: 50px;'> <a class="button smaller" href="{plink Event:edit $event->id}"> Edit </a> </td>
+        </tr>
+        {if !$event->finished}
+        <tr>
+              <td colspan='3'>  {control groupList, $event->id} </td>
+        </tr>
+        {/if}
+        {/foreach}
+</table>
+        <div style="clear:both"></div>
+</div>
+{/snippet}

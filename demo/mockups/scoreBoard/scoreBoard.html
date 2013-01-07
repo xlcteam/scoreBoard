@@ -1,0 +1,176 @@
+<html>
+  <head>   
+    <title> scoreBoard </title>    
+    <meta http-equiv="Content-Language" content="en-EN">
+    
+    <script src="js/lib/jquery.js"></script>
+    <script src="js/lib/jquery-ui.min.js"></script>
+    <script src="js/lib/keylock.js"></script>
+    <script src="js/lib/jquery.keylock.js"></script>
+    <script src="js/lib/jquery.idle-timer.js"></script>
+		<script src="js/lib/jquery.stopwatch.js"></script>    
+		<script src="js/stopwatch.js"></script>
+    <script src="js/goals.js"></script>
+		<script src="js/fills.js"></script>
+		<link rel="stylesheet" href="css/style.css">
+		<link href="css/jquery-ui.css" rel="stylesheet" type="text/css">       
+
+    <script>
+      $(document).ready(function() {  
+				$('#dialogMain').hide();
+				$('#tabs').tabs();    
+				$.idleTimer(2500);
+				$(document).bind("contextmenu",function(e){
+              return false;
+       	});
+        $(document).bind("idle.idleTimer", function() {
+          $("#main").fadeOut("slow");
+          $("#underMain").fadeOut("slow");
+      	});
+	
+				$(document).keylock({
+					w: function(){ team1Goal(); },
+					s: function(){ team1Down(); },
+
+					i: function(){ team2Goal(); },
+					k: function(){ team2Down(); },
+					
+					"<Space>": function(){ toggle(); },
+
+					c: function(){ $('.btn-slide').click(); },
+				});
+
+        
+        $(document).bind("active.idleTimer", function() {
+					$("#main").fadeIn("slow");
+          $("#underMain").fadeIn("slow");
+        });
+				
+				$(".btn-slide").click(function(){
+					$("#panel").slideToggle("slow");
+					if ($(this).text() == String.fromCharCode(9660)) {
+            $(this).text(String.fromCharCode(9650));  
+          } else {
+            $(this).text(String.fromCharCode(9660));  
+          }
+				});
+
+        $('.element3').click(toggle);
+				
+				$('.leftBckg, .element1').mousedown(function(e) {
+					if (e.which === 1) { team1Goal();}
+    			else if (e.which === 3) { team1Down(); }
+				});
+
+				$('.rightBckg, .element2').mousedown(function(e) {
+					if (e.which === 1) { team2Goal();}    			
+					else if (e.which === 3) { team2Down(); }
+				});
+
+
+				$(".element1").bind("mouseover", fill1);
+				$(".element1").bind("mouseout", unfill1);
+				$(".element2").bind("mouseover", fill2);
+				$(".element2").bind("mouseout", unfill2);
+				$(".element3").bind("mouseover", fill3);
+				$(".element3").bind("mouseout", unfill3);
+
+        $(".leftBckg").bind("mouseover", fill1);
+				$(".leftBckg").bind("mouseout", unfill1);
+				$(".rightBckg").bind("mouseover", fill2);
+				$(".rightBckg").bind("mouseout", unfill2);
+				$(".startBckg").bind("mouseover", fill3);
+				$(".startBckg").bind("mouseout", unfill3);
+			});
+
+
+		</script>
+
+	</head>
+  <body>
+    <div id="startAll" onclick="startMatch()">
+      <div style="height: 30px;">&nbsp;</div> 
+      <span id="startSpan">Start match</span>
+    </div>
+		<div id="underMain">
+		  <div id="panel">
+				<div id="tabs">
+        	<ul>
+        		<li><a href="#fragment-1"><span>Settings</span></a></li>
+        		<li><a href="#fragment-2"><span>ADV Settings</span></a></li>
+    			</ul>
+					
+					<div id="fragment-1">
+						<div class="placeholder"><button id="btnResetTime" onclick="resetTime()">Reset Time</button></div>
+						<div class="placeholder"><button id="btnResetScore" onclick="resetScore()">Reset Score</button></div>
+						<div class="placeholder2">						
+							<form name="frmtime">
+								<center>Time: <input class="input" type="text" id="fmins" value="20"/>
+								: <input class="input" type="text" id="fsecs" value="00"/> 
+									<input type="button" onclick="newTime()" value="Set time"/> <br /> 
+									<span class="saved">Saved!</span>
+                </center>
+							</form>
+						</div> 
+					</div>
+	
+					<div id="fragment-2">
+						<div class="placeholder3">
+							<form name="effects">
+								<b>Effects:</b>
+								<input type="radio" name="effgroup" value="ON" checked>ON</input>
+								<input type="radio" name="effgroup" value="OFF">OFF</input>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="slide" style="text-align: center;"><span class="btn-slide">&#9660;</span></div>
+		</div>
+
+		<div id="main">
+			<div class="leftBckg"> 
+				<span class="goalLText">Goal!</span>	
+			</div>
+			<div class="rightBckg"> 
+				<span class="goalRText">Goal!</span>
+			</div>
+      <div class="startBckg" onclick="toggle()">
+				<span id="btnStart" class="startText">Start</span>
+      </div>
+		</div>
+
+		<!-- dialog, hidden at the begin of game by jquery funct .hide() -->
+		<div id="dialogMain">
+			<div id="dialog" title="Results" style="font-size:50.5%;">
+				<div style="margin: 0 auto;height: 70px; font-size:130.5%;">		
+          <table style="width: 260px; margin: 0 auto;">
+            <tr>
+              <td style="width: 100px; text-align: right;"> <span id="dname" style="color: #000000;"></span> </td>
+              <td> <input style="width: 30px;" type="text" id="dgoals"/> </td>
+              <td> <b>:</b> </td>
+              <td>  <input style="width: 30px;" type="text" id="d2goals"/> </td>
+              <td style="width: 100px; text-align: left;">  <span id="d2name" style="color: #000000;"></span> </td>
+            </tr>
+          </table>
+				</div>	
+			</div>
+		</div>
+
+    <div id="names">
+      <div class="half name"><span class="element1" id="name1">Robot</span></div>
+      <div class="half name"><span class="element2" id="name2">Human</span></div>
+    </div>
+    <div id="scores" style="width: 100%;">
+      <div class="third score"><span class="element1" id="team1" style="display: inline-block;">0</span></div>
+      <div class="colon"><span class="element">:</span></div>
+      <div class="third score"><span class="element2" id="team2" style="display: inline-block;">0</span></div>
+      <dic style="clear:both;"></div>
+    </div>				
+    <div id="timeBar" class="element3">		
+			<div id="time" class="time"><span >00:00,00</span></div>
+		</div>
+		<div id="halftime" class="halftime"><span>1.</span></div>		
+    <div style="clear: both;"></div>
+	</body> 
+</html>

@@ -1,0 +1,56 @@
+{snippet}
+<table class='matchTable'>
+        {foreach $unplayed as $match}
+        <tr>
+                {if $state == 'ready' }
+                <td class='left'> 
+                        <a href="{plink Match:play $match->id}">
+                                {$names[$match->team1ID]->name}
+                        </a>
+                </td>
+                        <td><strong>vs.</strong></td>
+                <td class='right'> 
+                        <a href="{plink Match:play $match->id}">
+                                {$names[$match->team2ID]->name}
+                        </a>
+                </td>
+                    {elseif $state == 'playing'}
+                <td class='left'> 
+                                {$names[$match->team1ID]->name}
+                </td>
+                        <td><strong>vs.</strong></td>
+                <td class='right'> 
+
+                                {$names[$match->team2ID]->name}
+                </td>
+                <td><a class="button" href="{plink Match:play $match->id}"> Restart</a></td>
+                    {else}
+                <td class='left'> 
+                                {$names[$match->team1ID]->name}
+                </td>
+                <td><strong>{$match->team1goals}</strong></td> <td><strong>:</strong></td> <td><strong>{$match->team2goals}</strong></td>
+                <td class='right'> 
+
+                                {$names[$match->team2ID]->name}
+                </td>
+                    {/if}
+
+        </tr>
+
+
+        {/foreach}
+        
+        {if $matches->count() == 0 && $state == 'ready'}
+
+                No matches found. 
+                <a href="{plink Match:generate $group}"> 
+                        Generate them!
+                </a>
+
+        {elseif $unplayed->count() == 0 }
+                No matches found.
+        {/if}
+
+        
+</table>
+{/snippet}
