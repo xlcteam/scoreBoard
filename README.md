@@ -13,9 +13,9 @@ The [original scoreBoard](https://github.com/xlcteam/scoreBoard-php has been wri
 
 ## Installing
 You need to create some virtual environment
-And then install all the dependencies by running 
+And then install all the dependencies by running <br>
     `$ pip install -r requirements.txt`
-Then, to get all we need
+Then, to get all we need<br>
     `$ python manage.py collectstatic`
 
 
