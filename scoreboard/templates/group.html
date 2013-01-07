@@ -1,9 +1,9 @@
 {% extends "@layout.html" %}
 {% block content %}
-<div id="fastinfo">
+<div id="fastinfo">&raquo;
     <a href="/event/{{event.id}}">{{event.name}}</a> &raquo;
     <a href="/competition/{{competition.id}}">{{competition.name}}</a> &raquo;
-    <a href="/group/{{group.id}}">{{group.name}}</a> &raquo;
+    <a href="/group/{{group.id}}">{{group.name}}</a> 
 </div>
 <h2>Teams in {{ group.name }} </h2>
 
