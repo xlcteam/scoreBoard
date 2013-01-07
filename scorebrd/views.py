@@ -136,7 +136,11 @@ def index(request):
 @login_required(login_url='/login/')
 def matches_generate(request, group_id=None):
     if group_id is None:
-        return {'groups': Group.objects.all()}
+        if request.GET:
+            return {'groups': Group.objects.all()}
+        elif request.POST:
+            group = get_object_or_404(Group, pk=group_id)
+            teams = group.teams.all()
     
     group = get_object_or_404(Group, pk=group_id)
     competition = group.competition_set.all()[0]
