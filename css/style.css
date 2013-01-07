@@ -21,6 +21,18 @@ body {
 #header h1 {
   margin: 0;
   text-shadow: rgba(0, 0, 0, .7) 1px 1px 2px;
+  color: #515050;
+  font-weight: 900;
+  font-size: 1.2em;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 999;
+  -moz-box-shadow:    5px 5px 5px 6px #ccc;
+  -webkit-box-shadow: 5px 5px 5px 6px #ccc;
+  box-shadow:         5px 5px 5px 6px #ccc;
 }
 #header .logo {
   text-transform: none;
