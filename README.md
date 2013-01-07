@@ -1,8 +1,8 @@
 scoreBoard
 ==========
 
-scoreBoard is a simple tool for displaying the score of any game. 
-The [original scoreBoard](https://github.com/xlcteam/scoreBoard-php has been written in messy PHP.
+scoreBoard is a simple tool for displaying the score of any game. <br>
+The [original scoreBoard](https://github.com/xlcteam/scoreBoard-php) has been written in messy PHP.
 
 ## Dependencies
 * Django==1.4
@@ -13,8 +13,10 @@ The [original scoreBoard](https://github.com/xlcteam/scoreBoard-php has been wri
 
 ## Installing
 You need to create some virtual environment
+
 And then install all the dependencies by running <br>
-    `$ pip install -r requirements.txt`
+    `$ pip install -r requirements.txt`<br>
+    
 Then, to get all we need<br>
     `$ python manage.py collectstatic`
 
