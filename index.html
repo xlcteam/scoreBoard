@@ -33,6 +33,16 @@
         });
       });
     }); 
+
+			$(function(){
+				// Tabs
+          $('#container').tabs({
+              select: function(event, ui) {
+                window.location.hash = ui.tab.hash;
+              }  
+          });
+ 
+			});
   
 
   </script>
@@ -49,6 +59,13 @@
 
 
   <div id="container">
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#downloads">Downloads</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#quicktut">Quick Tutorial</a></li>
+    </ul>
+
     <section id="slide">
       <h2>Introduction</h2>
       <div>
