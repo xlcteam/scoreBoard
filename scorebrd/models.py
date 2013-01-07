@@ -60,7 +60,5 @@ class Event(models.Model):
 
 
 class MatchesCreateForm(forms.Form):
-    group = forms.ModelChoiceField(queryset=Group.objects.all(), 
-                label='Select a group in which you want to generate matches')
-
+    pass
 

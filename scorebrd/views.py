@@ -138,5 +138,7 @@ def matches_generate(request, group_id=None):
     if group_id is None:
         return {'groups': Group.objects.all()}
     
-    return {}
+    group = get_object_or_404(Group, pk=group_id)
+    competition = group.competition_set.all()[0]
+    return {'group': group, 'competition': competition}
 
