@@ -12,13 +12,9 @@ The [original scoreBoard](https://github.com/xlcteam/scoreBoard-php) has been wr
 * wsgiref==0.1.2
 
 ## Installing
-You need to create some virtual environment
-
-And then install all the dependencies by running <br>
-    `$ pip install -r requirements.txt`<br>
-    
-Then, to get all we need<br>
-    `$ python manage.py collectstatic`
+* You need to create some virtual environment
+* Then install all the dependencies by running `$ pip install -r requirements.txt`
+* Then, to get all we need `$ python manage.py collectstatic`
 
 
 We really appreciate feedback, so if you have any questions or find any bug please create [new issue](https://github.com/xlcteam/scoreBoard/issues/new).
