@@ -145,3 +145,17 @@ def matches_generate(request, group_id=None):
     competition = group.competition_set.all()[0]
     return {'group': group, 'competition': competition}
 
+def matches_generate_listing(request):
+    pass
+
+def match_view(request, match_id):
+    pass
+
+def results(request):
+    pass
+
+def results_team_view(request, team_id):
+    pass
+
+def results_group_view(request, group_id):
+    pass
