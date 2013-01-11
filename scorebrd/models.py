@@ -8,14 +8,14 @@ class LoginForm(forms.Form):
 
 class Team(models.Model):
     name = models.CharField(max_length=200)
-    wins = models.IntegerField()
-    draws = models.IntegerField()
-    loses = models.IntegerField()
+    wins = models.IntegerField(default=0)
+    draws = models.IntegerField(default=0)
+    loses = models.IntegerField(default=0)
 
-    goal_shot = models.IntegerField()
-    goal_diff = models.IntegerField()
-    matches_played = models.IntegerField()
-    points = models.IntegerField()
+    goal_shot = models.IntegerField(default=0)
+    goal_diff = models.IntegerField(default=0)
+    matches_played = models.IntegerField(default=0)
+    points = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.name
