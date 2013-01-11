@@ -12,21 +12,6 @@ class Team(models.Model):
     def __unicode__(self):
         return self.name
 
-class TeamResult(models.Model):
-    team = models.ForeignKey(Team)
-
-    wins = models.IntegerField(default=0)
-    draws = models.IntegerField(default=0)
-    loses = models.IntegerField(default=0)
-
-    goal_shot = models.IntegerField(default=0)
-    goal_diff = models.IntegerField(default=0)
-    matches_played = models.IntegerField(default=0)
-    points = models.IntegerField(default=0)
-
-    def __unicode__(self):
-        return "{0} - {1} - {2}".format(self.wins, self.draws, self.loses)
-
 class Match(models.Model):
     teamA = models.ForeignKey(Team, related_name='homelanders')
     teamB = models.ForeignKey(Team, related_name='foreigners')
@@ -54,6 +39,24 @@ class Group(models.Model):
 
     def __unicode__(self):
         return self.name
+
+class TeamResult(models.Model):
+    team = models.ForeignKey(Team)
+    group = models.ForeignKey(Group)
+
+    wins = models.IntegerField(default=0)
+    draws = models.IntegerField(default=0)
+    loses = models.IntegerField(default=0)
+
+    goal_shot = models.IntegerField(default=0)
+    goal_diff = models.IntegerField(default=0)
+    matches_played = models.IntegerField(default=0)
+    points = models.IntegerField(default=0)
+
+    def __unicode__(self):
+        return "{0} - {1} - {2} -> {3} in {4}".format(self.wins, self.draws,
+                self.loses, self.team, self.group)
+
 
 
 class Competition(models.Model):
