@@ -24,8 +24,8 @@ class TeamResult(models.Model):
     matches_played = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
 
-
-
+    def __unicode__(self):
+        return "{0} - {1} - {2}".format(self.wins, self.draws, self.loses)
 
 class Match(models.Model):
     teamA = models.ForeignKey(Team, related_name='homelanders')
