@@ -20,7 +20,7 @@
     {% for team in teams %}
     <tr n:class="$iterator->isOdd() ? odd : even">
         <td> {$iterator->getCounter()}. </td>
-        <td class='name'> {$names[$team->id]->name} </td>
+        <td class='name'> {{ team.name }} </td>
         <td> {{ team.matches_played }} </td>
         <td> {{ team.goal_shot }}:{{ team.goal_shot - team.goal_diff }} </td>
         <td> {{ team.wins }} </td>
