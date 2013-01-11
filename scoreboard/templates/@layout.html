@@ -40,20 +40,12 @@
 
         <div id="content">
 
-            {% if user.is_authenticated %}
-                <ul id="menu">
-                  <li>
-                    <a href="/results/live"> Live results </a>
-                  </li>
-                  <li>
-                    Import teams
-                  </li>
-                </ul>
-            {% else %}
-                <ul id="menu">
-                    <li> <a href="/results/live"> Live results</a> </li>
-                </ul>
-            {% endif %}
+            <ul id="menu">
+              <li>
+                <a href="/results/live"> Live results </a>
+              </li>
+            </ul>
+
           {% block content %}{% endblock %}
 
     {% if messages %}
