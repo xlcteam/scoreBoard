@@ -5,6 +5,32 @@
     <a href="/competition/{{competition.id}}">{{competition.name}}</a> &raquo;
     <a href="/group/{{group.id}}">{{group.name}}</a> 
 </div>
+
+<table class='teamTable'>
+    <tr>
+        <th> <abbr title="Matches played"> Pos. </abbr></th>
+        <th></th>
+        <th> <abbr title="Matches played"> P </abbr> </th>
+        <th> <abbr title="Score"> S </abbr> </th>
+        <th> <abbr title="Matchers won"> W </abbr> </th>
+        <th> <abbr title="Matches drew"> D </abbr> </th>
+        <th> <abbr title="Matches lost"> L </abbr> </th>
+        <th> <abbr title="Points earned"> Pts. </abbr> </th>
+    </tr>
+    {% for team in teams %}
+    <tr n:class="$iterator->isOdd() ? odd : even">
+        <td> {$iterator->getCounter()}. </td>
+        <td class='name'> {$names[$team->id]->name} </td>
+        <td> {{ team.matches_played }} </td>
+        <td> {{ team.goal_shot }}:{{ team.goal_shot - team.goal_diff }} </td>
+        <td> {{ team.wins }} </td>
+        <td> {{ team.draws }} </td>
+        <td> {{ team.loses }} </td>
+        <td class="points"> {{ team.points }} </td>
+    </tr>
+    {% endfor %}
+</table>
+
 <h2>Teams in {{ group.name }} </h2>
 
 {% include "teams.html" %}
