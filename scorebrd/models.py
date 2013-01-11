@@ -8,6 +8,13 @@ class LoginForm(forms.Form):
 
 class Team(models.Model):
     name = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return self.name
+
+class TeamResult(models.Model):
+    team = models.ForeignKey(Team)
+
     wins = models.IntegerField(default=0)
     draws = models.IntegerField(default=0)
     loses = models.IntegerField(default=0)
@@ -17,8 +24,7 @@ class Team(models.Model):
     matches_played = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
 
-    def __unicode__(self):
-        return self.name
+
 
 
 class Match(models.Model):
