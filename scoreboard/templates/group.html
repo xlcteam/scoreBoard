@@ -18,16 +18,21 @@
         <th> <abbr title="Points earned"> Pts. </abbr> </th>
     </tr>
     {% for team in teams %}
-    <tr n:class="$iterator->isOdd() ? odd : even">
-        <td> {$iterator->getCounter()}. </td>
-        <td class='name'> {{ team.name }} </td>
-        <td> {{ team.matches_played }} </td>
-        <td> {{ team.goal_shot }}:{{ team.goal_shot - team.goal_diff }} </td>
-        <td> {{ team.wins }} </td>
-        <td> {{ team.draws }} </td>
-        <td> {{ team.loses }} </td>
-        <td class="points"> {{ team.points }} </td>
-    </tr>
+
+        {% if forloop.counter0|divisibleby:"2" %}
+            <tr class="odd">
+        {% else %}
+            <tr class="even">
+        {% endif %}
+            <td> {{ forloop.counter }}. </td-->
+            <td class='name'> {{ team.name }} </td>
+            <td> {{ team.matches_played }} </td>
+            <td> {{ team.goal_shot }}:{{ team.goal_shot - team.goal_diff }} </td>
+            <td> {{ team.wins }} </td>
+            <td> {{ team.draws }} </td>
+            <td> {{ team.loses }} </td>
+            <td class="points"> {{ team.points }} </td>
+        </tr>
     {% endfor %}
 </table>
 
