@@ -20,11 +20,12 @@
     {% for team in teams %}
 
         {% if forloop.counter0|divisibleby:"2" %}
-            <tr class="odd">
-        {% else %}
             <tr class="even">
+        {% else %}
+            <tr class="odd">
         {% endif %}
-            <td> {{ forloop.counter }}. </td-->
+            <td> {{ forloop.counter }}. </td>
+{% comment %}
             <td class='name'> {{ team.name }} </td>
             <td> {{ team.matches_played }} </td>
             <td> {{ team.goal_shot }}:{{ team.goal_shot - team.goal_diff }} </td>
@@ -32,6 +33,7 @@
             <td> {{ team.draws }} </td>
             <td> {{ team.loses }} </td>
             <td class="points"> {{ team.points }} </td>
+{% endcomment %}
         </tr>
     {% endfor %}
 </table>
