@@ -62,7 +62,6 @@ class TeamResult(models.Model):
 class Competition(models.Model):
     name = models.CharField(max_length=200)
     groups = models.ManyToManyField(Group)
-    teams = models.ManyToManyField(Team)
 
     def __unicode__(self):
         return self.name
