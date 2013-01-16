@@ -18,9 +18,9 @@ class Match(models.Model):
     scoreA = models.IntegerField(default=0)
     scoreB = models.IntegerField(default=0)
     PLAYING_CHOICES = (
-        ('N', 'Not played yet'),
-        ('P', 'Playing at the moment'),
-        ('D', 'Done playing'),
+        ('N', 'Not played yet (To be played)'),
+        ('P', 'Playing at the moment (Match in progress)'),
+        ('D', 'Already played (Done)'),
     )
     playing = models.CharField(max_length=1, choices=PLAYING_CHOICES,
             default='N')
