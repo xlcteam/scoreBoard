@@ -159,5 +159,16 @@ def results(request):
 def results_team_view(request, team_id):
     pass
 
+@render_to('results/group.html')
+@login_required(login_url='/login/')
 def results_group_view(request, group_id):
-    pass
+    group = get_object_or_404(Group, pk=group_id)
+    teams = group.teams.all()
+    competition = group.competition_set.all()[0]
+    event = competition.event_set.all()[0]
+    team_results = TeamResult.objects.filter(group__id=group.id)
+    return {'group': group, 'teams': teams,
+            'competition': competition, 'event': event, 
+            'team_results': team_results}
+
+

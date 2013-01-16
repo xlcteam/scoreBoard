@@ -1,0 +1,16 @@
+{% extends "@layout.html" %}
+{% block content %}
+<div id="fastinfo">&raquo;
+    <a href="/event/{{event.id}}">{{event.name}}</a> &raquo;
+    <a href="/competition/{{competition.id}}">{{competition.name}}</a> &raquo;
+    <a href="/group/{{group.id}}">{{group.name}}</a> 
+</div>
+
+<h2>Results for {{ group.name }} </h2>
+
+{% include "results.html" %}
+
+- Show info about played matches with appropreate times. <br>
+- Render these results into PDF.
+
+{% endblock %}
