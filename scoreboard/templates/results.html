@@ -1,0 +1,34 @@
+<table class='teamTable'>
+    <tr>
+        <th> <abbr title="Matches played"> Pos. </abbr></th>
+        <th></th>
+        <th> <abbr title="Matches played"> P </abbr> </th>
+        <th> <abbr title="Score"> S </abbr> </th>
+        <th> <abbr title="Matches won"> W </abbr> </th>
+        <th> <abbr title="Matches drew"> D </abbr> </th>
+        <th> <abbr title="Matches lost"> L </abbr> </th>
+        <th> <abbr title="Points earned"> Pts. </abbr> </th>
+    </tr>
+    {% for result in team_results %}
+
+        {% if forloop.counter0|divisibleby:"2" %}
+            <tr class="even">
+        {% else %}
+            <tr class="odd">
+        {% endif %}
+            <td> {{ forloop.counter }}. </td>
+            <td class='name'> {{ result.team.name }} </td>
+            <td> {{ result.matches_played }} </td>
+            <td> {{ result.goal_shot }}:{{ result.goal_diff }} </td>
+            <td> {{ result.wins }} </td>
+            <td> {{ result.draws }} </td>
+            <td> {{ result.loses }} </td>
+            <td class="points"> {{ result.points }} </td>
+{% comment %}
+            <td> {{ result.goal_shot }}:{{ result.goal_shot - result.goal_diff }} </td>
+{% endcomment %}
+        </tr>
+    {% endfor %}
+</table>
+
+
