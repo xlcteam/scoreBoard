@@ -228,7 +228,7 @@ a[href^="error:"] {
 }
 
 .blue{
-        color: #fef4e9;
+        color: #fef4e9 !important;
         border: solid 1px #2DA1E8;
         background: #2DA1E8;
         background: -webkit-gradient(linear, left top, left bottom, from(#2DA1E8), to(#0273A0));

@@ -2,7 +2,16 @@
 {% if matches %}
   <ul>
   {% for match in matches %}
-    <li><a href="/match/{{ match.id }}">{{ match }}</a></li>
+    {% if match.playing == 'D' %}
+    <li class='finished'>
+      <a href="/match/{{ match.id }}">{{ match }}</a>
+      <a class='button blue' href=/results/match/{{ match.id }}> See results! </a>
+    </li>
+    {% else %}
+    <li><a href="/match/{{ match.id }}">{{ match }}</a> 
+      <a class='button orange' href=/match/{{ match.id }}> Play ! </a>
+    </li>
+    {% endif %}
   {% endfor %}
   </ul>
 {% else %}
