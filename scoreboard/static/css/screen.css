@@ -107,6 +107,7 @@ a[href^="error:"] {
 .teamTable .name {
         min-width: 120px;
         text-align: left;
+        font-weight: bold;
 }
 
 .matchTable .left{
@@ -265,7 +266,8 @@ a[href^="error:"] {
 
 .points {
 	background: #444;
-  color: #fff;
+    color: #fff;
+    font-weight: bold;
 }
 
 #frmteamForm-groupID{
