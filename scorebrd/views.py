@@ -96,8 +96,10 @@ def group(request, group_id):
     teams = group.teams.all()
     competition = group.competition_set.all()[0]
     event = competition.event_set.all()[0]
+    team_results = TeamResult.objects.filter(group__id=group.id)
     return {'group': group, 'teams': teams,
-            'competition': competition, 'event': event}
+            'competition': competition, 'event': event, 
+            'team_results': team_results}
 
 @render_to('groups.html')
 @login_required(login_url='/login/')

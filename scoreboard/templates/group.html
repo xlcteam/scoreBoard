@@ -17,7 +17,7 @@
         <th> <abbr title="Matches lost"> L </abbr> </th>
         <th> <abbr title="Points earned"> Pts. </abbr> </th>
     </tr>
-    {% for team in teams %}
+    {% for result in team_results %}
 
         {% if forloop.counter0|divisibleby:"2" %}
             <tr class="even">
@@ -25,14 +25,15 @@
             <tr class="odd">
         {% endif %}
             <td> {{ forloop.counter }}. </td>
+            <td class='name'> {{ result.team.name }} </td>
+            <td> {{ result.matches_played }} </td>
+            <td> {{ result.goal_shot }}:{{ result.goal_diff }} </td>
+            <td> {{ result.wins }} </td>
+            <td> {{ result.draws }} </td>
+            <td> {{ result.loses }} </td>
+            <td class="points"> {{ result.points }} </td>
 {% comment %}
-            <td class='name'> {{ team.name }} </td>
-            <td> {{ team.matches_played }} </td>
-            <td> {{ team.goal_shot }}:{{ team.goal_shot - team.goal_diff }} </td>
-            <td> {{ team.wins }} </td>
-            <td> {{ team.draws }} </td>
-            <td> {{ team.loses }} </td>
-            <td class="points"> {{ team.points }} </td>
+            <td> {{ result.goal_shot }}:{{ result.goal_shot - result.goal_diff }} </td>
 {% endcomment %}
         </tr>
     {% endfor %}
