@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     url(r'^matches/generate/?$', 'scorebrd.views.matches_generate_listing'),
     url(r'^matches/generate/(?P<group_id>\d+)/?$', 'scorebrd.views.matches_generate'),
 
-    url(r'^match/(?P<match_id>\d+)/?$', 'scorebrd.views.match_view'),
+    url(r'^match/play/(?P<match_id>\d+)/?$', 'scorebrd.views.match_play'),
     url(r'^results/?$', 'scorebrd.views.results'),
     url(r'^results/group/(?P<group_id>\d+)/?$', 'scorebrd.views.results_group_view'),
     url(r'^results/team/(?P<team_id>\d+)/?$', 'scorebrd.views.results_team_view'),

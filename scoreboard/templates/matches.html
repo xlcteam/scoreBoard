@@ -4,12 +4,12 @@
   {% for match in matches %}
     {% if match.playing == 'D' %}
     <li class='finished'>
-      <a href="/match/{{ match.id }}">{{ match }}</a>
+      <a href="/results/match/{{ match.id }}">{{ match }}</a>
       <a class='button blue' href=/results/match/{{ match.id }}> See results! </a>
     </li>
     {% else %}
-    <li><a href="/match/{{ match.id }}">{{ match }}</a> 
-      <a class='button orange' href=/match/{{ match.id }}> Play ! </a>
+    <li><a href="/match/play/{{ match.id }}">{{ match }}</a> 
+      <a class='button orange' href=/match/play/{{ match.id }}> Play ! </a>
     </li>
     {% endif %}
   {% endfor %}

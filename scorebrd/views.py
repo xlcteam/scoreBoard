@@ -150,8 +150,11 @@ def matches_generate(request, group_id=None):
 def matches_generate_listing(request):
     pass
 
-def match_view(request, match_id):
-    pass
+@render_to('matches/play.html')
+def match_play(request, match_id):
+    match = get_object_or_404(Match, pk=match_id)
+    return {'match': match}
+
 
 def results(request):
     pass
