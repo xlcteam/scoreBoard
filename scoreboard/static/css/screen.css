@@ -43,7 +43,7 @@ a { color: #006aeb; padding: 3px 1px; }
 #banner h1 { color: white; font-size: 50px; line-height: 121px; margin: 0; padding-left: 40px; text-shadow: 1px 1px 0 rgba(0, 0, 0, .9); }
 
 #content { background: white; border: 1px solid #eff4f7; border-radius: 0 0 12px 12px; padding: 10px 40px; min-height: 50px; }
-#content > h2 { font-size: 130%; color: #666; clear: both; padding: 1.2em 0; margin: 0; }
+#content > h2 { font-size: 130%; color: #666; clear: both; padding: 0 0 0.7em 0; margin: 0; }
 
 h2 span { color: #87A7D5; }
 h2 a { text-decoration: none; background: transparent; }
