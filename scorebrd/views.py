@@ -155,6 +155,9 @@ def match_play(request, match_id):
     match = get_object_or_404(Match, pk=match_id)
     return {'match': match}
 
+@render_to('results/live.html')
+def results_live(request):
+    return {}
 
 def results(request):
     pass

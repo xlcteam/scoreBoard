@@ -1,6 +1,6 @@
 <html>
   <head>   
-    <title> scoreBoard - {$teams[$match->team1ID]->name} vs. {$teams[$match->team2ID]->name} </title>    
+    <title> scoreBoard - {{ match.teamA.name }} vs {{ match.teamB.name }} </title>    
     <meta http-equiv="Content-Language" content="en-EN">
     
     <script src="{{ STATIC_URL }}/js/lib/jquery.js"></script>
