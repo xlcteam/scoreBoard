@@ -1,0 +1,182 @@
+<html>
+  <head>   
+    <title> scoreTable </title>    
+    <meta http-equiv="Content-Language" content="en-EN">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <script src="{{ STATIC_URL }}/js/lib/jquery.js"></script>
+    <script src="{{ STATIC_URL }}/js/lib/scrollingcarousel.2.0.min.js"></script>
+    <script src="{{ STATIC_URL }}/js/lib/jquery.masonry.min.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL }}/css/scoreTable/style.css">    
+    
+    <script>
+        var first = 0;
+        var speed = 1000;
+        var pause = 5000;
+
+        function removeFirst(){
+            first = $('div#tables .wholeEventTable:first').html();
+            $('div#tables .wholeEventTable:first').fadeOut('slow', function() { 
+                    $(this).remove(); 
+                    addLast(first);
+            });
+        }
+
+        function addLast(first){
+            var last = '<div class="wholeEventTable" style="display:none">'+first+'</div>';
+            $('div#tables .wholeEventTable:last').fadeIn('slow', function(){
+                    $('div#tables').append(last);
+            });
+        }
+
+   </script>
+
+  </head>
+
+  <body>
+    <div id="slider">
+      <ul>
+        {% if matches|length is not 0}
+            {% for match in matches}
+                <li> <strong>{{ match.team1ID.name }} </strong>
+                            {{ match.team1goals }}:{% match.team2goals }}
+                    <strong>{{ match.team2ID.name }}</strong> 
+                </li>
+            {% endfor %}
+            {% if matches|length < 3 %}
+              <li> <div style="width: {{ 3 - len(matches)*300 }}px;"></div></li>
+            {% endif }
+        {% else %}
+            <li> No matches are playing at the moment. </li> 
+            <li> Sorry for any inconvenience. </li>
+        {% endif %}
+
+      </ul>
+    </div>
+  
+    <div id="tables">
+	<!--new table-->
+        {% with i=0 %}
+            {% for group in groups %}
+                {var $teams = $model->getResults()->where('groupID', $group->id)->order('points DESC, goal_diff DESC');}
+                {% if teams|length !== 0 %}
+                    {{ i|add 1 }}
+	                <div class="wholeEventTable">
+                        <div class="eventDiv"><span class="groupName">{{group.name }}</span></div>
+                            <div class="matches">
+                                <table class="resultTable">
+                                    <tr>
+                                        <th>Pos.</th>
+                                        <th></th>
+                                        <th>P</th>
+                                        <th>S</th>
+                                        <th>W</th>
+                                        <th>D</th>
+                                        <th>L</th>
+                                        <th>P</th>
+                                     </tr>
+                                    {% for result in team_results %}
+                                        {% if forloop.counter0|divisibleby:"2" %}
+                                            <tr class="even">
+                                        {% else %}
+                                            <tr class="odd">
+                                        {% endif %}
+                                                <td> {{ forloop.counter }}. </td>
+                                                <td class='name'> {{ result.team.name }} </td>
+                                                <td> {{ result.matches_played }} </td>
+                                                <td> {{ result.goal_shot }}:{{ result.goal_diff }} </td>
+                                                <td> {{ result.wins }} </td>
+                                                <td> {{ result.draws }} </td>
+                                                <td> {{ result.loses }} </td>
+                                                <td class="points"> {{ result.points }} </td>
+                                        {% comment %}
+                                            <td> {{ result.goal_shot }}:{{ result.goal_shot - result.goal_diff }} </td>
+                                        {% endcomment %}
+                                            </tr>
+                                    {% endfor %}
+                                </table>	
+                            <span class="eventName">{{ event.name }}</span>		
+                         </div>
+                    </div>
+                {% endif}
+            {% endfor %}
+
+            {% for group in groups %}
+                {var $matches = $model->getMatches()->where('groupID',
+                                $group->id)->where('state', 'played');}
+                {% if matches|length is not 0 %}
+	                <div class="wholeEventTable">
+                        <div class="eventDiv"><span class="groupName">{{ group.name }}</span></div>
+                        <div class="matches">
+                            <table class='matchTable'>
+                                {% for match in matches %}
+                                    <tr>
+                                       <td class='left'> {{ match.team1ID.name }} </td>
+                                        <td><strong>{{ match.team1ID.goals_shot}}</strong></td> <td><strong>:</strong></td> <td><strong>{{ match.team2ID.goals_shot}}</strong></td>
+                                        <td class='right'> {{ match.team2ID.name }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endwith %}
+    </div>
+
+    <div id="footer"> 
+        <img style="float: left; padding: 3px;" src="{{ STATIC_URL }}/imgs/ddg.png"></img>        
+      <span>
+        <strong style="padding-top: -20px">Vytvoril XLC Team</strong>
+        <img src="{{ STATIC_URL }}/css/scoreTable/imgs/logo_black.png"></img>        
+      </span>
+    </div>
+
+    <script>
+    var interval = null;
+    function update(){
+        $.get({link update!}, function(data){
+                $("#tables").html(data['groups']); 
+                $("#slider ul:first, #slider ul:last").html(data['matches']);
+              //var w = $('#slider ul:first').clientWidth;
+              //var offs = $('#slider ul:first').offsetLeft;
+              //if(offs > 0 || offs > -w) {
+              //        $("#slider ul:first").html(data['matches']);
+              //        setTimeout(function(){
+              //                $("#slider ul:last").html(data['matches']);
+              //                
+              //        }, 5000);
+
+              //} else {
+              //        $("#slider ul:last").html(data['matches']);
+              //        setTimeout(function(){
+              //                $("#slider ul:first").html(data['matches']);
+              //                
+              //        }, 5000);
+              //}
+                        
+
+                if (interval !== null){
+                        $("#tables .wholeEventTable:gt(3)").hide();
+                        interval = setInterval(removeFirst, pause);
+                }
+                console.log('updated');
+        })
+    }
+      $(document).ready(function() {  
+            $('#slider').scrollingCarousel( {
+              scrollerAlignment : 'horizontal',
+              autoScroll: true,
+              autoScrollSpeed: 10000
+             });
+             setInterval(update, 5000);
+      
+           {if $i > 4} 
+            $("#tables .wholeEventTable:gt(3)").hide();
+                interval = setInterval(removeFirst, pause);
+           {/if}
+
+      });
+ 
+    </script>
+  </body>
+</html> 
