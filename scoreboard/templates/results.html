@@ -1,3 +1,4 @@
+{% if team_results %}
 <table class='teamTable'>
     <tr>
         <th> <abbr title="Position in the table"> Pos. </abbr></th>
@@ -30,5 +31,9 @@
         </tr>
     {% endfor %}
 </table>
+
+{% else %}
+  Unfortunately, no matches have been played yet.
+{% endif %}
 
 
