@@ -70,7 +70,7 @@ def events(request):
 @login_required(login_url='/login/')
 def event(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
-    competitions = Competition.objects.all()
+    competitions = event.competitions.all()
     return {'event': event, 'competitions': competitions}
 
 # competition/s
