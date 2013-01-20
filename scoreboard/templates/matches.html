@@ -1,20 +1,80 @@
-
 {% if matches %}
-  <ul>
-  {% for match in matches %}
-    {% if match.playing == 'D' %}
-    <li class='finished'>
-      <a href="/results/match/{{ match.id }}">{{ match }}</a>
-      <a class='button blue' href=/results/match/{{ match.id }}> See results! </a>
-    </li>
-    {% else %}
-    <li><a href="/match/play/{{ match.id }}">{{ match }}</a> 
-      <a class='button orange' href=/match/play/{{ match.id }}> Play ! </a>
-    </li>
-    {% endif %}
-  {% endfor %}
-  </ul>
+<table class='matchTable'>
+        {% for match in matches %}
+          <tr>
+            {% if match.playing == 'N' %}
+                <td class='left'> 
+                    <a href="">
+                        {{ match.teamA.name }}
+                    </a>
+                </td>
+                <td><strong>vs.</strong></td>
+                <td class='right'> 
+                    <a href="">
+                        {{ match.teamB.name }}
+                    </a>
+                </td>
+                <td>
+                  <a class='button orange' href="/match/play/{{ match.id }}"> Play ! </a>
+                </td>
+            {% elif match.playing == 'P' %}
+                <td class='left'> 
+                    {{ match.teamA.name }}
+                </td>
+                <td><strong>vs.</strong></td>
+                <td class='right'> 
+                    {{ match.teamB.name }}
+                </td>
+                <td><a class="button" href=""> Restart</a></td>
+            {% else %}
+                <td class='left'> 
+                    {{ match.teamA.name }}
+                </td>
+                <td><strong>{{ match.scoreA }}</strong></td> <td><strong>:</strong></td> <td><strong>{{ match.scoreB.name }}</strong></td>
+                <td class='right'> 
+                    {{ match.teamB.name }}
+                </td>
+                <td>
+                  <a class="button" href=""> See results!</a>
+                </td>
+           {% endif %}
+
+        </tr>
+      {% endfor %}
+</table>
+
 {% else %}
-  Unfortunately, no matches were found. 
-  <a href="/matches/generate/{{ group.id }}"> Generate some!</a>
+      Unfortunately, no matches were found.
+        {% if group %}
+        <a href="/matches/generate/{{ group.id }}"> Generate some!</a>
+        {% else %}
+        <a href="/matches/generate/"> Generate some!</a>
+        {% endif %}
+ 
 {% endif %}
+
+
+
+
+
+{% comment %}
+    {% if matches %}
+      <ul>
+      {% for match in matches %}
+        {% if match.playing == 'D' %}
+        <li class='finished'>
+          <a href="/results/match/{{ match.id }}">{{ match }}</a>
+          <a class='button blue' href=/results/match/{{ match.id }}> See results! </a>
+        </li>
+        {% else %}
+        <li><a href="/match/play/{{ match.id }}">{{ match }}</a> 
+          <a class='button orange' href=/match/play/{{ match.id }}> Play ! </a>
+        </li>
+        {% endif %}
+      {% endfor %}
+      </ul>
+    {% else %}
+      Unfortunately, no matches were found. 
+      <a href="/matches/generate"> Generate some!</a>
+    {% endif %}
+{% endcomment %}

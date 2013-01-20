@@ -6,13 +6,15 @@
     <a href="/group/{{group.id}}">{{group.name}}</a> 
 </div>
 
+<h2> Group {{ group.name }} </h2>
+
+<h3>Results</h3>
 {% include "results.html" %}
 
-{% comment %}
-{% include "matches/list.html" %}
-{% endcomment %}
+<h3>Matches</h3>
+{% include "matches.html" %}
 
-<h2>Teams in {{ group.name }} </h2>
+<h3>Teams </h3>
 
 {% include "teams.html" %}
 {% endblock %}
