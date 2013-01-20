@@ -1,5 +1,5 @@
 <table class='matchTable'>
-        {% for match in matches}
+        {% for match in matches %}
           <tr>
             {% if match.playing == 'N' %}
                 <td class='left'> 
@@ -37,12 +37,14 @@
 
       {% endfor %}
         
-      {% if matches|length == 0 % }
-
-        No matches found. 
-        <a href=""> 
-              Generate them!
-        </a>
+      {% if matches|length == 0 %}
+      Unfortunately, no matches were found.
+        {% if group %}
+        <a href="/matches/generate/{{ group.id }}"> Generate some!</a>
+        {% else %}
+        <a href="/matches/generate/"> Generate some!</a>
+        {% endif %}
+      {% endif %}
 </table>
 
 
