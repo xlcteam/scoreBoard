@@ -1,4 +1,5 @@
 {% if matches %}
+<strong>Search matches: <input type="text" placeholder="Quick Search" id="id_search" value="" name="search" style="margin-left: 5px;"> </strong> <br/>
 <table class='matchTable'>
         {% for match in matches %}
           <tr>
@@ -49,3 +50,10 @@
         {% endif %}
  
 {% endif %}
+
+<script type="text/javascript">
+		$(function () {
+			$('input#id_search').quicksearch('.matchTable tbody tr');		
+
+		});
+	</script>
