@@ -1,7 +1,8 @@
 html { overflow-y: scroll; }
 body { font: 14px/1.65 Verdana, "Geneva CE", lucida, sans-serif; background: #3484d2; color: #333; margin: 8px;}
 
-h1, h2 { font: normal 150%/1.3 Georgia, "New York CE", utopia, serif; color: #1e5eb6; -webkit-text-stroke: 1px rgba(0,0,0,0); }
+h1, h2, { font: normal 150%/1.3 Georgia, "New York CE", utopia, serif; color: #1e5eb6; -webkit-text-stroke: 1px rgba(0,0,0,0); }
+
 
 img { border: none; }
 
@@ -44,6 +45,9 @@ a { color: #006aeb; padding: 3px 1px; }
 
 #content { background: white; border: 1px solid #eff4f7; border-radius: 0 0 12px 12px; padding: 10px 40px; min-height: 50px; }
 #content > h2 { font-size: 130%; color: #666; clear: both; padding: 0.7em 0 0 0; margin: 0; }
+
+#content > h3 { font-size: 110%; font-weight: bold; color: #666; clear: both; padding: 0.7em 0 0 0; margin: 0; }
+
 
 h2 span { color: #87A7D5; }
 h2 a { text-decoration: none; background: transparent; }
@@ -112,7 +116,6 @@ a[href^="error:"] {
 
 .matchTable .left{
         text-align: right;
-        width: 140px;
 }
 
 .matchTable .right{

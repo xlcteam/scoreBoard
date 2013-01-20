@@ -11,7 +11,7 @@
                         {{ match.teamB.name }}
                 </td>
                 <td>
-                  <a class='button orange' href="/match/play/{{ match.id }}"> Play ! </a>
+                  <a class='smaller button orange' href="/match/play/{{ match.id }}"> Play ! </a>
                 </td>
             {% elif match.playing == 'P' %}
                 <td class='left'> 
@@ -31,7 +31,7 @@
                     {{ match.teamB.name }}
                 </td>
                 <td>
-                  <a class="button" href="/results/match/{{ match.id }}"> See
+                  <a class="smaller button" href="/results/match/{{ match.id }}"> See
                     more!</a>
                 </td>
            {% endif %}
