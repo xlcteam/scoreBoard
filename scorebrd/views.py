@@ -6,6 +6,25 @@ from django.core.context_processors import csrf
 from annoying.decorators import render_to
 from django.contrib.auth.decorators import login_required
 
+# code from
+# http://code.activestate.com/recipes/65200-round-robin-pairings-generator/
+def round_robin(units, sets=None):
+    """ Generates a schedule of "fair" pairings from a list of units """
+    if len(units) % 2:
+        units.append(None)
+    count    = len(units)
+    sets     = sets or (count - 1)
+    half     = count / 2
+    schedule = []
+    for turn in range(sets):
+        pairings = []
+        for i in range(half):
+            if units[i] is None or units[count-i-1] is None:
+                continue
+            pairings.append((units[i], units[count-i-1]))
+        units.insert(1, units.pop())
+        schedule.append(pairings)
+    return schedule
 
 @render_to('login.html')
 def my_login(request, url='/'):
@@ -136,20 +155,24 @@ def index(request):
 @render_to('matches/generate.html')
 @login_required(login_url='/login/')
 def matches_generate(request, group_id=None):
-    if group_id is None:
-        if request.GET:
-            return {'groups': Group.objects.all()}
-        elif request.POST:
-            group = get_object_or_404(Group, pk=group_id)
-            teams = group.teams.all()
-    
     group = get_object_or_404(Group, pk=group_id)
     competition = group.competition_set.all()[0]
     return {'group': group, 'competition': competition}
 
+@render_to('matches/generate_listing.html')
 def matches_generate_listing(request):
-    pass
+    group = get_object_or_404(Group, pk=request.POST['group_id'])
+    teams = list(group.teams.all())
 
+    matches = []
+    schedule = round_robin(teams)
+    for round in schedule:
+        for teams in round:
+            match = Match(teamA=teams[0], teamB=teams[1], referee=request.user)
+            match.save()
+            matches.append(match)
+    return {'matches': matches}
+ 
 @render_to('matches/play.html')
 def match_play(request, match_id):
     match = get_object_or_404(Match, pk=match_id)
