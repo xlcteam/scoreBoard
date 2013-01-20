@@ -12,6 +12,13 @@ class Team(models.Model):
     def __unicode__(self):
         return self.name
 
+class Group(models.Model):
+    name = models.CharField(max_length=200)
+    teams = models.ManyToManyField(Team)
+
+    def __unicode__(self):
+        return self.name
+
 class Match(models.Model):
     teamA = models.ForeignKey(Team, related_name='homelanders')
     teamB = models.ForeignKey(Team, related_name='foreigners')
@@ -25,19 +32,13 @@ class Match(models.Model):
     playing = models.CharField(max_length=1, choices=PLAYING_CHOICES,
             default='N')
     referee = models.ForeignKey('auth.User')
+    group = models.ForeignKey(Group)
 
     class Meta:
         verbose_name_plural = 'matches'
 
     def __unicode__(self):
         return "%s vs. %s" % (self.teamA.name, self.teamB.name)
-
-class Group(models.Model):
-    name = models.CharField(max_length=200)
-    teams = models.ManyToManyField(Team)
-
-    def __unicode__(self):
-        return self.name
 
 class TeamResult(models.Model):
     team = models.ForeignKey(Team)
