@@ -8,13 +8,22 @@
 
 <h2> Group {{ group.name }} </h2>
 
-<h3>Results</h3>
-{% include "results.html" %}
+<section class="row">
 
-<h3>Matches</h3>
-{% include "matches.html" %}
+  <section class="col span_4 clr"> 
+    <h3>Results</h3>
+    {% include "results.html" %}
+  </section>  
+  
+  <section class="col span_4 clr"> 
+    <h3>Matches</h3>
+    {% include "matches.html" %}
+  </section>  
 
-<h3>Teams </h3>
+  <section class="col span_4 clr"> 
+    <h3>Teams </h3>
+    {% include "teams.html" %}
+  </section>  
 
-{% include "teams.html" %}
+</section>
 {% endblock %}

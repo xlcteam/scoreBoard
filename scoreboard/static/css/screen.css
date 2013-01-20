@@ -130,6 +130,10 @@ a[href^="error:"] {
         text-decoration: underline;
 }
 
+.matchTable a.button {
+  margin-left: 2em;
+}
+
 .finished {
         color: #ccc;
 }
