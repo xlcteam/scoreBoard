@@ -1,0 +1,72 @@
+<table class='matchTable'>
+        {% for match in matches}
+          <tr>
+            {% if match.playing == 'N' %}
+                <td class='left'> 
+                    <a href="">
+                        {{ match.teamA.name }}
+                    </a>
+                </td>
+                <td><strong>vs.</strong></td>
+                <td class='right'> 
+                    <a href="">
+                        {{ match.teamB.name }}
+                    </a>
+                </td>
+            {% elif match.playing == 'P' %}
+                <td class='left'> 
+                    {{ match.teamA.name }}
+                </td>
+                <td><strong>vs.</strong></td>
+                <td class='right'> 
+                    {{ match.teamB.name }}
+                </td>
+                <td><a class="button" href=""> Restart</a></td>
+            {% else %}
+                <td class='left'> 
+                    {{ match.teamA.name }}
+                </td>
+                <td><strong>{{ match.scoreA }}</strong></td> <td><strong>:</strong></td> <td><strong>{{ match.scoreB.name }}</strong></td>
+                <td class='right'> 
+                    {{ match.teamB.name }}
+                </td>
+            {% endif %}
+
+        </tr>
+
+
+      {% endfor %}
+        
+      {% if matches|length == 0 % }
+
+        No matches found. 
+        <a href=""> 
+              Generate them!
+        </a>
+</table>
+
+
+
+
+
+{% comment %}
+    {% if matches %}
+      <ul>
+      {% for match in matches %}
+        {% if match.playing == 'D' %}
+        <li class='finished'>
+          <a href="/results/match/{{ match.id }}">{{ match }}</a>
+          <a class='button blue' href=/results/match/{{ match.id }}> See results! </a>
+        </li>
+        {% else %}
+        <li><a href="/match/play/{{ match.id }}">{{ match }}</a> 
+          <a class='button orange' href=/match/play/{{ match.id }}> Play ! </a>
+        </li>
+        {% endif %}
+      {% endfor %}
+      </ul>
+    {% else %}
+      Unfortunately, no matches were found. 
+      <a href="/matches/generate"> Generate some!</a>
+    {% endif %}
+{% endcomment %}
