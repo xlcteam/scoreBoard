@@ -4,15 +4,11 @@
           <tr>
             {% if match.playing == 'N' %}
                 <td class='left'> 
-                    <a href="">
                         {{ match.teamA.name }}
-                    </a>
                 </td>
                 <td><strong>vs.</strong></td>
                 <td class='right'> 
-                    <a href="">
                         {{ match.teamB.name }}
-                    </a>
                 </td>
                 <td>
                   <a class='button orange' href="/match/play/{{ match.id }}"> Play ! </a>
