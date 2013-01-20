@@ -1,0 +1,52 @@
+<table class='matchTable'>
+        {% for match in matches}
+          <tr>
+            {% if match.playing == 'N' %}
+                <td class='left'> 
+                    <a href="">
+                        {{ match.teamA.name }}
+                    </a>
+                </td>
+                <td><strong>vs.</strong></td>
+                <td class='right'> 
+                    <a href="">
+                        {{ match.teamB.name }}
+                    </a>
+                </td>
+            {% elif match.playing == 'P' %}
+                <td class='left'> 
+                    {{ match.teamA.name }}
+                </td>
+                <td><strong>vs.</strong></td>
+                <td class='right'> 
+                    {{ match.teamB.name }}
+                </td>
+                <td><a class="button" href="{plink Match:play $match->id}"> Restart</a></td>
+            {% else %}
+                <td class='left'> 
+                    {{ match.teamA.name }}
+                </td>
+                <td><strong>{{ match.scoreA }}</strong></td> <td><strong>:</strong></td> <td><strong>{{ match.scoreB.name }}</strong></td>
+                <td class='right'> 
+                    {{ match.teamB.name }}
+                </td>
+            {% endif %}
+
+        </tr>
+
+
+      {% endfor %}
+        
+      {% if matches|length == 0 % }
+
+        No matches found. 
+        <a href="{plink Match:generate $group}"> 
+              Generate them!
+        </a>
+
+      {% elif $unplayed->count() == 0 %}
+        No matches found.
+      {% endif %}
+
+        
+</table>
