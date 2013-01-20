@@ -21,7 +21,7 @@
                 <td class='right'> 
                     {{ match.teamB.name }}
                 </td>
-                <td><a class="button" href="{plink Match:play $match->id}"> Restart</a></td>
+                <td><a class="button" href=""> Restart</a></td>
             {% else %}
                 <td class='left'> 
                     {{ match.teamA.name }}
@@ -40,15 +40,9 @@
       {% if matches|length == 0 % }
 
         No matches found. 
-        <a href="{plink Match:generate $group}"> 
+        <a href=""> 
               Generate them!
         </a>
-
-      {% elif $unplayed->count() == 0 %}
-        No matches found.
-      {% endif %}
-
-        
 </table>
 
 
