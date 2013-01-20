@@ -2,9 +2,13 @@
 {% block content %}
 
 <h1>Welcome to scoreBoard</h1>
+
 {% if user.is_authenticated %}
-<h2>Events registered with scoreBoard</h2>
-    {% include "events.html" %}
+    <div style="width: 400px; float: left;">
+        <h2>Events registered with scoreBoard</h2>
+        {% include "events.html" %}
+    </div>
+        <div style="clear:both"></div>
 {% endif %}
 
 {% endblock %}
