@@ -11,6 +11,7 @@
 
 
     <div class="upMatches">
+      <strong style="font-size: 20px;">Upcomming matches: </strong>
       {% include "quicksearch.html" %}
       {% for event in events %}  
         {% for competition in event.competitions.all %}
