@@ -58,7 +58,6 @@ class TeamResult(models.Model):
                 self.loses, self.team, self.group)
 
 
-
 class Competition(models.Model):
     name = models.CharField(max_length=200)
     groups = models.ManyToManyField(Group)
