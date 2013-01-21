@@ -52,7 +52,6 @@ class TeamResult(models.Model):
     goal_diff = models.IntegerField(default=0)
     matches_played = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
-    referee = models.ForeignKey('auth.User')
 
     def __unicode__(self):
         return "{0} - {1} - {2} -> {3} in {4}".format(self.wins, self.draws,
