@@ -1,3 +1,4 @@
+{% load substract %}
 {% if team_results %}
 <table class='teamTable'>
     <tr>
@@ -20,7 +21,7 @@
             <td> {{ forloop.counter }}. </td>
             <td class='name'> {{ result.team.name }} </td>
             <td> {{ result.matches_played }} </td>
-            <td> {{ result.goal_shot }}:{{ result.goal_diff }} </td>
+            <td> {{ result.goal_shot }}:{{ result.goal_shot|substract:result.goal_diff }} </td>
             <td> {{ result.wins }} </td>
             <td> {{ result.draws }} </td>
             <td> {{ result.loses }} </td>
