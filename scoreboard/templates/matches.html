@@ -1,6 +1,5 @@
 {% if matches %}
-<input type="text" placeholder="Put the team name here" id="id_search" value=""
-name="search" style="width: 80%"> <br/>
+
 <table class='matchTable'>
         {% for match in matches %}
           <tr>
@@ -51,10 +50,3 @@ name="search" style="width: 80%"> <br/>
         {% endif %}
  
 {% endif %}
-
-<script type="text/javascript">
-		$(function () {
-			$('input#id_search').quicksearch('.matchTable tbody tr');		
-
-		});
-	</script>
