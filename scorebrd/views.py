@@ -152,7 +152,8 @@ def team(request, team_id):
 @render_to('index.html')
 def index(request):
     events = Event.objects.all()
-    return {'user': request.user, 'events': events}
+    matches = Match.objects.all()
+    return {'user': request.user, 'events': events, 'matches': matches}
 
 @render_to('matches/generate.html')
 @login_required(login_url='/login/')
