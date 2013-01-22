@@ -115,8 +115,9 @@ def group(request, group_id):
     teams = group.teams.all()
     competition = group.competition_set.all()[0]
     event = competition.event_set.all()[0]
-    team_results = TeamResult.objects.filter(group__id=group.id)
-    matches = group.matches.all()
+    team_results = TeamResult.objects.filter(group__id=group.id) \
+                    .order_by('matches_played').reverse()
+    matches = group.matches.all().order_by('playing')
     return {'group': group, 'teams': teams,
             'competition': competition, 'event': event, 
             'matches': matches,
@@ -144,8 +145,8 @@ def team(request, team_id):
     event = competition.event_set.all()[0]
     from itertools import chain
 
-    matches = list(chain(Match.objects.filter(teamA=team),
-            Match.objects.filter(teamB=team)))
+    matches = list(chain(Match.objects.filter(teamA=team).order_by('playing'),
+            Match.objects.filter(teamB=team).order_by('playing')))
     played = Match.objects.filter(teamA=team, playing='D').count() + \
             Match.objects.filter(teamB=team, playing='D').count()
 

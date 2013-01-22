@@ -125,7 +125,6 @@ a[href^="error:"] {
 
 .matchTable .left{
         text-align: right;
-        min-width: 100px;
 }
 
 .matchTable .right{

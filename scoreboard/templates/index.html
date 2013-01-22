@@ -11,7 +11,7 @@
     </div>
 
     <div class="col span_6">
-      <strong style="font-size: 20px;">Upcomming matches: </strong>
+      <strong style="font-size: 20px;">Upcomming matches: </strong><br />
       {% include "quicksearch.html" %}
       {% for event in events %}
         {% for competition in event.competitions.all %}
