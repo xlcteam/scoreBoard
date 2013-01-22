@@ -13,19 +13,19 @@
     <div class="upMatches">
       <strong style="font-size: 20px;">Upcomming matches: </strong>
       {% include "quicksearch.html" %}
-      {% for event in events %}  
+      {% for event in events %}
         {% for competition in event.competitions.all %}
             {% for group in competition.groups.all %}
-                <div class="gName">      
-                  <strong>{{ event.name }} : </strong>{{ competition.name }} - {{ group.name }} 
+                <div class="gName">
+                  <strong>{{ event.name }} : </strong>{{ competition.name }} - {{ group.name }}
                 </div>  <br/>
-                <div class="groupMatches"> 
-                    {% include "matches.html" %}
+                <div class="groupMatches">
+                    {% include "matches.html" with matches=group.matches.all %}
                 </div>
             {% endfor %}
         {% endfor %}
       {% endfor %}
-    </div>  
+    </div>
     <div style="clear: both;"></div>
 
 
