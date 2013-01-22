@@ -125,6 +125,7 @@ a[href^="error:"] {
 
 .matchTable .left{
         text-align: right;
+        min-width: 100px;
 }
 
 .matchTable .right{
@@ -358,8 +359,8 @@ a[href^="error:"] {
 }
 
 .gName {
-  float: left;
-  margin-left: 30px;
+  padding-top: 2em;
+
 }
 
 #fastinfo {

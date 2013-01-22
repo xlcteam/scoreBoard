@@ -4,13 +4,13 @@
 <h1>Welcome to scoreBoard</h1>
 
 {% if user.is_authenticated %}
-    <div style="width: 400px; float: left;">
+  <section class="row">
+    <div class="col span_6">
         <h2>Events registered with scoreBoard</h2>
         {% include "events.html" %}
     </div>
 
-
-    <div class="upMatches">
+    <div class="col span_6">
       <strong style="font-size: 20px;">Upcomming matches: </strong>
       {% include "quicksearch.html" %}
       {% for event in events %}
@@ -18,7 +18,7 @@
             {% for group in competition.groups.all %}
                 <div class="gName">
                   <strong>{{ event.name }} : </strong>{{ competition.name }} - {{ group.name }}
-                </div>  <br/>
+                </div>
                 <div class="groupMatches">
                     {% include "matches.html" with matches=group.matches.all %}
                 </div>
@@ -26,7 +26,7 @@
         {% endfor %}
       {% endfor %}
     </div>
-    <div style="clear: both;"></div>
+  </section>
 
 
 {% endif %}
