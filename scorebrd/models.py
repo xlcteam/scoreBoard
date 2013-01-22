@@ -29,9 +29,6 @@ class Match(models.Model):
     class Meta:
         verbose_name_plural = 'matches'
 
-    def get_in_group(self, group_id):
-        return self.filter(group__id=group_id)
-
     def __unicode__(self):
         return "%s vs. %s" % (self.teamA.name, self.teamB.name)
 
