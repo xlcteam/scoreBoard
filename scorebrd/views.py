@@ -146,8 +146,11 @@ def team(request, team_id):
 
     matches = list(chain(Match.objects.filter(teamA=team),
             Match.objects.filter(teamB=team)))
+    played = Match.objects.filter(teamA=team, playing='D').count() + \
+            Match.objects.filter(teamB=team, playing='D').count()
+
     return {'group': group, 'competition': competition, 'event': event,
-            'team': team, 'matches': matches}
+            'team': team, 'matches': matches, 'played': played}
 
 @render_to('index.html')
 def index(request):

@@ -3,11 +3,15 @@
 {% block content %}
 <div id="fastinfo">&raquo;
     <a href="/event/{{event.id}}">{{event.name}}</a> &raquo;
-    <a href="/competition/{{competition.id}}">{{competition.name}}</a> &raquo; 
+    <a href="/competition/{{competition.id}}">{{competition.name}}</a> &raquo;
     <a href="/group/{{group.id}}">{{group.name}}</a> &raquo;
     <a href="/team/{{team.id}}">{{team.name}}</a>
 </div>
 <h2> Matches for team {{ team.name }} </h2>
-{% include "quicksearch.html" %}
 {% include "matches.html" %}
+
+<p>
+Team <strong>{{ team.name }} </strong> has played {{ played }} match{{ played|pluralize }}.
+</p>
+
 {% endblock %}

@@ -4,36 +4,36 @@
         {% for match in matches %}
           <tr>
             {% if match.playing == 'N' %}
-                <td class='left'> 
+                <td class='left'>
                         {{ match.teamA.name }}
                 </td>
                 <td align="center"><strong>vs.</strong></td>
-                <td class='right'> 
+                <td class='right'>
                         {{ match.teamB.name }}
                 </td>
                 <td align="center">
                   <a class='smaller button orange' href="/match/play/{{ match.id }}"> Play ! </a>
                 </td>
             {% elif match.playing == 'P' %}
-                <td class='left'> 
+                <td class='left'>
                     {{ match.teamA.name }}
                 </td>
                 <td><strong>vs.</strong></td>
-                <td class='right'> 
+                <td class='right'>
                     {{ match.teamB.name }}
                 </td>
                 <td><a class="button" href=""> Restart</a></td>
             {% else %}
-                <td class='left'> 
+                <td class='left'>
                     {{ match.teamA.name }}
                 </td>
                 <td><strong>{{ match.scoreA }} : {{ match.scoreB }}</strong></td>
-                <td class='right'> 
+                <td class='right'>
                     {{ match.teamB.name }}
                 </td>
                 <td align="center">
                   <a class="smaller button" href="/results/match/{{ match.id }}"> See
-                    more!</a>
+                    more info!</a>
                 </td>
            {% endif %}
 
@@ -48,5 +48,5 @@
         {% else %}
         <a href="/matches/generate/"> Generate some!</a>
         {% endif %}
- 
+
 {% endif %}
