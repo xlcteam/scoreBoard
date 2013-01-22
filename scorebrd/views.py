@@ -116,7 +116,7 @@ def group(request, group_id):
     competition = group.competition_set.all()[0]
     event = competition.event_set.all()[0]
     team_results = TeamResult.objects.filter(group__id=group.id)
-    matches = Match.objects.filter(group__id=group.id).reverse()
+    matches = group.matches.all()
     return {'group': group, 'teams': teams,
             'competition': competition, 'event': event, 
             'matches': matches,
