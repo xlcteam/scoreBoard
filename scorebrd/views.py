@@ -173,6 +173,7 @@ def matches_generate_listing(request):
         for teams in round:
             match = Match(teamA=teams[0], teamB=teams[1], referee=request.user)
             match.save()
+            group.matches.add(match)
             matches.append(match)
     return {'matches': matches}
  
