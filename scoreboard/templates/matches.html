@@ -7,11 +7,11 @@
                 <td class='left'> 
                         {{ match.teamA.name }}
                 </td>
-                <td><strong>vs.</strong></td>
+                <td align="center"><strong>vs.</strong></td>
                 <td class='right'> 
                         {{ match.teamB.name }}
                 </td>
-                <td>
+                <td align="center">
                   <a class='smaller button orange' href="/match/play/{{ match.id }}"> Play ! </a>
                 </td>
             {% elif match.playing == 'P' %}
@@ -27,11 +27,11 @@
                 <td class='left'> 
                     {{ match.teamA.name }}
                 </td>
-                <td><strong>{{ match.scoreA }}</strong></td> <td><strong>:</strong></td> <td><strong>{{ match.scoreB }}</strong></td>
+                <td><strong>{{ match.scoreA }} : {{ match.scoreB }}</strong></td>
                 <td class='right'> 
                     {{ match.teamB.name }}
                 </td>
-                <td>
+                <td align="center">
                   <a class="smaller button" href="/results/match/{{ match.id }}"> See
                     more!</a>
                 </td>
