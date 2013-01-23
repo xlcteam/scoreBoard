@@ -14,7 +14,7 @@
                 <td align="center">
                   <a class='smaller button orange' href="/match/play/{{ match.id }}"> Play ! </a>
                 </td>
-            {% elif match.playing == 'P' and onlyplay == False %}
+            {% elif match.playing == 'P' and not_started_only == False %}
                 <td class='left'>
                     {{ match.teamA.name }}
                 </td>
@@ -23,7 +23,7 @@
                     {{ match.teamB.name }}
                 </td>
                 <td><a class="button blue" href="">See live results!</a></td>
-            {% elif onlyplay == False %}
+            {% elif not_started_only == False %}
                 <td class='left'>
                     {{ match.teamA.name }}
                 </td>
