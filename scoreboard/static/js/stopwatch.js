@@ -70,7 +70,7 @@ function format(millis) {
 				$("#time").stopwatch().stopwatch('stop');
 				toggleHalf();
 				window.halftime = 2;
-        $('#startSpan').html("Start 2nd half");
+        $('#startText').html("Start 2nd half");
         $('#startAll').show();			
 			}				
 		}else if (window.halftime == 2 && minutes >= window.mins){

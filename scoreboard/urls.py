@@ -29,4 +29,5 @@ urlpatterns = patterns('',
     url(r'^results/live/?$', 'scorebrd.views.results_live'),
     url(r'^results/group/(?P<group_id>\d+)/?$', 'scorebrd.views.results_group_view'),
     url(r'^results/team/(?P<team_id>\d+)/?$', 'scorebrd.views.results_team_view'),
+    url(r'^results/match/(?P<match_id>\d+)/?$', 'scorebrd.views.results_match_view'),
 )

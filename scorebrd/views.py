@@ -208,4 +208,11 @@ def results_group_view(request, group_id):
             'competition': competition, 'event': event, 
             'team_results': team_results}
 
+@render_to('results/match.html')
+@login_required(login_url='/login/')
+def results_match_view(request, match_id):
+    match = get_object_or_404(Match, pk=match_id)
+
+    return {'match': match}
+
 

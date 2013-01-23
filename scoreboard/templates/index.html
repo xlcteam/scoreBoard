@@ -21,7 +21,7 @@
                   <strong>{{ event.name }} : </strong>{{ competition.name }} - {{ group.name }}
                 </div>
                 <div class="groupMatches">
-                    {% include "matches.html" with matches=group.matches.all %}
+                    {% include "matches.html" with matches=group.matches.all onlyplay=True %}
                 </div>
             {% endfor %}
         {% endfor %}
