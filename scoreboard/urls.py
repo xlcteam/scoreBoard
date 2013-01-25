@@ -6,7 +6,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'scorebrd.views.index'),
+    url(r'^$', 'scorebrd.views.index', name='index'),
     url(r'^login/', 'scorebrd.views.my_login'),
     url(r'^logout/', 'scorebrd.views.my_logout'),
     url(r'^results/live', 'scorebrd.views.results_live'),
@@ -24,7 +24,8 @@ urlpatterns = patterns('',
     url(r'^matches/generate/?$', 'scorebrd.views.matches_generate_listing'),
     url(r'^matches/generate/(?P<group_id>\d+)/?$', 'scorebrd.views.matches_generate'),
 
-    url(r'^match/play/(?P<match_id>\d+)/?$', 'scorebrd.views.match_play'),
+    url(r'^match/play/(?P<match_id>\d+)/?$', 'scorebrd.views.match_play',
+        name='match_play'),
     url(r'^results/?$', 'scorebrd.views.results'),
     url(r'^results/live/?$', 'scorebrd.views.results_live'),
     url(r'^results/group/(?P<group_id>\d+)/?$', 'scorebrd.views.results_group_view'),

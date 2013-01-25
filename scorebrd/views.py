@@ -180,11 +180,17 @@ def matches_generate_listing(request):
             group.matches.add(match)
             matches.append(match)
     return {'matches': matches}
- 
-@render_to('matches/play.html')
+
+
+@login_required(login_url='/login/')
 def match_play(request, match_id):
+    if request.POST:
+        return HttpResponse('{ok: true}', mimetype="application/json") 
+       
     match = get_object_or_404(Match, pk=match_id)
-    return {'match': match}
+    return render_to_response('matches/play.html',
+                              {'match': match, 'match_id': match_id},
+                              context_instance=RequestContext(request))
 
 @render_to('results/live.html')
 def results_live(request):
