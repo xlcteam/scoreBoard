@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}/css/jquery-ui.css" type="text/css"/>
 
     <script>
-            window.update_url = {link update! $id};
-            window.back_url = {link finish $id};
+            window.update_url = {% url match_play match_id %};
+            window.back_url = {% url match_finish match_id %}
             window.finished = false;
             window.onbeforeunload = function(){
                     if (window.finished)
