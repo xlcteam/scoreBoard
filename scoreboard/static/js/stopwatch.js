@@ -38,7 +38,6 @@ function showD() {
 function startMatch (){
   $('#startAll').hide();
   toggle();
-  
 }
 
 function toggleHalf()
