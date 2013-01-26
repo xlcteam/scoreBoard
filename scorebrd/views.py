@@ -219,6 +219,8 @@ def results_group_view(request, group_id):
 def results_match_view(request, match_id):
     match = get_object_or_404(Match, pk=match_id)
 
-    return {'match': match}
-
-
+    group = match.group_set.all()[0]
+    competition = group.competition_set.all()[0]
+    event = competition.event_set.all()[0]
+    return {'group': group, 'match': match,
+            'competition': competition, 'event': event}
