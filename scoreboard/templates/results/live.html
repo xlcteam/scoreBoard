@@ -1,35 +1,14 @@
+{% load substract %}
 <html>
-  <head>   
-    <title> scoreTable </title>    
+  <head>
+    <title> scoreTable </title>
     <meta http-equiv="Content-Language" content="en-EN">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <script src="{{ STATIC_URL }}/js/lib/jquery.js"></script>
     <script src="{{ STATIC_URL }}/js/lib/scrollingcarousel.2.0.min.js"></script>
     <script src="{{ STATIC_URL }}/js/lib/jquery.masonry.min.js"></script>
-    <link rel="stylesheet" href="{{ STATIC_URL }}/css/scoreTable/style.css">    
-    
-    <script>
-        var first = 0;
-        var speed = 1000;
-        var pause = 5000;
-
-        function removeFirst(){
-            first = $('div#tables .wholeEventTable:first').html();
-            $('div#tables .wholeEventTable:first').fadeOut('slow', function() { 
-                    $(this).remove(); 
-                    addLast(first);
-            });
-        }
-
-        function addLast(first){
-            var last = '<div class="wholeEventTable" style="display:none">'+first+'</div>';
-            $('div#tables .wholeEventTable:last').fadeIn('slow', function(){
-                    $('div#tables').append(last);
-            });
-        }
-
-   </script>
-
+    <script src="{{ STATIC_URL }}/js/scoreTable.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL }}/css/scoreTable/style.css">
   </head>
 
   <body>
@@ -39,20 +18,20 @@
             {% for match in matches %}
                 <li> <strong>{{ match.teamA.name }} </strong>
                             {{ match.teamA }}:{{ match.teamB }}
-                    <strong>{{ match.teamB.name }}</strong> 
+                    <strong>{{ match.teamB.name }}</strong>
                 </li>
             {% endfor %}
             {% if matches|length <= 2 %}
               <li> <div style="width: 3 - {{ matches|length  }}*300px;"></div></li>
             {% endif %}
         {% else %}
-            <li> No matches are playing at the moment. </li> 
+            <li> No matches are playing at the moment. </li>
             <li> Sorry for any inconvenience. </li>
         {% endif %}
 
       </ul>
     </div>
-    
+
     <div id="tables">
       {% for competition in event.competitions.all %}
         {% for group in competition.groups.all %}
@@ -71,7 +50,7 @@
                     <th>L</th>
                     <th>Pts.</th>
                   </tr>
-                  {% comment %}
+                    {% for result in group.results.all %}
                     <tr>
                       <td>{{ forloop.counter }}.</td>
                       <td class="name">{{ result.team.name }}</td>
@@ -82,7 +61,7 @@
                       <td> {{ result.loses }} </td>
                       <td class="points"> <strong>{{ result.points }}</strong></td>
                     </tr>
-                  {% endcomment %}
+                    {% endfor %}
                 </tbody>
               </table>
               <div class="matches">
@@ -100,85 +79,8 @@
         {% endfor %}
       {% endfor %}
     </div>
-   
-
-    <script>
-    /*var interval = null;
-    function update(){
-        $.get({link update!}, function(data){
-                $("#tables").html(data['groups']); 
-                $("#slider ul:first, #slider ul:last").html(data['matches']);
-              //var w = $('#slider ul:first').clientWidth;
-              //var offs = $('#slider ul:first').offsetLeft;
-              //if(offs > 0 || offs > -w) {
-              //        $("#slider ul:first").html(data['matches']);
-              //        setTimeout(function(){
-              //                $("#slider ul:last").html(data['matches']);
-              //                
-              //        }, 5000);
-
-              //} else {
-              //        $("#slider ul:last").html(data['matches']);
-              //        setTimeout(function(){
-              //                $("#slider ul:first").html(data['matches']);
-              //                
-              //        }, 5000);
-              //}
-                        
-
-                if (interval !== null){
-                        $("#tables .wholeEventTable:gt(3)").hide();
-                        interval = setInterval(removeFirst, pause);
-                }
-                console.log('updated');
-        })
-    }*/
-      $(document).ready(function() {  
-        $('#slider').scrollingCarousel( {
-          scrollerAlignment : 'horizontal',
-          autoScroll: true,
-          autoScrollSpeed: 20000
-        });
-
-        $('.matches').each(function() {
-          $(this).css('height', $(window).height() - 230 - $(this).prev().height());
-          $(this).scrollingCarousel({
-              scrollerAlignment : 'vertical',
-              autoScroll: true,
-              autoScrollSpeed: 10000
-            });
-        });
-
-        $('.results').each(function(){
-          $(this).css('max-height', $(window).height() - 180);
-        });
-
-        tables = new Array();
-        $('.table').each(function(){
-          tables.push($(this));
-        });
 
 
-        for (var i = 2; i < tables.length; i++) {
-          tables[i].hide();
-        };
 
-        setInterval(function(){
-          table = tables.shift();
-          table.fadeOut('slow');
-          tables[tables.length-1].fadeIn('slow');
-          //console.log(tables[tables.length-1].find('.group_name').text());
-          tables.push(table);
-
-        }, 10000);
-      
-           /*{if $i > 4} 
-            $("#tables .wholeEventTable:gt(3)").hide();
-                interval = setInterval(removeFirst, pause);
-           {/if}*/
-
-      });
- 
-    </script>
   </body>
-</html> 
+</html>
