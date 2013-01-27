@@ -36,13 +36,13 @@ class Group(models.Model):
     name = models.CharField(max_length=200)
     teams = models.ManyToManyField(Team)
     matches = models.ManyToManyField(Match)
+    results = models.ManyToManyField(TeamResult)
 
     def __unicode__(self):
         return self.name
 
 class TeamResult(models.Model):
     team = models.ForeignKey(Team)
-    group = models.ForeignKey(Group)
 
     wins = models.IntegerField(default=0)
     draws = models.IntegerField(default=0)
