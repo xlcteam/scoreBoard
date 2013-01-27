@@ -8,6 +8,7 @@ body {
   color: #cccccc;
   margin: 0;
   font-family: "Trebuchet MS",Helvetica,Jamrul,sans-serif;
+  overflow: hidden;
 }
 
 #live{
@@ -46,7 +47,7 @@ body {
   width: 100%;
   float: left;
   height: auto;
-  padding-top: 110px;
+  padding-top: 20px;
   overflow: hidden;
 }
 
@@ -177,6 +178,7 @@ body {
 
 .matches {
   overflow: hidden;
+  padding: 5px 0;
 }
 
 .points  {
@@ -223,8 +225,6 @@ body {
 .matches_played {
   width: 100%;
 }
-
-
 
 .results ul {
   list-style: none;
