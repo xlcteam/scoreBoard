@@ -2,6 +2,13 @@
 
 {% block content %}
 
+<div id="fastinfo">&raquo;
+    <a href="/event/{{event.id}}">{{event.name}}</a> &raquo;
+    <a href="/competition/{{competition.id}}">{{competition.name}}</a> &raquo;
+    <a href="/group/{{group.id}}">{{group.name}}</a> &raquo;
+    <a href="/results/match/{{match.id}}">{{match.teamA.name}} vs {{match.teamB.name}}</a>
+</div>
+
 <h2> Match between <strong>{{match.teamA.name}}</strong> and <strong>{{match.teamB.name}}</strong></h2>
 
 Result - {{match.scoreA}} : {{match.scoreB}}<br>

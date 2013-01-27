@@ -35,16 +35,16 @@
   <body>
     <div id="slider">
       <ul>
-        {% if matches|length is not 0}
-            {% for match in matches}
-                <li> <strong>{{ match.team1ID.name }} </strong>
-                            {{ match.team1goals }}:{% match.team2goals }}
-                    <strong>{{ match.team2ID.name }}</strong> 
+        {% if matches %}
+            {% for match in matches %}
+                <li> <strong>{{ match.teamA.name }} </strong>
+                            {{ match.teamA }}:{{ match.teamB }}
+                    <strong>{{ match.teamB.name }}</strong> 
                 </li>
             {% endfor %}
-            {% if matches|length < 3 %}
-              <li> <div style="width: {{ 3 - len(matches)*300 }}px;"></div></li>
-            {% endif }
+            {% if matches|length <= 2 %}
+              <li> <div style="width: 3 - {{ matches|length  }}*300px;"></div></li>
+            {% endif %}
         {% else %}
             <li> No matches are playing at the moment. </li> 
             <li> Sorry for any inconvenience. </li>
@@ -52,87 +52,58 @@
 
       </ul>
     </div>
-  
+    
     <div id="tables">
-	<!--new table-->
-        {% with i=0 %}
-            {% for group in groups %}
-                {var $teams = $model->getResults()->where('groupID', $group->id)->order('points DESC, goal_diff DESC');}
-                {% if teams|length !== 0 %}
-                    {{ i|add 1 }}
-	                <div class="wholeEventTable">
-                        <div class="eventDiv"><span class="groupName">{{group.name }}</span></div>
-                            <div class="matches">
-                                <table class="resultTable">
-                                    <tr>
-                                        <th>Pos.</th>
-                                        <th></th>
-                                        <th>P</th>
-                                        <th>S</th>
-                                        <th>W</th>
-                                        <th>D</th>
-                                        <th>L</th>
-                                        <th>P</th>
-                                     </tr>
-                                    {% for result in team_results %}
-                                        {% if forloop.counter0|divisibleby:"2" %}
-                                            <tr class="even">
-                                        {% else %}
-                                            <tr class="odd">
-                                        {% endif %}
-                                                <td> {{ forloop.counter }}. </td>
-                                                <td class='name'> {{ result.team.name }} </td>
-                                                <td> {{ result.matches_played }} </td>
-                                                <td> {{ result.goal_shot }}:{{ result.goal_diff }} </td>
-                                                <td> {{ result.wins }} </td>
-                                                <td> {{ result.draws }} </td>
-                                                <td> {{ result.loses }} </td>
-                                                <td class="points"> {{ result.points }} </td>
-                                        {% comment %}
-                                            <td> {{ result.goal_shot }}:{{ result.goal_shot - result.goal_diff }} </td>
-                                        {% endcomment %}
-                                            </tr>
-                                    {% endfor %}
-                                </table>	
-                            <span class="eventName">{{ event.name }}</span>		
-                         </div>
-                    </div>
-                {% endif}
-            {% endfor %}
-
-            {% for group in groups %}
-                {var $matches = $model->getMatches()->where('groupID',
-                                $group->id)->where('state', 'played');}
-                {% if matches|length is not 0 %}
-	                <div class="wholeEventTable">
-                        <div class="eventDiv"><span class="groupName">{{ group.name }}</span></div>
-                        <div class="matches">
-                            <table class='matchTable'>
-                                {% for match in matches %}
-                                    <tr>
-                                       <td class='left'> {{ match.team1ID.name }} </td>
-                                        <td><strong>{{ match.team1ID.goals_shot}}</strong></td> <td><strong>:</strong></td> <td><strong>{{ match.team2ID.goals_shot}}</strong></td>
-                                        <td class='right'> {{ match.team2ID.name }}</td>
-                                    </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endwith %}
+      {% for competition in event.competitions.all %}
+        {% for group in competition.groups.all %}
+          <div class="table">
+            <div class="title"><span class="group_name">{{group.name}}</span></div>
+            <div class="results">
+              <table class="results_table">
+                <tbody>
+                  <tr>
+                    <th>Pos.</th>
+                    <th></th>
+                    <th>P</th>
+                    <th>S</th>
+                    <th>W</th>
+                    <th>D</th>
+                    <th>L</th>
+                    <th>Pts.</th>
+                  </tr>
+                  {% comment %}
+                    <tr>
+                      <td>{{ forloop.counter }}.</td>
+                      <td class="name">{{ result.team.name }}</td>
+                      <td>{{ result.matches_played}}</td>
+                      <td> {{ result.goal_shot }}:{{ result.goal_shot|substract:result.goal_diff }} </td>
+                      <td> {{ result.wins }} </td>
+                      <td> {{ result.draws }} </td>
+                      <td> {{ result.loses }} </td>
+                      <td class="points"> <strong>{{ result.points }}</strong></td>
+                    </tr>
+                  {% endcomment %}
+                </tbody>
+              </table>
+              <div class="matches">
+                <ul>
+                  {% for match in group.matches.all %}
+                    {% if match.playing == 'D' %}
+                      <li> {{match.teamA.name}} {{match.scoreA}}:{{match.scoreB}} {{match.teamB.name}}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+              </div>
+              <span class="eventName">{{ competition.name }}</span>
+            </div>
+          </div>
+        {% endfor %}
+      {% endfor %}
     </div>
-
-    <div id="footer"> 
-        <img style="float: left; padding: 3px;" src="{{ STATIC_URL }}/imgs/ddg.png"></img>        
-      <span>
-        <strong style="padding-top: -20px">Vytvoril XLC Team</strong>
-        <img src="{{ STATIC_URL }}/css/scoreTable/imgs/logo_black.png"></img>        
-      </span>
-    </div>
+   
 
     <script>
-    var interval = null;
+    /*var interval = null;
     function update(){
         $.get({link update!}, function(data){
                 $("#tables").html(data['groups']); 
@@ -161,19 +132,50 @@
                 }
                 console.log('updated');
         })
-    }
+    }*/
       $(document).ready(function() {  
-            $('#slider').scrollingCarousel( {
-              scrollerAlignment : 'horizontal',
+        $('#slider').scrollingCarousel( {
+          scrollerAlignment : 'horizontal',
+          autoScroll: true,
+          autoScrollSpeed: 20000
+        });
+
+        $('.matches').each(function() {
+          $(this).css('height', $(window).height() - 230 - $(this).prev().height());
+          $(this).scrollingCarousel({
+              scrollerAlignment : 'vertical',
               autoScroll: true,
               autoScrollSpeed: 10000
-             });
-             setInterval(update, 5000);
+            });
+        });
+
+        $('.results').each(function(){
+          $(this).css('max-height', $(window).height() - 180);
+        });
+
+        tables = new Array();
+        $('.table').each(function(){
+          tables.push($(this));
+        });
+
+
+        for (var i = 2; i < tables.length; i++) {
+          tables[i].hide();
+        };
+
+        setInterval(function(){
+          table = tables.shift();
+          table.fadeOut('slow');
+          tables[tables.length-1].fadeIn('slow');
+          //console.log(tables[tables.length-1].find('.group_name').text());
+          tables.push(table);
+
+        }, 10000);
       
-           {if $i > 4} 
+           /*{if $i > 4} 
             $("#tables .wholeEventTable:gt(3)").hide();
                 interval = setInterval(removeFirst, pause);
-           {/if}
+           {/if}*/
 
       });
  

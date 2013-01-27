@@ -13,13 +13,41 @@ body {
 #live{
   width: 50%;
   position: relative;
+	float: left;
+}
+
+#slider {
+  width: 100%;
+  height: 100px !important;
+  background: #EBC137;
+  overflow: hidden;
   float: left;
+}
+
+
+#slider ul{
+  padding-top: 10px;
+  list-style-type: none;
+  position: relative;
+}
+
+#slider li{
+  float: left;
+  font-size: 3em;
+  color: #771E10;
+  padding: 0 26px;
+}
+
+#slider strong{
+  color: #000;
 }
 
 #tables {
   width: 100%;
-  position: relative;
   float: left;
+  height: auto;
+  padding-top: 110px;
+  overflow: hidden;
 }
 
 .wholeEventLive {
@@ -28,15 +56,13 @@ body {
 	float: left;
 }
 
-.wholeEventTable {
-	padding-top: 90px;
+.table {
 	width: 50%;
-        float: left;
-        height: 280px;
+	float: left;
 }
 
 
-.matches {	
+.results {	
 	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #771E10), color-stop(100%, #771E10));
   background-image: -webkit-linear-gradient(top, #771E10, #771E10);
   background-image: -moz-linear-gradient(top, #771E10, #771E10);
@@ -64,11 +90,12 @@ body {
 	margin: 0 auto;
 	color: #fff;
   font: bold 40px "helvetica neue", helvetica, arial, sans-serif;
-  padding-bottom: 30px;
+  overflow: hidden;
+  height: 100%;
 	/*text-align: center;*/
 }
 
-.groupName {
+.group_name {
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #771E10), color-stop(100%, #771E10));
   background-image: -webkit-linear-gradient(top, #771E10, #771E10);
   background-image: -moz-linear-gradient(top, #771E10, #771E10);
@@ -97,7 +124,7 @@ body {
 	font-size: 40px;
 }
 
-.eventDiv {
+.title {
 	width: 97%;
 	margin: 0 auto;
 }
@@ -127,7 +154,7 @@ body {
 	float: left;
 }
 
-.resultTable {
+.results_table {
 	text-align: center;
 	color: #ffffff;
 	font-size: 70%;
@@ -144,8 +171,12 @@ body {
 	text-align: left;
 }
 
-.resultTable > td, th {
+.results-table > td, th {
 	padding: 0 5px;
+}
+
+.matches {
+  overflow: hidden;
 }
 
 .points  {
@@ -162,30 +193,6 @@ body {
 	background-color: #8c9cbf;	
 }
 
-#slider {
-  width: 100%;
-  height: 60px !important;
-  background: #EBC137;
-  overflow: hidden;
-}
-
-
-#slider ul{
-  margin-top: -2px;
-  list-style-type: none;
-  position: relative;
-}
-
-#slider li{
-  float: left;
-  font-size: 3em;
-  color: #771E10;
-  padding: 0 26px;
-}
-
-#slider strong{
-  color: #000;
-}
 
 .eventName {
   float: right;
@@ -201,50 +208,26 @@ body {
   background:#EBC137;
   color: #000; 
   height: 55px;
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   left: 0px;
   z-index: 1000000;
   text-align: center;
+  font-size: 2em;
 }
 
-<<<<<<< HEAD
-#footer span {
-  font-size: 30px;
+.group_tables {
+  width: 100%;
 }
 
-.logo {
-  background: url(imgs/logo_black.png);
+.matches_played {
+  width: 100%;
 }
 
 
-.matchTable{
-  font: 40px/100% Georgia, "New York CE", utopia, serif;
+
+.results ul {
+  list-style: none;
   text-align: center;
-  margin: 0 auto;
 }
 
-.matchTable .left{
-        text-align: right;
-        font-family: Arial;
-        padding-right: 10px;
-        width: 250px;
-
-}
-
-.matchTable .right{
-        text-align: left;
-        font-family: Arial;
-        padding-left: 10px;
-}
-
-.matchTable a{
-        text-decoration: none;                
-}
-
-.matchTable a:hover{
-        text-decoration: underline;
-}
-
-=======
->>>>>>> 6e981acb1ebbe49420317b1444b18a31a84e1794

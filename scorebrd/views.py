@@ -195,7 +195,15 @@ def match_play(request, match_id):
 
 @render_to('results/live.html')
 def results_live(request):
-    return {}
+    event = get_object_or_404(Event, pk=1) #TODO: topdown menu, click on event, show event results
+
+
+    #team_results = TeamResult.objects.filter(group__id=group.id) \
+    #                .order_by('matches_played').reverse()
+    #matches = group.matches.all().order_by('done')
+
+    return {'event': event} #'competitions': competitions, 'groups': groups, }
+            #'matches': matches, 'team_results': team_results}
 
 def results(request):
     pass
@@ -220,6 +228,8 @@ def results_group_view(request, group_id):
 def results_match_view(request, match_id):
     match = get_object_or_404(Match, pk=match_id)
 
-    return {'match': match}
-
-
+    group = match.group_set.all()[0]
+    competition = group.competition_set.all()[0]
+    event = competition.event_set.all()[0]
+    return {'group': group, 'match': match,
+            'competition': competition, 'event': event}
