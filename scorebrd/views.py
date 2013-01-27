@@ -116,7 +116,7 @@ def group(request, group_id):
     teams = group.teams.all()
     competition = group.competition_set.all()[0]
     event = competition.event_set.all()[0]
-    team_results = TeamResult.objects.filter(group__id=group.id) \
+    team_results = group.results.all()\
                     .order_by('matches_played').reverse()
     matches = group.matches.all().order_by('playing')
     return {'group': group, 'teams': teams,

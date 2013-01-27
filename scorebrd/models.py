@@ -45,8 +45,8 @@ class TeamResult(models.Model):
     points = models.IntegerField(default=0)
 
     def __unicode__(self):
-        return "{0} - {1} - {2} -> {3} in {4}".format(self.wins, self.draws,
-                self.loses, self.team, self.group)
+        return "{0} - {1} - {2} -> {3}".format(self.wins, self.draws,
+                self.loses, self.team)
 
 
 class Group(models.Model):
