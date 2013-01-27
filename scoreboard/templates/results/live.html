@@ -6,7 +6,6 @@
     <script src="{{ STATIC_URL }}/js/lib/jquery.js"></script>
     <script src="{{ STATIC_URL }}/js/lib/scrollingcarousel.2.0.min.js"></script>
     <script src="{{ STATIC_URL }}/js/lib/jquery.masonry.min.js"></script>
-    <script src="{{ STATIC_URL }}/js/lib/jquery.cycle.all.js"></script>
     <link rel="stylesheet" href="{{ STATIC_URL }}/css/scoreTable/style.css">    
     
     <script>
@@ -36,16 +35,16 @@
   <body>
     <div id="slider">
       <ul>
-        {% if matches|length is not 0}
-            {% for match in matches}
-                <li> <strong>{{ match.team1ID.name }} </strong>
-                            {{ match.team1goals }}:{% match.team2goals }}
-                    <strong>{{ match.team2ID.name }}</strong> 
+        {% if matches %}
+            {% for match in matches %}
+                <li> <strong>{{ match.teamA.name }} </strong>
+                            {{ match.teamA }}:{{ match.teamB }}
+                    <strong>{{ match.teamB.name }}</strong> 
                 </li>
             {% endfor %}
-            {% if matches|length < 3 %}
-              <li> <div style="width: {{ 3 - len(matches)*300 }}px;"></div></li>
-            {% endif }
+            {% if matches|length <= 2 %}
+              <li> <div style="width: 3 - {{ matches|length  }}*300px;"></div></li>
+            {% endif %}
         {% else %}
             <li> No matches are playing at the moment. </li> 
             <li> Sorry for any inconvenience. </li>
@@ -54,45 +53,52 @@
       </ul>
     </div>
     
-    <div id="all">
-      {% for event in events %}
-        {% for competition in event.competitions.all %}
-          <div id="tables">
-            {% for group in competition.groups.all %}
-	            <div class="table">
-                <div class="title"><span class="group_name">{{group.name}}</span></div>
-                <div class="results">
-                  <table class="results_table">
-                    <tbody>
-                      <tr>
-                        <th>Pos.</th>
-                        <th></th>
-                        <th>S</th>
-                        <th>W</th>
-                        <th>D</th>
-                        <th>L</th>
-                        <th>P</th>
-                      </tr>
-                      <tr>
-                        <td>{{ forloop.counter0 }}</td>
-                        <td class="name">XLC</td>
-                        <td>2</td>
-                        <td>2</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td class="points"><strong>6</strong></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <div class="matches">
-                    <ul>
-                      <li> fedas 4:5 sdasd</li>
-                    </ul>
-                  </div>
-                  <span class="eventName">Soccer A</span>
-                </div>
+    <div id="tables">
+      {% for competition in event.competitions.all %}
+        {% for group in competition.groups.all %}
+          <div class="table">
+            <div class="title"><span class="group_name">{{group.name}}</span></div>
+            <div class="results">
+              <table class="results_table">
+                <tbody>
+                  <tr>
+                    <th>Pos.</th>
+                    <th></th>
+                    <th>P</th>
+                    <th>S</th>
+                    <th>W</th>
+                    <th>D</th>
+                    <th>L</th>
+                    <th>Pts.</th>
+                  </tr>
+                  {% comment %}
+                    <tr>
+                      <td>{{ forloop.counter }}.</td>
+                      <td class="name">{{ result.team.name }}</td>
+                      <td>{{ result.matches_played}}</td>
+                      <td> {{ result.goal_shot }}:{{ result.goal_shot|substract:result.goal_diff }} </td>
+                      <td> {{ result.wins }} </td>
+                      <td> {{ result.draws }} </td>
+                      <td> {{ result.loses }} </td>
+                      <td class="points"> <strong>{{ result.points }}</strong></td>
+                    </tr>
+                  {% endcomment %}
+                </tbody>
+              </table>
+              <div class="matches">
+                <ul>
+                  {% for match in group.matches.all %}
+                    {% if match.playing == 'D' %}
+                      <li> {{match.teamA.name}} {{match.scoreA}}:{{match.scoreB}} {{match.teamB.name}}</li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
               </div>
+              <span class="eventName">{{ competition.name }}</span>
             </div>
+          </div>
+        {% endfor %}
+      {% endfor %}
     </div>
    
 
@@ -128,30 +134,43 @@
         })
     }*/
       $(document).ready(function() {  
-            $('#slider').scrollingCarousel( {
-              scrollerAlignment : 'horizontal',
+        $('#slider').scrollingCarousel( {
+          scrollerAlignment : 'horizontal',
+          autoScroll: true,
+          autoScrollSpeed: 20000
+        });
+
+        $('.matches').each(function() {
+          $(this).css('height', $(window).height() - 230 - $(this).prev().height());
+          $(this).scrollingCarousel({
+              scrollerAlignment : 'vertical',
               autoScroll: true,
               autoScrollSpeed: 10000
-             });
-             //setInterval(update, 5000);
-
-            $('.matches').each(function() {
-              $(this).css('height', $(window).height() - 220 - $(this).prev().height());
-              $(this).scrollingCarousel({
-                  scrollerAlignment : 'vertical',
-                  autoScroll: true,
-                  autoScrollSpeed: 20000
-                });
             });
+        });
 
-            $('.results').each(function(){
-              $(this).css('max-height', $(window).height() - 180);
-            });
+        $('.results').each(function(){
+          $(this).css('max-height', $(window).height() - 180);
+        });
 
-            $('#all').cycle({ 
-              fx: 'fade', 
-              delay: 10000,
-            });
+        tables = new Array();
+        $('.table').each(function(){
+          tables.push($(this));
+        });
+
+
+        for (var i = 2; i < tables.length; i++) {
+          tables[i].hide();
+        };
+
+        setInterval(function(){
+          table = tables.shift();
+          table.fadeOut('slow');
+          tables[tables.length-1].fadeIn('slow');
+          //console.log(tables[tables.length-1].find('.group_name').text());
+          tables.push(table);
+
+        }, 10000);
       
            /*{if $i > 4} 
             $("#tables .wholeEventTable:gt(3)").hide();
