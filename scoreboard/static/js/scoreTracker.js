@@ -1,7 +1,7 @@
 window.scaling1 = 0;
 window.scaling2 = 0;
 
-function scoreTracker()
+function scoreTracker(options)
 {
     $this = this;
     $this.teamA = 'Robot';
@@ -14,6 +14,8 @@ function scoreTracker()
     $this.halftime = 1;
     $this.finished = false;
     $this.soundEmbed = null;
+    $this.back_url = options['back_url'];
+    $this.update_url = options['update_url'];
 }
 
 scoreTracker.prototype = { 

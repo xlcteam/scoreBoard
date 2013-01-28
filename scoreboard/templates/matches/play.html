@@ -27,7 +27,10 @@
     </script>
 
     <script>
-        var ST = new scoreTracker();
+        var ST = new scoreTracker({
+          'update_url':  "{% url match_play match_id %}",
+          'back_url': "{% url index %}"
+        });
 
         $(document).ready(function() {
             $('#dialogMain').hide();
