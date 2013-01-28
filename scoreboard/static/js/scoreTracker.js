@@ -13,7 +13,7 @@ function scoreTracker()
     $this.secs = 0;
     $this.halftime = 1;
     $this.finished = false;
-    $this.soundembed = null;
+    $this.soundEmbed = null;
 }
 
 scoreTracker.prototype = { 
