@@ -172,6 +172,11 @@ def matches_generate_listing(request):
     group = get_object_or_404(Group, pk=request.POST['group_id'])
     teams = list(group.teams.all())
 
+    for team in teams:
+        result = TeamResult(team=team)
+        result.save()
+        group.results.add(result)
+
     matches = []
     schedule = round_robin(teams)
     for round in schedule:
@@ -195,6 +200,7 @@ def match_play(request, match_id):
 
 @render_to('results/live.html')
 def results_live(request):
+<<<<<<< HEAD
     if 'event' in request.GET:
         event = get_object_or_404(Event, pk=request.GET['event'])
         return {'event': event, 'event_only': True}
@@ -206,6 +212,18 @@ def results_live(request):
                 'group': group, 'group_only': True}
 
 
+=======
+    #event = get_object_or_404(Event, pk=1) #TODO: topdown menu, click on event, show event results
+
+    #team_results = TeamResult.objects.filter(group__id=group.id) \
+    #                .order_by('matches_played').reverse()
+    #matches = group.matches.all().order_by('done')
+
+    #return {'event': event} #'competitions': competitions, 'groups': groups, }
+            #'matches': matches, 'team_results': team_results}
+    events = Event.objects.all()
+    return {'events': events}
+>>>>>>> b88c4e1a9542fd53d3b42d08af2da52b9a209689
 
 def results(request):
     pass

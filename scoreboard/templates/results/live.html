@@ -25,15 +25,18 @@
               <li> <div style="width: 3 - {{ matches|length  }}*300px;"></div></li>
             {% endif %}
         {% else %}
-            <li> No matches are playing at the moment. </li>
-            <li> Sorry for any inconvenience. </li>
+          <li> No matches are playing at the moment.
+          <li> Sorry for any inconvenience.
         {% endif %}
-
       </ul>
     </div>
 
     <div id="tables">
+<<<<<<< HEAD
       {% if event_only %}
+=======
+      {% for event in events %}
+>>>>>>> b88c4e1a9542fd53d3b42d08af2da52b9a209689
         {% for competition in event.competitions.all %}
           {% for group in competition.groups.all %}
             <div class="table">
@@ -51,7 +54,11 @@
                       <th>L</th>
                       <th>Pts.</th>
                     </tr>
+<<<<<<< HEAD
                     {% for result in group.results.all %}
+=======
+                      {% for result in group.results.all %}
+>>>>>>> b88c4e1a9542fd53d3b42d08af2da52b9a209689
                       <tr>
                         <td>{{ forloop.counter }}.</td>
                         <td class="name">{{ result.team.name }}</td>
@@ -62,7 +69,11 @@
                         <td> {{ result.loses }} </td>
                         <td class="points"> <strong>{{ result.points }}</strong></td>
                       </tr>
+<<<<<<< HEAD
                     {% endfor %}
+=======
+                      {% endfor %}
+>>>>>>> b88c4e1a9542fd53d3b42d08af2da52b9a209689
                   </tbody>
                 </table>
                 <div class="matches">
