@@ -9,8 +9,7 @@
     <script src="{{ STATIC_URL }}/js/lib/jquery.keylock.js"></script>
     <script src="{{ STATIC_URL }}/js/lib/jquery.idle-timer.js"></script>
     <script src="{{ STATIC_URL }}/js/lib/jquery.stopwatch.js"></script>
-    <script src="{{ STATIC_URL }}/js/stopwatch.js"></script>
-    <script src="{{ STATIC_URL }}/js/goals.js"></script>
+    <script src="{{ STATIC_URL }}/js/scoreTracker.js"></script>
     <script src="{{ STATIC_URL }}/js/fills.js"></script>
     <link rel="stylesheet" href="{{ STATIC_URL }}/css/scoreBoard/style.css"/>
     <link rel="stylesheet" href="{{ STATIC_URL }}/css/jquery-ui.css" type="text/css"/>
@@ -28,65 +27,79 @@
     </script>
 
     <script>
-        $(document).ready(function() {
-				$('#dialogMain').hide();
-				$('#tabs').tabs();
-				$.idleTimer(2500);
-				$(document).bind("contextmenu",function(e){
-                    return false;
-               	});
+        var ST = new scoreTracker();
 
-                $(document).bind("idle.idleTimer", function() {
-                  $("#main").fadeOut("slow");
-                  $("#underMain").fadeOut("slow");
-              	});
+        $(document).ready(function() {
+            $('#dialogMain').hide();
+            $('#tabs').tabs();
+            ST.teamA = $('#name1').html();
+            ST.teamB = $('#name2').html();
+
+            // only duration for now
+            if (window.location.hash !== ""){
+                var hash = parseInt(window.location.hash.match(/[0-9]+/)[0]);
+                var hash_min = Math.floor(hash / 60);
+                $('#fmins').val(hash_min);
+                $('#fsecs').val(Math.floor(hash % 60));
+                ST.newTime();
+            }
+
+            $.idleTimer(2500);
+            $(document).bind("contextmenu",function(e){
+                return false;
+            });
+
+            $(document).bind("idle.idleTimer", function() {
+              $("#main").fadeOut("slow");
+              $("#underMain").fadeOut("slow");
+            });
 
             $(document).keylock({
-                w: function(){ team1Goal(); },
-                s: function(){ team1Down(); },
+                w: function(){ ST.teamAGoal(); },
+                s: function(){ ST.teamADown(); },
 
-                i: function(){ team2Goal(); },
-                k: function(){ team2Down(); },
+                i: function(){ ST.teamBGoal(); },
+                k: function(){ ST.teamBDown(); },
 
-                "<Space>": function(){ toggle(); },
+                "<Space>": function(){ ST.toggle(); },
 
                 c: function(){ $('.btn-slide').click(); },
             });
 
 
             $(document).bind("active.idleTimer", function() {
-					    $("#main").fadeIn("slow");
-              $("#underMain").fadeIn("slow");
+                $("#main").fadeIn("slow");
+                $("#underMain").fadeIn("slow");
             });
 
-			$(".btn-slide").click(function(){
-				$("#panel").slideToggle("slow");
-				if ($(this).text() == String.fromCharCode(9660)) {
+            $(".btn-slide").click(function(){
+                $("#panel").slideToggle("slow");
+                if ($(this).text() == String.fromCharCode(9660)) {
                     $(this).text(String.fromCharCode(9650));
                 } else {
                     $(this).text(String.fromCharCode(9660));
                 }
-			});
+            });
 
-            $('.element3').click(toggle);
+            $('.element3').click(ST.toggle);
 
-			$('.leftBckg, .element1').mousedown(function(e) {
-				if (e.which === 1) { team1Goal();}
-			else if (e.which === 3) { team1Down(); }
-			});
+            $('.leftBckg, .element1').mousedown(function(e) {
+                if (e.which === 1) { ST.teamAGoal();}
+                else if (e.which === 3) { ST.teamADown(); }
+            });
 
-			$('.rightBckg, .element2').mousedown(function(e) {
-				if (e.which === 1) { team2Goal();}
-				else if (e.which === 3) { team2Down(); }
-			});
+            $('.rightBckg, .element2').mousedown(function(e) {
+                if (e.which === 1) { ST.teamBGoal();}
+                else if (e.which === 3) { ST.teamBDown(); }
+            });
 
 
-			$(".element1").bind("mouseover", fill1);
-			$(".element1").bind("mouseout", unfill1);
-			$(".element2").bind("mouseover", fill2);
-			$(".element2").bind("mouseout", unfill2);
-			$(".element3").bind("mouseover", fill3);
-			$(".element3").bind("mouseout", unfill3);
+            $(".element1").bind("mouseover", fill1);
+            $(".element1").bind("mouseout", unfill1);
+            $(".element2").bind("mouseover", fill2);
+            $(".element2").bind("mouseout", unfill2);
+            $(".element3").bind("mouseover", fill3);
+            $(".element3").bind("mouseout", unfill3);
 
             $(".leftBckg").bind("mouseover", fill1);
             $(".leftBckg").bind("mouseout", unfill1);
@@ -101,7 +114,7 @@
 
 </head>
 <body>
-    <div id="startAll" onclick="startMatch()">
+    <div id="startAll" onclick="ST.startMatch()">
       <div id="startText">Start match</div>
     </div>
 		<div id="underMain">
@@ -113,13 +126,13 @@
     			</ul>
 
 					<div id="fragment-1">
-						<div class="placeholder"><button id="btnResetTime" onclick="resetTime()">Reset Time</button></div>
-						<div class="placeholder"><button id="btnResetScore" onclick="resetScore()">Reset Score</button></div>
+						<div class="placeholder"><button id="btnResetTime" onclick="ST.resetTime()">Reset Time</button></div>
+						<div class="placeholder"><button id="btnResetScore" onclick="ST.resetScore()">Reset Score</button></div>
 						<div class="placeholder2">
 							<form name="frmtime">
-								<center>Time: <input class="input" type="text" id="fmins" value="10"/>
+								<center>Time: <input class="input" type="text" id="fmins" value="20"/>
 								: <input class="input" type="text" id="fsecs" value="00"/>
-									<input type="button" onclick="newTime()" value="Set time"/> <br />
+									<input type="button" onclick="ST.newTime()" value="Set time"/> <br />
 									<span class="saved">Saved!</span></center>
 							</form>
 						</div>
@@ -134,7 +147,7 @@
 							</form>
 						</div>
 						<div class="placeholder3">
-							<button onclick="showD()">Show dialog</button>
+							<button onclick="ST.showD()">Show dialog</button>
 						</div>
 					</div>
 				</div>
@@ -149,7 +162,7 @@
 			<div class="rightBckg">
 				<span class="goalRText">Goal!</span>
 			</div>
-      <div class="startBckg" onclick="toggle()">
+      <div class="startBckg" onclick="ST.toggle()">
 				<span id="btnStart" class="startText">Start</span>
       </div>
 		</div>
