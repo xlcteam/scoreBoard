@@ -13,6 +13,7 @@ function scoreTracker()
     $this.secs = 0;
     $this.halftime = 1;
     $this.finished = false;
+    $this.soundembed = null;
 }
 
 scoreTracker.prototype = { 
@@ -238,5 +239,24 @@ scoreTracker.prototype = {
 	    $('#d2name').html($('#name2').text());
 	    $('#dgoals').val($('#team1').text());
 	    $('#d2goals').val($('#team2').text());
-    }
+    },
+
+    soundPlay: function (which) {
+        if (!soundEmbed){
+            soundEmbed = document.createElement("embed");
+            soundEmbed.setAttribute("src", "/mp3/"+which+".wav");
+            soundEmbed.setAttribute("hidden", true);
+            soundEmbed.setAttribute("autostart", true);
+        }else{
+            document.body.removeChild(soundEmbed);
+            soundEmbed.removed = true;
+            soundEmbed = null;
+            soundEmbed = document.createElement("embed");
+            soundEmbed.setAttribute("src", "/mp3/"+which+".wav");
+            soundEmbed.setAttribute("hidden", true);
+            soundEmbed.setAttribute("autostart", true);
+            }
+        soundEmbed.removed = false;
+        document.body.appendChild(soundEmbed);
+    } 
 }
