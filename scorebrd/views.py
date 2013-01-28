@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404, redirect
 from scorebrd.models import (Team, Event, Group, Competition, LoginForm, Match, TeamResult)
 from django.contrib.auth import authenticate, login, logout
 from django.core.context_processors import csrf
+from django.template import RequestContext
 from annoying.decorators import render_to
 from django.contrib.auth.decorators import login_required
 
@@ -115,7 +116,7 @@ def group(request, group_id):
     teams = group.teams.all()
     competition = group.competition_set.all()[0]
     event = competition.event_set.all()[0]
-    team_results = TeamResult.objects.filter(group__id=group.id) \
+    team_results = group.results.all()\
                     .order_by('matches_played').reverse()
     matches = group.matches.all().order_by('playing')
     return {'group': group, 'teams': teams,

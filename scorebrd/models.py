@@ -32,17 +32,8 @@ class Match(models.Model):
     def __unicode__(self):
         return "%s vs. %s" % (self.teamA.name, self.teamB.name)
 
-class Group(models.Model):
-    name = models.CharField(max_length=200)
-    teams = models.ManyToManyField(Team)
-    matches = models.ManyToManyField(Match)
-
-    def __unicode__(self):
-        return self.name
-
 class TeamResult(models.Model):
     team = models.ForeignKey(Team)
-    group = models.ForeignKey(Group)
 
     wins = models.IntegerField(default=0)
     draws = models.IntegerField(default=0)
@@ -54,8 +45,18 @@ class TeamResult(models.Model):
     points = models.IntegerField(default=0)
 
     def __unicode__(self):
-        return "{0} - {1} - {2} -> {3} in {4}".format(self.wins, self.draws,
-                self.loses, self.team, self.group)
+        return "{0} - {1} - {2} -> {3}".format(self.wins, self.draws,
+                self.loses, self.team)
+
+
+class Group(models.Model):
+    name = models.CharField(max_length=200)
+    teams = models.ManyToManyField(Team)
+    matches = models.ManyToManyField(Match)
+    results = models.ManyToManyField(TeamResult)
+
+    def __unicode__(self):
+        return self.name
 
 
 class Competition(models.Model):
