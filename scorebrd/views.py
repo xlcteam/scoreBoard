@@ -200,15 +200,16 @@ def match_play(request, match_id):
 
 @render_to('results/live.html')
 def results_live(request):
-    event = get_object_or_404(Event, pk=1) #TODO: topdown menu, click on event, show event results
-
+    #event = get_object_or_404(Event, pk=1) #TODO: topdown menu, click on event, show event results
 
     #team_results = TeamResult.objects.filter(group__id=group.id) \
     #                .order_by('matches_played').reverse()
     #matches = group.matches.all().order_by('done')
 
-    return {'event': event} #'competitions': competitions, 'groups': groups, }
+    #return {'event': event} #'competitions': competitions, 'groups': groups, }
             #'matches': matches, 'team_results': team_results}
+    events = Event.objects.all()
+    return {'events': events}
 
 def results(request):
     pass

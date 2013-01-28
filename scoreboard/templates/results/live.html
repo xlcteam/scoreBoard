@@ -25,57 +25,58 @@
               <li> <div style="width: 3 - {{ matches|length  }}*300px;"></div></li>
             {% endif %}
         {% else %}
-            <li> No matches are playing at the moment. </li>
-            <li> Sorry for any inconvenience. </li>
+          <li> No matches are playing at the moment.
+          <li> Sorry for any inconvenience.
         {% endif %}
-
       </ul>
     </div>
 
     <div id="tables">
-      {% for competition in event.competitions.all %}
-        {% for group in competition.groups.all %}
-          <div class="table">
-            <div class="title"><span class="group_name">{{group.name}}</span></div>
-            <div class="results">
-              <table class="results_table">
-                <tbody>
-                  <tr>
-                    <th>Pos.</th>
-                    <th></th>
-                    <th>P</th>
-                    <th>S</th>
-                    <th>W</th>
-                    <th>D</th>
-                    <th>L</th>
-                    <th>Pts.</th>
-                  </tr>
-                    {% for result in group.results.all %}
+      {% for event in events %}
+        {% for competition in event.competitions.all %}
+          {% for group in competition.groups.all %}
+            <div class="table">
+              <div class="title"><span class="group_name">{{group.name}}</span></div>
+              <div class="results">
+                <table class="results_table">
+                  <tbody>
                     <tr>
-                      <td>{{ forloop.counter }}.</td>
-                      <td class="name">{{ result.team.name }}</td>
-                      <td>{{ result.matches_played}}</td>
-                      <td> {{ result.goal_shot }}:{{ result.goal_shot|substract:result.goal_diff }} </td>
-                      <td> {{ result.wins }} </td>
-                      <td> {{ result.draws }} </td>
-                      <td> {{ result.loses }} </td>
-                      <td class="points"> <strong>{{ result.points }}</strong></td>
+                      <th>Pos.</th>
+                      <th></th>
+                      <th>P</th>
+                      <th>S</th>
+                      <th>W</th>
+                      <th>D</th>
+                      <th>L</th>
+                      <th>Pts.</th>
                     </tr>
+                      {% for result in group.results.all %}
+                      <tr>
+                        <td>{{ forloop.counter }}.</td>
+                        <td class="name">{{ result.team.name }}</td>
+                        <td>{{ result.matches_played}}</td>
+                        <td> {{ result.goal_shot }}:{{ result.goal_shot|substract:result.goal_diff }} </td>
+                        <td> {{ result.wins }} </td>
+                        <td> {{ result.draws }} </td>
+                        <td> {{ result.loses }} </td>
+                        <td class="points"> <strong>{{ result.points }}</strong></td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+                </table>
+                <div class="matches">
+                  <ul>
+                    {% for match in group.matches.all %}
+                      {% if match.playing == 'D' %}
+                        <li> {{match.teamA.name}} {{match.scoreA}}:{{match.scoreB}} {{match.teamB.name}}</li>
+                      {% endif %}
                     {% endfor %}
-                </tbody>
-              </table>
-              <div class="matches">
-                <ul>
-                  {% for match in group.matches.all %}
-                    {% if match.playing == 'D' %}
-                      <li> {{match.teamA.name}} {{match.scoreA}}:{{match.scoreB}} {{match.teamB.name}}</li>
-                    {% endif %}
-                  {% endfor %}
-                </ul>
+                  </ul>
+                </div>
+                <span class="eventName">{{ event.name }} - {{ competition.name }}</span>
               </div>
-              <span class="eventName">{{ competition.name }}</span>
             </div>
-          </div>
+          {% endfor %}
         {% endfor %}
       {% endfor %}
     </div>
