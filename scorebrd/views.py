@@ -172,6 +172,11 @@ def matches_generate_listing(request):
     group = get_object_or_404(Group, pk=request.POST['group_id'])
     teams = list(group.teams.all())
 
+    for team in teams:
+        result = TeamResult(team=team)
+        result.save()
+        group.results.add(result)
+
     matches = []
     schedule = round_robin(teams)
     for round in schedule:
