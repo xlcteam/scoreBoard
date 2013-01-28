@@ -203,17 +203,20 @@ def results_live(request):
     if 'event' in request.GET:
         event = get_object_or_404(Event, pk=request.GET['event'])
         return {'event': event, 'event_only': True}
+
     elif 'competition' in request.GET:
         competition = get_object_or_404(Competition, pk=request.GET['competition'])
         event = competition.event_set.all()[0]
         return {'event': event, 'competition': competition,
                 'competition_only': True}
+
     elif 'group' in request.GET:
         group = get_object_or_404(Group, pk=request.GET['group'])
         competition = group.competition_set.all()[0]
         event = competition.event_set.all()[0]
         return {'event': event, 'competition': competition,
                 'group': group, 'group_only': True}
+
     else:
         return {'events': Event.objects.all()}
 
