@@ -15,6 +15,8 @@ can install other dependencies (see requirements.txt).
 * Now we shall sync the DB `$ python manage.py syncdb`
 
 
+*Note*: This application is still in the alpha version and not meant for actual use. Please [contact us](http://xlc-team.info/contact) if you plan on using it.
+
 We really appreciate feedback, so if you have any questions or find any bug please create [new issue](https://github.com/xlcteam/scoreBoard/issues/new).
 
 ## Some screenshots of this application
