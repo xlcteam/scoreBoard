@@ -1,6 +1,3 @@
-window.scaling1 = 0;
-window.scaling2 = 0;
-
 function scoreTracker(options)
 {
     $this = this;
@@ -14,6 +11,8 @@ function scoreTracker(options)
     $this.halftime = 1;
     $this.finished = false;
     $this.soundEmbed = null;
+    $this.scaling1 = 0;
+    $this.scaling2 = 0;
     $this.back_url = options['back_url'];
     $this.update_url = options['update_url'];
 }
@@ -28,15 +27,15 @@ scoreTracker.prototype = {
     },
 
     teamAGoal: function (){
-        if (window.scaling1) return false;
+        if ($this.scaling1) return false;
         else {
 	        $this.scoreA++;
 	        $("#team1").html($this.scoreA);
 	        if(document.forms['effects'][0].checked) {
-	            window.scaling1 = 1;
+	            $this.scaling1 = 1;
 		        $("#team1").effect("scale", { percent: 150}, 500)
 			               .effect("scale", { percent: (100 / (150 / 100))}, 1000, function(){
-	                              window.scaling1 = 0;
+	                                                $this.scaling1 = 0;
 	                        });
 	        }
         }
@@ -45,15 +44,15 @@ scoreTracker.prototype = {
     },
 
     teamBGoal: function (){
-	    if (window.scaling2) return false;
+	    if ($this.scaling2) return false;
 	    else {
 		    $this.scoreB++;
 		    $("#team2").html($this.scoreB);
 		    if(document.forms['effects'][0].checked) {
-			    window.scaling2 = 1;
+			    $this.scaling2 = 1;
 			    $("#team2").effect("scale", { percent: 150}, 500)
 				           .effect("scale", { percent: 100 / (150 / 100)}, 1000, function(){
-											        window.scaling2 = 0;
+											        $this.scaling2 = 0;
 			                });
 		    }
 	    }
@@ -66,16 +65,16 @@ scoreTracker.prototype = {
 		    $this.scoreA = 0;
 		    return false;	
 	    }else {
-		    if (window.scaling1) return false;
+		    if ($this.scaling1) return false;
 		    else {		
 			    $this.scoreA--;
 			    $("#team1").html($this.scoreA);
 			    if(document.forms['effects'][0].checked) {
-				    window.scaling1 = 1;	
+				    $this.scaling1 = 1;	
                     //soundPlay("whistle");
 				    $("#team1").effect("scale", { percent: 150}, 500)
 		                 	   .effect("scale", { percent: Math.ceil(100 / (150 / 100))}, 1000, function(){
-                        	                            window.scaling1 = 0;
+                        	                            $this.scaling1 = 0;
 						        });
 			    }
 		    }
@@ -89,16 +88,16 @@ scoreTracker.prototype = {
 		    $this.scoreB = 0;
 		    return false;	
 	    }else{
-		    if (window.scaling2) return false;
+		    if ($this.scaling2) return false;
 		    else {
 			    $this.scoreB--;
 			    $("#team2").html($this.scoreB);
 			    if(document.forms['effects'][0].checked) {
-				    window.scaling2 = 1;
+				    $this.scaling2 = 1;
                     //soundPlay("whistle");
 				    $("#team2").effect("scale", { percent: 150}, 500)
 				               .effect("scale", { percent: Math.ceil(100 / (150 / 100))}, 1000, function(){
-													    window.scaling2 = 0
+													    $this.scaling2 = 0
 							    });
 			    }
 		    }
