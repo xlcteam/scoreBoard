@@ -117,6 +117,10 @@
 
 </head>
 <body>
+    <audio id="whistle" no-controls preload='auto'>
+      <source src="{{ STATIC_URL }}/js/sound/whistle.ogg" />
+      <source src="{{ STATIC_URL }}/js/sound/whistle.mp3" />
+    </audio>
     <div id="startAll" onclick="ST.startMatch()">
       <div id="startText">Start match</div>
     </div>
