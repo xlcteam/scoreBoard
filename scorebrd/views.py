@@ -6,7 +6,8 @@ from django.core.context_processors import csrf
 from django.template import RequestContext
 from annoying.decorators import render_to
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
 
 # code from
 # http://code.activestate.com/recipes/65200-round-robin-pairings-generator/
@@ -190,12 +191,19 @@ def matches_generate_listing(request):
 
 
 @login_required(login_url='/login/')
-@csrf_protect
+@csrf_exempt
 def match_play(request, match_id):
+    match = get_object_or_404(Match, pk=match_id)
     if request.POST:
+        scoreA = request.POST.get('scoreA', None)
+        scoreB = request.POST.get('scoreB', None)
+        if scoreA and scoreB:
+            match.scoreA = int(scoreA)
+            match.scoreB = int(scoreB)
+            match.save()
+
         return HttpResponse('{ok: true}', mimetype="application/json") 
        
-    match = get_object_or_404(Match, pk=match_id)
     return render_to_response('matches/play.html',
                               {'match': match, 'match_id': match_id},
                               context_instance=RequestContext(request))
