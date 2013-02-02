@@ -25,6 +25,10 @@ scoreTracker.prototype = {
 
     syncMatch: function (){
         //TODO
+        $.post($this.update_url, {
+            'scoreA': $this.scoreA,
+            'scoreB': $this.scoreB
+        });
     },
 
     teamAGoal: function (){
@@ -41,6 +45,8 @@ scoreTracker.prototype = {
 	                        });
 	        }
         }
+
+        this.syncMatch();
     },
 
     teamBGoal: function (){
@@ -57,6 +63,8 @@ scoreTracker.prototype = {
 			                });
 		    }
 	    }
+
+        this.syncMatch();
     },
 
     teamADown: function (){
@@ -78,6 +86,8 @@ scoreTracker.prototype = {
 			    }
 		    }
 	    }
+
+        this.syncMatch();
     },
 
     teamBDown: function (){
@@ -99,6 +109,8 @@ scoreTracker.prototype = {
 			    }
 		    }
 	    }
+
+        this.syncMatch();
     },
 
     resetScore: function (){
