@@ -20,8 +20,8 @@ can install other dependencies (see requirements.txt).
 We really appreciate feedback, so if you have any questions or find any bug please create [new issue](https://github.com/xlcteam/scoreBoard/issues/new).
 
 ## Some screenshots of this application
-![dashboard](https://raw.github.com/xlcteam/scoreboard/master/screenshots/0.png)
-![group](https://raw.github.com/xlcteam/scoreboard/master/screenshots/5.png)
-![match](https://raw.github.com/xlcteam/scoreboard/master/screenshots/7.png)
+![dashboard](https://xlcteam.github.com/scoreBoard/imgs/screenshots/0.png)
+![group](https://xlcteam.github.com/scoreBoard/imgs/screenshots/5.png)
+![match](https://xlcteam.github.com/scoreBoard/imgs/screenshots/7.png)
 
 (c) 2012 - infinity, XLC Team, http://xlc-team.info
