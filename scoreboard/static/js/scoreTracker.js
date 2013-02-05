@@ -24,12 +24,14 @@ scoreTracker.prototype = {
     },
 
     syncMatch: function (options){
-        if (options.final) {
-            $.post($this.update_url, {
-                'scoreA': $this.scoreA,
-                'scoreB': $this.scoreB,
-                'final': true
-            });
+        if (options) {
+            if (options.final) { 
+                $.post($this.update_url, {
+                    'scoreA': $this.scoreA,
+                    'scoreB': $this.scoreB,
+                    'final': true
+                });
+            }        
         } else {
              $.post($this.update_url, {
                 'scoreA': $this.scoreA,
