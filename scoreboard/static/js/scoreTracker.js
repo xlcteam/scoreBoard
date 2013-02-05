@@ -140,6 +140,7 @@ scoreTracker.prototype = {
     },
 
     startMatch: function (){
+        $this.syncMatch();
         $('#startAll').hide();
         $this.toggle();
     },

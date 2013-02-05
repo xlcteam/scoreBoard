@@ -200,6 +200,7 @@ def match_play(request, match_id):
         if scoreA and scoreB:
             match.scoreA = int(scoreA)
             match.scoreB = int(scoreB)
+            match.playing = 'P'
             match.save()
 
         return HttpResponse('{ok: true}', mimetype="application/json") 
