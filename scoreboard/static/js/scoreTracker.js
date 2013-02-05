@@ -23,12 +23,21 @@ scoreTracker.prototype = {
         document.getElementById('whistle').play();
     },
 
-    syncMatch: function (){
-        //TODO
-        $.post($this.update_url, {
-            'scoreA': $this.scoreA,
-            'scoreB': $this.scoreB
-        });
+    syncMatch: function (options){
+        if (options.final) {
+            $.post($this.update_url, {
+                'scoreA': $this.scoreA,
+                'scoreB': $this.scoreB,
+                'final': true
+            });
+        } else {
+             $.post($this.update_url, {
+                'scoreA': $this.scoreA,
+                'scoreB': $this.scoreB
+            });
+        
+        }
+
     },
 
     teamAGoal: function (){
