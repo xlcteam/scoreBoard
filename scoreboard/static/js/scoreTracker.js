@@ -253,14 +253,14 @@ scoreTracker.prototype = {
             "Send results": function() { 
                 var df = confirm("Are you sure to send results?");
                 if(df){
-                    $.post(window.update_url, 
+                    $.post($this.update_url, 
                             {action: 'finish', 
                             team1goals: $('#team1').text(),
                             team2goals: $('#team2').text(),},
                         function(data) {
                             $("#dialog").dialog("close"); 
                             $('#dialogMain').hide();
-                            window.location = window.back_url; 
+                            window.location = $this.back_url; 
                         }
                     );
                 }else{
