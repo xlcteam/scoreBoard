@@ -239,6 +239,7 @@ scoreTracker.prototype = {
                 $(".startBckg, .leftBckg, .rightBckg").fadeIn("fast");
                 $(".startBckg, .leftBckg, .rightBckg").css('opacity', '0.7');
                 $(".startBckg, .leftBckg, .rightBckg").css('background', '#000000');
+                $(".startText, .goalRText, .goalLText").hide();
                 $this.playWhistle();
                 $this.showD();
             }

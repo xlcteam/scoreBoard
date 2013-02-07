@@ -177,18 +177,18 @@
 				<div style="margin: 0 auto;height: 70px; font-size:130.5%;">
           <form action="{% url match_save match_id %}" method="POST" id="dialogForm">
               {% csrf_token %}
-                    <table style="width: 260px; margin: 0 auto;">
+                    <table style="width: 270px; margin: 0 auto;">
                       <tr>
-                        <td style="width: 100px; text-align: right;"> <span id="dname" style="	color: #000000;"></span> </td>
+                        <td style="width: 100px; text-align: right;"> <span id="dname"></span> </td>
                         <td> <input style="width: 30px;" type="text"
                           name="scoreA" id="dgoals"/> </td>
                         <td> <b>:</b> </td>
                         <td>  <input style="width: 30px;" type="text"
                           name="scoreB" id="d2goals"/> </td>
-                        <td style="width: 100px; text-align: left;">  <span id="d2name" style="color: #000000;"></span> </td>
+                        <td style="width: 100px; text-align: left;"><span id="d2name"></span> </td>
                       </tr>
                    </table>
-                   <table style="padding-top: 10px;">
+                   <table style="padding-top: 40px;">
                       <tr>
                         <td>Your password: </td>
                         <td><input type="password" name="pass" /> </td>

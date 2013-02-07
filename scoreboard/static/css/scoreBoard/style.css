@@ -21,6 +21,12 @@ body {
 	z-index: 10000000000;
 }
 
+#dialog table {
+    color: #111;
+}
+
+//TODO: bigger dialog
+
 #tabs {
 	height: 270px;
 	background: #8C0000 !important;	
