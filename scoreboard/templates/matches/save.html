@@ -1,0 +1,17 @@
+{% extends "@layout.html" %}
+
+{% block content %}
+{% if error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+
+<form action="." method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" /> <br>
+</form>
+
+{% endblock %}
+
+
+
