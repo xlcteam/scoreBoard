@@ -10,7 +10,6 @@ function scoreTracker(options)
     $this.secs = 0;
     $this.halftime = 1;
     $this.finished = false;
-    $this.soundEmbed = null;
     $this.scaling1 = 0;
     $this.scaling2 = 0;
     $this.back_url = options['back_url'];
