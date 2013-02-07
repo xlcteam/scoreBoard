@@ -1,6 +1,7 @@
 # Create your views here.
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-from scorebrd.models import (Team, Event, Group, Competition, LoginForm, Match, TeamResult)
+from scorebrd.models import (Team, Event, Group, Competition, LoginForm, Match,
+        TeamResult, MatchSaveForm)
 from django.contrib.auth import authenticate, login, logout
 from django.core.context_processors import csrf
 from django.template import RequestContext
