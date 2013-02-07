@@ -26,6 +26,9 @@ urlpatterns = patterns('',
 
     url(r'^match/play/(?P<match_id>\d+)/?$', 'scorebrd.views.match_play',
         name='match_play'),
+
+    url(r'^match/save/?scoreA=(?P<scoreA>\d+)&scoreB=(?P<scoreB>\d+)$', 
+        'scorebrd.views.match_save', name='match_save'),
     url(r'^results/?$', 'scorebrd.views.results'),
     url(r'^results/live/?$', 'scorebrd.views.results_live'),
     url(r'^results/group/(?P<group_id>\d+)/?$', 'scorebrd.views.results_group_view'),

@@ -250,20 +250,24 @@ scoreTracker.prototype = {
     showD: function () {
 	    $('#dialogMain').show();    
 	    $("#dialog").dialog({ buttons: {
-            "Send results": function() { 
+            "Send results": function() {
                 var df = confirm("Are you sure you want to save these results?\n\n" +
                     $this.teamA + ' ' +
                     $this.scoreA + " : " + $this.scoreB + ' ' +
                     $this.teamB);
+
                 if(df){
                     $.post($this.update_url, 
-                            {action: 'finish', 
-                            team1goals: $('#team1').text(),
-                            team2goals: $('#team2').text(),},
+                            {'final' : true, 
+                            scoreA: $this.scoreA,
+                            scoreB: $this.scoreB,},
                         function(data) {
+                            alert('gotcha!');
                             $("#dialog").dialog("close"); 
                             $('#dialogMain').hide();
                             window.location = $this.back_url; 
+                        }, function(e) {
+                            alert('Some error happened '+e); 
                         }
                     );
                 }else{
