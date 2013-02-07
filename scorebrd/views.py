@@ -201,11 +201,7 @@ def match_play(request, match_id):
         if scoreA and scoreB:
             match.scoreA = int(scoreA)
             match.scoreB = int(scoreB)
-
-            if 'final' in request.POST:
-                match.playing = 'D'
-            else:
-                match.playing = 'P'
+            match.playing = 'P'
 
             match.save()
 
@@ -228,36 +224,43 @@ def match_save(request, match_id):
         c['form'] = form
         c['error'] = error
         return c
+    
+    def authorize_and_save(request):
+        username = request.user
+        password = request.POST['pass']
+        scoreA = request.POST['scoreA']
+        scoreB = request.POST['scoreB']
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                match = get_object_or_404(Match, pk=match_id)
+                match.scoreA = scoreA
+                match.scoreB = scoreB
+                match.playing = 'D'
+                match.save()
+                return True
+        return errorHandle('Invalid login', scoreA, scoreB)
 
     if request.method == 'POST':
         if 'final' in request.POST:
-            form = MatchSaveForm(request.POST)
-            scoreA = request.POST['scoreA']
-            scoreB = request.POST['scoreB']
-
-            if form.is_valid(): 
-                username = request.user
-                password = request.POST['password']
-                user = authenticate(username=username, password=password)
-                if user is not None:
-                    if user.is_active:
-                        match = get_object_or_404(Match, pk=match_id)
-                        match.scoreA = scoreA
-                        match.scoreB = scoreB
-                        match.save()
-                else:
-                    error = u'Invalid login'
-                    return errorHandle(error, scoreA, scoreB)	
+            res = authorize_and_save(request)
+            if res is True:
+                return redirect('index')
             else:
-                return errorHandle(u'Invalid login', scoreA, scoreB)
+                return res
         else:
-            form = MatchSaveForm()
-            form.scoreA = scoreA
-            form.scoreB = scoreB
-            c = {}
-            c.update(csrf(request))
-            c['form'] = form
-            return c
+            form = MatchSaveForm(request.POST)
+            if form.is_valid(): 
+                res = authorize_and_save(request)
+                if res is True:
+                    return redirect('index')
+                else:
+                    return res
+            else:
+                return errorHandle(u'Invalid login')
+    else:
+        return {'error': "How on earth did you get here?"}
 
 @render_to('results/live.html')
 def results_live(request):
