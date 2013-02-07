@@ -255,11 +255,14 @@ scoreTracker.prototype = {
                     $this.teamA + ' ' +
                     $this.scoreA + " : " + $this.scoreB + ' ' +
                     $this.teamB);
-                $('#dialogForm').submit();  
-                } else {
+
+                if (df)
+                    $('#dialogForm').submit();  
+                else 
                     return;
-                }
-            }	
+
+                }	
+            }
         });
 	    $('#dname').html($('#name1').text());
 	    $('#d2name').html($('#name2').text());
