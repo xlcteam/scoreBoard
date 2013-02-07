@@ -42,6 +42,10 @@ scoreTracker.prototype = {
     },
 
     teamAGoal: function (){
+        if ($this.finished)
+            return;
+
+
         if ($this.scaling1) return false;
         else {
 	        $this.scoreA++;
@@ -60,6 +64,10 @@ scoreTracker.prototype = {
     },
 
     teamBGoal: function (){
+        if ($this.finished)
+            return;
+
+
 	    if ($this.scaling2) return false;
 	    else {
 		    $this.scoreB++;
@@ -78,6 +86,10 @@ scoreTracker.prototype = {
     },
 
     teamADown: function (){
+        if ($this.finished)
+            return;
+
+
         if ($this.scoreA <= 0){
 		    $this.scoreA = 0;
 		    return false;	
@@ -101,6 +113,9 @@ scoreTracker.prototype = {
     },
 
     teamBDown: function (){
+        if ($this.finished)
+            return;
+
 	    if ($this.scoreB <= 0){
 		    $this.scoreB = 0;
 		    return false;	
