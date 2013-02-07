@@ -248,7 +248,8 @@ scoreTracker.prototype = {
 
     showD: function () {
 	    $('#dialogMain').show();    
-	    $("#dialog").dialog({ buttons: {
+	    $("#dialog").dialog({ 
+            buttons: {
             "Send results": function() {
                 var df = confirm("Are you sure you want to save these results?\n\n" +
                     $this.teamA + ' ' +
