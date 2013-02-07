@@ -213,6 +213,12 @@ def match_play(request, match_id):
     return render_to_response('matches/play.html',
                               {'match': match, 'match_id': match_id},
                               context_instance=RequestContext(request))
+@render_to('results/group.html')
+@login_required(login_url='/login/')
+def match_save(request, scoreA, scoreB):
+    
+    return {'event': }
+
 
 @render_to('results/live.html')
 def results_live(request):

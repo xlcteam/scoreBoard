@@ -9,6 +9,8 @@ class LoginForm(forms.Form):
 class MatchSaveForm(forms.Form):
 	password = forms.CharField(widget=forms.PasswordInput(render_value=False),
                                 max_length=100)
+    scoreA = models.IntegerField()
+    scoreB = models.IntegerField()
 
 
 
