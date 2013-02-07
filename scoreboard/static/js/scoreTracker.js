@@ -151,7 +151,7 @@ scoreTracker.prototype = {
     },
 
     startMatch: function (){
-        $this.syncMatch();
+        $this.syncMatch(); // marks the match as started
         $('#startAll').hide();
         $this.toggle();
     },
@@ -251,7 +251,10 @@ scoreTracker.prototype = {
 	    $('#dialogMain').show();    
 	    $("#dialog").dialog({ buttons: {
             "Send results": function() { 
-                var df = confirm("Are you sure to send results?");
+                var df = confirm("Are you sure you want to save these results?\n\n" +
+                    $this.teamA + ' ' +
+                    $this.scoreA + " : " + $this.scoreB + ' ' +
+                    $this.teamB);
                 if(df){
                     $.post($this.update_url, 
                             {action: 'finish', 
