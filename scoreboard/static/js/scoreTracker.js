@@ -255,27 +255,12 @@ scoreTracker.prototype = {
                     $this.teamA + ' ' +
                     $this.scoreA + " : " + $this.scoreB + ' ' +
                     $this.teamB);
-
-                if(df){
-                    $.post($this.update_url, 
-                            {'final' : true, 
-                            scoreA: $this.scoreA,
-                            scoreB: $this.scoreB,},
-                        function(data) {
-                            alert('gotcha!');
-                            $("#dialog").dialog("close"); 
-                            $('#dialogMain').hide();
-                            window.location = $this.back_url; 
-                        }, function(e) {
-                            alert('Some error happened '+e); 
-                        }
-                    );
-                }else{
+                $('#dialogForm').submit();  
+                } else {
                     return;
                 }
             }	
-          }
-	    });
+        });
 	    $('#dname').html($('#name1').text());
 	    $('#d2name').html($('#name2').text());
 	    $('#dgoals').val($('#team1').text());

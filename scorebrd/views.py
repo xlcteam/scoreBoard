@@ -216,17 +216,47 @@ def match_play(request, match_id):
 
 @render_to('matches/save.html')
 @login_required(login_url='/login/')
-def match_save(request, scoreA, scoreB):
-    if request.method == 'POST':
-
-    else:
+def match_save(request, match_id):
+    
+    def errorHandle(error, scoreA, scoreB):
         form = MatchSaveForm()
         form.scoreA = scoreA
         form.scoreB = scoreB
         c = {}
         c.update(csrf(request))
         c['form'] = form
+        c['error'] = error
         return c
+
+    if request.method == 'POST':
+        if 'final' in request.POST:
+            form = MatchSaveForm(request.POST)
+            scoreA = request.POST['scoreA']
+            scoreB = request.POST['scoreB']
+
+            if form.is_valid(): 
+                username = request.user
+                password = request.POST['password']
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    if user.is_active:
+                        match = get_object_or_404(Match, pk=match_id)
+                        match.scoreA = scoreA
+                        match.scoreB = scoreB
+                        match.save()
+                else:
+                    error = u'Invalid login'
+                    return errorHandle(error, scoreA, scoreB)	
+            else:
+                return errorHandle(u'Invalid login', scoreA, scoreB)
+        else:
+            form = MatchSaveForm()
+            form.scoreA = scoreA
+            form.scoreB = scoreB
+            c = {}
+            c.update(csrf(request))
+            c['form'] = form
+            return c
 
 @render_to('results/live.html')
 def results_live(request):
