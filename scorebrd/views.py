@@ -74,7 +74,7 @@ def my_logout(request):
     if request.user.is_authenticated():
         logout(request)       
         
-    return redirect('/')
+    return redirect('index')
 
 @render_to('results_live.html')
 def results_live(request):
@@ -214,6 +214,8 @@ def match_play(request, match_id):
 @render_to('matches/save.html')
 @login_required(login_url='/login/')
 def match_save(request, match_id):
+
+    #TODO: Django messages
     
     def errorHandle(error, scoreA, scoreB):
         form = MatchSaveForm()
