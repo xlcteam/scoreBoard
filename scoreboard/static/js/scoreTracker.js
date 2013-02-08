@@ -278,7 +278,9 @@ scoreTracker.prototype = {
                     return;
 
                 }	
-            }
+            },
+            width: 500,
+            height: 250
         });
 	    $('#dname').html($('#name1').text());
 	    $('#d2name').html($('#name2').text());
