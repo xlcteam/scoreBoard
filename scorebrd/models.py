@@ -7,11 +7,10 @@ class LoginForm(forms.Form):
                                 max_length=100)
 
 class MatchSaveForm(forms.Form):
+    scoreA = forms.IntegerField(label='Score of team A')
+    scoreB = forms.IntegerField(label='Score of team B')
     password = forms.CharField(widget=forms.PasswordInput(render_value=False),
                                 max_length=100)
-    scoreA = models.IntegerField()
-    scoreB = models.IntegerField()
-
 class Team(models.Model):
     name = models.CharField(max_length=200)
 

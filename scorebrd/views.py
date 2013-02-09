@@ -217,19 +217,18 @@ def match_save(request, match_id):
 
     #TODO: Django messages
     
-    def errorHandle(error, scoreA, scoreB):
-        form = MatchSaveForm()
-        form.scoreA = scoreA
-        form.scoreB = scoreB
+    def errorHandle(error, request, scoreA, scoreB, match_id):
+        form = MatchSaveForm(request.POST, initial={'scoreA': scoreA, 'scoreB': scoreB})
         c = {}
         c.update(csrf(request))
         c['form'] = form
         c['error'] = error
+        c['match_id'] = match_id
         return c
     
     def authorize_and_save(request):
         username = request.user
-        password = request.POST['pass']
+        password = request.POST['password']
         scoreA = request.POST['scoreA']
         scoreB = request.POST['scoreB']
 
@@ -242,7 +241,7 @@ def match_save(request, match_id):
                 match.playing = 'D'
                 match.save()
                 return True
-        return errorHandle('Invalid login', scoreA, scoreB)
+        return errorHandle('Invalid login', request, scoreA, scoreB, match_id)
 
     if request.method == 'POST':
         if 'final' in request.POST:
