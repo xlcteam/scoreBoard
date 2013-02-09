@@ -269,7 +269,7 @@ scoreTracker.prototype = {
             "Send results": function() {
                 var df = confirm("Are you sure you want to save these results?\n\n" +
                     $this.teamA + ' ' +
-                    $this.scoreA + " : " + $this.scoreB + ' ' +
+                    $('#dgoals').val() + " : " + $('#d2goals').val() + ' ' +
                     $this.teamB);
 
                 if (df) {
@@ -284,9 +284,9 @@ scoreTracker.prototype = {
             width: 500,
             height: 250
         });
-	    $('#dname').html($('#name1').text());
-	    $('#d2name').html($('#name2').text());
-	    $('#dgoals').val($('#team1').text());
-	    $('#d2goals').val($('#team2').text());
+	    $('#dname').html($this.teamA);
+	    $('#d2name').html($this.teamB);
+	    $('#dgoals').val($this.scoreA);
+	    $('#d2goals').val($this.scoreB);
     }
 }
