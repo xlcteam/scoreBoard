@@ -272,10 +272,12 @@ scoreTracker.prototype = {
                     $this.scoreA + " : " + $this.scoreB + ' ' +
                     $this.teamB);
 
-                if (df)
+                if (df) {
+                    window.onbeforeunload = function(){};
                     $('#dialogForm').submit();  
-                else 
+                } else {
                     return;
+                }
 
                 }	
             },
