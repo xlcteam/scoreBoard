@@ -8,6 +8,7 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 from models import (Team, Event, Group, Competition, LoginForm, Match,
         TeamResult, MatchSaveForm)
+from django.test.client import Client
 
 class SimpleTest(TestCase):
     def test_basic_addition(self):
@@ -29,3 +30,20 @@ class ModelTest(TestCase):
         #self.event = Event.objects.create(name="testEvent", competitions=[self.competition])
 
         self.assertEqual(self.teamA.name, "testTeamA")
+
+
+
+class LoginTest(TestCase):
+    def setUp(self):
+        self.client = Client()
+
+    def test_simple_login(self):
+        response = self.client.get('/login/')
+        
+        # check if page is OK
+        self.assertEqual(response.status_code, 200)
+        
+        # check if we have a form
+        self.assertTrue('form' in response.context)
+        self.assertTrue(isinstance(response.context['form'], LoginForm))
+
