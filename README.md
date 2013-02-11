@@ -24,4 +24,4 @@ We really appreciate feedback, so if you have any questions or find any bug plea
 ![group](http://xlcteam.github.com/scoreBoard/imgs/screenshots/5.png)
 ![match](http://xlcteam.github.com/scoreBoard/imgs/screenshots/7.png)
 
-(c) 2012 - infinity, XLC Team, http://xlc-team.info
+(c) 2012 - 2013, XLC Team, http://xlc-team.info
