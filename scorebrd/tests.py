@@ -10,26 +10,26 @@ from models import (Team, Event, Group, Competition, LoginForm, Match,
         TeamResult, MatchSaveForm)
 from django.test.client import Client
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+#   class SimpleTest(TestCase):
+#       def test_basic_addition(self):
+#           """
+#           Tests that 1 + 1 always equals 2.
+#           """
+#           self.assertEqual(1 + 1, 2)
 
-class ModelTest(TestCase):
-    def test_models(self):
-        self.teamA = Team.objects.create(name="testTeamA")
-        self.teamB = Team.objects.create(name="testTeamB")
-        self.resultA = TeamResult.objects.create(team=self.teamA)
-        self.resultB = TeamResult.objects.create(team=self.teamB)
-        #self.match = Match.objects.create(teamA=self.teamA, teamB=self.teamB, referee=)
+#   class ModelTest(TestCase):
+#       def test_models(self):
+#           self.teamA = Team.objects.create(name="testTeamA")
+#           self.teamB = Team.objects.create(name="testTeamB")
+#           self.resultA = TeamResult.objects.create(team=self.teamA)
+#           self.resultB = TeamResult.objects.create(team=self.teamB)
+#           #self.match = Match.objects.create(teamA=self.teamA, teamB=self.teamB, referee=)
 
-        #self.group = Group.objects.create(name="testGroup", teams=[self.teamA, self.teamB, matches=[], results=[self.resultA, self.resultB])
-        #self.competition = Competition.objects.create(name="testCompetition", groups=[self.group])
-        #self.event = Event.objects.create(name="testEvent", competitions=[self.competition])
+#           #self.group = Group.objects.create(name="testGroup", teams=[self.teamA, self.teamB, matches=[], results=[self.resultA, self.resultB])
+#           #self.competition = Competition.objects.create(name="testCompetition", groups=[self.group])
+#           #self.event = Event.objects.create(name="testEvent", competitions=[self.competition])
 
-        self.assertEqual(self.teamA.name, "testTeamA")
+#           self.assertEqual(self.teamA.name, "testTeamA")
 
 
 
@@ -46,4 +46,8 @@ class LoginTest(TestCase):
         # check if we have a form
         self.assertTrue('form' in response.context)
         self.assertTrue(isinstance(response.context['form'], LoginForm))
+
+        # check if we get to index (/) after logging in
+        self.assertTrue('next' in response.context)
+        self.assertEqual(response.context['next'], '/')
 
