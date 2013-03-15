@@ -33,4 +33,8 @@ We really appreciate feedback, so if you have any questions or find any bug plea
 ![group](http://xlcteam.github.com/scoreBoard/imgs/screenshots/5.png)
 ![match](http://xlcteam.github.com/scoreBoard/imgs/screenshots/7.png)
 
+## License
+
+ScoreBoard is licensed under the  BSD License.
+ 
 (c) 2012 - 2013, XLC Team, http://xlc-team.info
