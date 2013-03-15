@@ -1,37 +1,42 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView, RedirectView
 
-# Uncomment the next two lines to enable the admin:
-from django.contrib import admin
-admin.autodiscover()
+urlpatterns = patterns('scorebrd.views',
+    url(r'^$', 'index_soccer', name='index'),
+    # url(r'^login/', 'my_login', name='login'),
+    # url(r'^logout/', 'my_logout', name='logout'),
+    url(r'^results/live', 'results_live'),
 
-urlpatterns = patterns('',
-    url(r'^$', 'scorebrd.views.index', name='index'),
-    url(r'^login/', 'scorebrd.views.my_login'),
-    url(r'^logout/', 'scorebrd.views.my_logout'),
-    url(r'^results/live', 'scorebrd.views.results_live'),
-    url(r'^grappelli/', include('grappelli.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^events/?$', 'events'),
+    url(r'^event/(?P<event_id>\d+)/?$', 'event', name="event"),
+    url(r'^event/new/?$', 'new_event', name='new_event'),
 
-    url(r'^events/?$', 'scorebrd.views.events'),
-    url(r'^event/(?P<event_id>\d+)/?$', 'scorebrd.views.event'),
-    url(r'^competitions/?$', 'scorebrd.views.competitions'),
-    url(r'^competition/(?P<competition_id>\d+)/?$', 'scorebrd.views.competition'),
-    url(r'^groups/?$', 'scorebrd.views.groups'),
-    url(r'^group/(?P<group_id>\d+)/?$', 'scorebrd.views.group'),
-    url(r'^teams/?$', 'scorebrd.views.teams'),
-    url(r'^team/(?P<team_id>\d+)/?$', 'scorebrd.views.team'),
-    url(r'^matches/generate/?$', 'scorebrd.views.matches_generate_listing'),
-    url(r'^matches/generate/(?P<group_id>\d+)/?$', 'scorebrd.views.matches_generate'),
+    url(r'^competitions/?$', 'competitions'),
+    url(r'^competition/(?P<competition_id>\d+)/?$', 'competition', name="competition"),
+    url(r'^competition/new/?$', 'new_competition', name="new_competition"),
 
-    url(r'^match/play/(?P<match_id>\d+)/?$', 'scorebrd.views.match_play',
+    url(r'^groups/?$', 'groups'),
+    url(r'^group/(?P<group_id>\d+)/?$', 'group', name="group"),
+    url(r'^group/new/?$', 'new_group', name='new_group'),
+
+    url(r'^teams/?$', 'teams'),
+    url(r'^team/(?P<team_id>\d+)/?$', 'team', name="team"),
+    url(r'^team/new/?$', 'new_team', name='new_team'),
+
+    url(r'^matches/generate/?$', 'matches_generate_listing'),
+    url(r'^matches/generate/(?P<group_id>\d+)/?$', 'matches_generate'),
+
+    url(r'^match/play/(?P<match_id>\d+)/?$', 'match_play',
         name='match_play'),
-    url(r'^match/save/(?P<match_id>\d+)/?$', 'scorebrd.views.match_save', 
+    url(r'^match/save/(?P<match_id>\d+)/?$', 'match_save',
         name='match_save'),
 
-    url(r'^results/?$', 'scorebrd.views.results'),
-    url(r'^results/live/?$', 'scorebrd.views.results_live'),
-    url(r'^results/group/(?P<group_id>\d+)/?$', 'scorebrd.views.results_group_view'),
-    url(r'^results/team/(?P<team_id>\d+)/?$', 'scorebrd.views.results_team_view'),
-    url(r'^results/match/(?P<match_id>\d+)/?$', 'scorebrd.views.results_match_view'),
+    url(r'^results/?$', 'results'),
+    url(r'^results/live/?$', 'results_live', name="results_live"),
+    url(r'^results/group/(?P<group_id>\d+)/?$', 'results_group_view'),
+    url(r'^results/group/(?P<group_id>\d+)\.pdf/?$', 'results_group_pdf'),
+    url(r'^results/competition/(?P<competition_id>\d+)\.pdf/?$', 'results_competition_pdf'),
+    url(r'^results/event/(?P<event_id>\d+)\.pdf/?$', 'results_event_pdf'),
+    url(r'^results/team/(?P<team_id>\d+)/?$', 'results_team_view'),
+    url(r'^results/match/(?P<match_id>\d+)/?$', 'results_match_view'),
 )
